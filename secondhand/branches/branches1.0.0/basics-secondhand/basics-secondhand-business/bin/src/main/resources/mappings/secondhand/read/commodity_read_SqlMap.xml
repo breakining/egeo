@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.secondhand.dao.read.CommodityReadDAO">
+	<resultMap type="com.egeo.basics.secondhand.po.CommodityPO" id="commodityMap">
+		<result property="id" column="id" />
+		<result property="userId" column="user_id" />
+		<result property="commodityName" column="commodity_name" />
+		<result property="commodityType" column="commodity_type" />
+		<result property="commodityContent" column="commodity_content" />
+		<result property="degree" column="degree" />
+		<result property="price" column="price" />
+		<result property="priceType" column="price_type" />
+		<result property="contactWay" column="contact_way" />
+		<result property="status" column="status" />
+		<result property="isDeleted" column="is_deleted" />
+		<result property="goodReceiverCountryId" column="good_receiver_country_id" />
+		<result property="goodReceiverCountry" column="good_receiver_country" />
+		<result property="goodReceiverProvinceId" column="good_receiver_province_id" />
+		<result property="goodReceiverProvince" column="good_receiver_province" />
+		<result property="goodReceiverCityId" column="good_receiver_city_id" />
+		<result property="goodReceiverCity" column="good_receiver_city" />
+		<result property="goodReceiverCountyId" column="good_receiver_county_id" />
+		<result property="goodReceiverCounty" column="good_receiver_county" />
+		<result property="goodReceiverAreaId" column="good_receiver_area_id" />
+		<result property="goodReceiverArea" column="good_receiver_area" />
+		<result property="goodReceiverAddress" column="good_receiver_address" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+		<result property="platformId" column="platform_id" />
+	</resultMap>
+	
+	<resultMap type="com.egeo.basics.secondhand.condition.CommodityCondition" id="commodityCondition" extends="commodityMap">
+		<result property="pictureUrl" column="picture_url" />
+	</resultMap>
+
+	<sql id="commodityColumns">
+		id,
+		user_id,
+		commodity_name,
+		commodity_type,
+		commodity_content,
+		degree,
+		price,
+		price_type,
+		contact_way,
+		status,
+		is_deleted,
+		good_receiver_country_id,
+		good_receiver_country,
+		good_receiver_province_id,
+		good_receiver_province,
+		good_receiver_city_id,
+		good_receiver_city,
+		good_receiver_county_id,
+		good_receiver_county,
+		good_receiver_area_id,
+		good_receiver_area,
+		good_receiver_address,
+		create_time,
+		update_time,
+		platform_id
+	</sql>
+
+	<select id="findById" parameterType="com.egeo.basics.secondhand.po.CommodityPO" resultMap="commodityMap">
+		SELECT
+		<include refid="commodityColumns" />
+		FROM commodity
+		WHERE id = #{po.id}
+	</select>
+
+	<select id="findOfPage" resultMap="commodityMap">
+		SELECT
+		<include refid="commodityColumns" />
+		FROM commodity
+		<where>
+			<if test="po.userId != null">
+				and user_id = #{po.userId}
+			</if>
+			<if test="po.commodityName != null">
+				and commodity_name = #{po.commodityName}
+			</if>
+			<if test="po.commodityType != null">
+				and commodity_type = #{po.commodityType}
+			</if>
+			<if test="po.commodityContent != null">
+				and commodity_content = #{po.commodityContent}
+			</if>
+			<if test="po.degree != null">
+				and degree = #{po.degree}
+			</if>
+			<if test="po.price != null">
+				and price = #{po.price}
+			</if>
+			<if test="po.priceType != null">
+				and price_type = #{po.priceType}
+			</if>
+			<if test="po.contactWay != null">
+				and contact_way = #{po.contactWay}
+			</if>
+			<if test="po.status != null">
+				and status = #{po.status}
+			</if>
+			<if test="po.isDeleted != null">
+				and is_deleted = #{po.isDeleted}
+			</if>
+			<if test="po.goodReceiverCountryId != null">
+				and good_receiver_country_id = #{po.goodReceiverCountryId}
+			</if>
+			<if test="po.goodReceiverCountry != null">
+				and good_receiver_country = #{po.goodReceiverCountry}
+			</if>
+			<if test="po.goodReceiverProvinceId != null">
+				and good_receiver_province_id = #{po.goodReceiverProvinceId}
+			</if>
+			<if test="po.goodReceiverProvince != null">
+				and good_receiver_province = #{po.goodReceiverProvince}
+			</if>
+			<if test="po.goodReceiverCityId != null">
+				and good_receiver_city_id = #{po.goodReceiverCityId}
+			</if>
+			<if test="po.goodReceiverCity != null">
+				and good_receiver_city = #{po.goodReceiverCity}
+			</if>
+			<if test="po.goodReceiverCountyId != null">
+				and good_receiver_county_id = #{po.goodReceiverCountyId}
+			</if>
+			<if test="po.goodReceiverCounty != null">
+				and good_receiver_county = #{po.goodReceiverCounty}
+			</if>
+			<if test="po.goodReceiverAreaId != null">
+				and good_receiver_area_id = #{po.goodReceiverAreaId}
+			</if>
+			<if test="po.goodReceiverArea != null">
+				and good_receiver_area = #{po.goodReceiverArea}
+			</if>
+			<if test="po.goodReceiverAddress != null">
+				and good_receiver_address = #{po.goodReceiverAddress}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>		
+			<otherwise>
+				ORDER BY id desc		
+			</otherwise>
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+	
+	<select id="countOfPage" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM commodity
+		<where>
+			<if test="po.userId != null">
+				and user_id = #{po.userId}
+			</if>
+			<if test="po.commodityName != null">
+				and commodity_name = #{po.commodityName}
+			</if>
+			<if test="po.commodityType != null">
+				and commodity_type = #{po.commodityType}
+			</if>
+			<if test="po.commodityContent != null">
+				and commodity_content = #{po.commodityContent}
+			</if>
+			<if test="po.degree != null">
+				and degree = #{po.degree}
+			</if>
+			<if test="po.price != null">
+				and price = #{po.price}
+			</if>
+			<if test="po.priceType != null">
+				and price_type = #{po.priceType}
+			</if>
+			<if test="po.contactWay != null">
+				and contact_way = #{po.contactWay}
+			</if>
+			<if test="po.status != null">
+				and status = #{po.status}
+			</if>
+			<if test="po.isDeleted != null">
+				and is_deleted = #{po.isDeleted}
+			</if>
+			<if test="po.goodReceiverCountryId != null">
+				and good_receiver_country_id = #{po.goodReceiverCountryId}
+			</if>
+			<if test="po.goodReceiverCountry != null">
+				and good_receiver_country = #{po.goodReceiverCountry}
+			</if>
+			<if test="po.goodReceiverProvinceId != null">
+				and good_receiver_province_id = #{po.goodReceiverProvinceId}
+			</if>
+			<if test="po.goodReceiverProvince != null">
+				and good_receiver_province = #{po.goodReceiverProvince}
+			</if>
+			<if test="po.goodReceiverCityId != null">
+				and good_receiver_city_id = #{po.goodReceiverCityId}
+			</if>
+			<if test="po.goodReceiverCity != null">
+				and good_receiver_city = #{po.goodReceiverCity}
+			</if>
+			<if test="po.goodReceiverCountyId != null">
+				and good_receiver_county_id = #{po.goodReceiverCountyId}
+			</if>
+			<if test="po.goodReceiverCounty != null">
+				and good_receiver_county = #{po.goodReceiverCounty}
+			</if>
+			<if test="po.goodReceiverAreaId != null">
+				and good_receiver_area_id = #{po.goodReceiverAreaId}
+			</if>
+			<if test="po.goodReceiverArea != null">
+				and good_receiver_area = #{po.goodReceiverArea}
+			</if>
+			<if test="po.goodReceiverAddress != null">
+				and good_receiver_address = #{po.goodReceiverAddress}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findAll" resultMap="commodityMap">
+		SELECT
+		<include refid="commodityColumns" />
+		FROM commodity
+		<where>
+			<if test="po.userId != null">
+				and user_id = #{po.userId}
+			</if>
+			<if test="po.commodityName != null">
+				and commodity_name = #{po.commodityName}
+			</if>
+			<if test="po.commodityType != null">
+				and commodity_type = #{po.commodityType}
+			</if>
+			<if test="po.commodityContent != null">
+				and commodity_content = #{po.commodityContent}
+			</if>
+			<if test="po.degree != null">
+				and degree = #{po.degree}
+			</if>
+			<if test="po.price != null">
+				and price = #{po.price}
+			</if>
+			<if test="po.priceType != null">
+				and price_type = #{po.priceType}
+			</if>
+			<if test="po.contactWay != null">
+				and contact_way = #{po.contactWay}
+			</if>
+			<if test="po.status != null">
+				and status = #{po.status}
+			</if>
+			<if test="po.isDeleted != null">
+				and is_deleted = #{po.isDeleted}
+			</if>
+			<if test="po.goodReceiverCountryId != null">
+				and good_receiver_country_id = #{po.goodReceiverCountryId}
+			</if>
+			<if test="po.goodReceiverCountry != null">
+				and good_receiver_country = #{po.goodReceiverCountry}
+			</if>
+			<if test="po.goodReceiverProvinceId != null">
+				and good_receiver_province_id = #{po.goodReceiverProvinceId}
+			</if>
+			<if test="po.goodReceiverProvince != null">
+				and good_receiver_province = #{po.goodReceiverProvince}
+			</if>
+			<if test="po.goodReceiverCityId != null">
+				and good_receiver_city_id = #{po.goodReceiverCityId}
+			</if>
+			<if test="po.goodReceiverCity != null">
+				and good_receiver_city = #{po.goodReceiverCity}
+			</if>
+			<if test="po.goodReceiverCountyId != null">
+				and good_receiver_county_id = #{po.goodReceiverCountyId}
+			</if>
+			<if test="po.goodReceiverCounty != null">
+				and good_receiver_county = #{po.goodReceiverCounty}
+			</if>
+			<if test="po.goodReceiverAreaId != null">
+				and good_receiver_area_id = #{po.goodReceiverAreaId}
+			</if>
+			<if test="po.goodReceiverArea != null">
+				and good_receiver_area = #{po.goodReceiverArea}
+			</if>
+			<if test="po.goodReceiverAddress != null">
+				and good_receiver_address = #{po.goodReceiverAddress}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>			
+			<otherwise>
+				ORDER BY id desc		
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="commodityOfPageAppById" resultMap="commodityCondition">
+		SELECT
+		c.id,
+		c.user_id,
+		c.commodity_name,
+		c.commodity_type,
+		c.commodity_content,
+		c.degree,
+		c.price,
+		c.price_type,
+		c.contact_way,
+		c.status,
+		c.is_deleted,
+		c.good_receiver_country_id,
+		c.good_receiver_country,
+		c.good_receiver_province_id,
+		c.good_receiver_province,
+		c.good_receiver_city_id,
+		c.good_receiver_city,
+		c.good_receiver_county_id,
+		c.good_receiver_county,
+		c.good_receiver_area_id,
+		c.good_receiver_area,
+		c.good_receiver_address,
+		c.create_time,
+		c.update_time,
+		c.platform_id,
+		cp.picture_url
+		FROM
+		(SELECT
+		id,
+		user_id,
+		commodity_name,
+		commodity_type,
+		commodity_content,
+		degree,
+		price,
+		price_type,
+		contact_way,
+		status,
+		is_deleted,
+		good_receiver_country_id,
+		good_receiver_country,
+		good_receiver_province_id,
+		good_receiver_province,
+		good_receiver_city_id,
+		good_receiver_city,
+		good_receiver_county_id,
+		good_receiver_county,
+		good_receiver_area_id,
+		good_receiver_area,
+		good_receiver_address,
+		create_time,
+		update_time,
+		platform_id
+		FROM commodity) c
+		LEFT JOIN
+		(SELECT
+			cp.id,
+			cp.commodity_id,
+			cp.picture_id,
+			cp.sort_value,
+			cp.create_time,
+			cp.update_time,
+			cp.platform_id,
+			p.url picture_url
+			from commodity_picture cp
+			LEFT JOIN picture p on cp.picture_id = p.id
+			ORDER BY cp.sort_value
+		 limit 0,1) cp on cp.commodity_id = c.id
+		 <where>
+			<if test="po.userId != null">
+				and c.user_id = #{po.userId}
+			</if>
+			<if test="po.commodityName != null">
+				and c.commodity_name = #{po.commodityName}
+			</if>
+			<if test="po.commodityType != null">
+				and c.commodity_type = #{po.commodityType}
+			</if>
+			<if test="po.commodityContent != null">
+				and c.commodity_content = #{po.commodityContent}
+			</if>
+			<if test="po.degree != null">
+				and c.degree = #{po.degree}
+			</if>
+			<if test="po.price != null">
+				and c.price = #{po.price}
+			</if>
+			<if test="po.priceType != null">
+				and c.price_type = #{po.priceType}
+			</if>
+			<if test="po.contactWay != null">
+				and c.contact_way = #{po.contactWay}
+			</if>
+			<if test="po.status != null">
+				and c.status = #{po.status}
+			</if>
+			<if test="po.isDeleted != null">
+				and c.is_deleted = #{po.isDeleted}
+			</if>
+			<if test="po.platformId != null">
+				and c.platform_id = #{po.platformId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>		
+			<otherwise>
+				ORDER BY cp.create_time desc
+			</otherwise>
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+	
+	<select id="countOfPageApp" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM
+		(SELECT
+		id,
+		user_id,
+		commodity_name,
+		commodity_type,
+		commodity_content,
+		degree,
+		price,
+		price_type,
+		contact_way,
+		status,
+		is_deleted,
+		good_receiver_country_id,
+		good_receiver_country,
+		good_receiver_province_id,
+		good_receiver_province,
+		good_receiver_city_id,
+		good_receiver_city,
+		good_receiver_county_id,
+		good_receiver_county,
+		good_receiver_area_id,
+		good_receiver_area,
+		good_receiver_address,
+		create_time,
+		update_time,
+		platform_id
+		FROM commodity) c
+		LEFT JOIN
+		(SELECT
+			cp.id,
+			cp.commodity_id,
+			cp.picture_id,
+			cp.sort_value,
+			cp.create_time,
+			cp.update_time,
+			cp.platform_id,
+			p.url picture_url
+			from commodity_picture cp
+			LEFT JOIN picture p on cp.picture_id = p.id
+			ORDER BY cp.sort_value
+		 limit 0,1) cp on cp.commodity_id = c.id
+		 <where>
+			<if test="po.userId != null">
+				and c.user_id = #{po.userId}
+			</if>
+			<if test="po.commodityName != null">
+				and c.commodity_name = #{po.commodityName}
+			</if>
+			<if test="po.commodityType != null">
+				and c.commodity_type = #{po.commodityType}
+			</if>
+			<if test="po.commodityContent != null">
+				and c.commodity_content = #{po.commodityContent}
+			</if>
+			<if test="po.degree != null">
+				and c.degree = #{po.degree}
+			</if>
+			<if test="po.price != null">
+				and c.price = #{po.price}
+			</if>
+			<if test="po.priceType != null">
+				and c.price_type = #{po.priceType}
+			</if>
+			<if test="po.contactWay != null">
+				and c.contact_way = #{po.contactWay}
+			</if>
+			<if test="po.status != null">
+				and c.status = #{po.status}
+			</if>
+			<if test="po.isDeleted != null">
+				and c.is_deleted = #{po.isDeleted}
+			</if>
+			<if test="po.platformId != null">
+				and c.platform_id = #{po.platformId}
+			</if>
+		</where>
+	</select>
+</mapper>
+	

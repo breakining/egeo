@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>mapper</name>
+	<filePath>database/</filePath>
+	<fileName>${className}.sql</fileName>
+	<content><![CDATA[
+
+#foreach(${field} in ${fields})
+
+#if(${field.name} == "createTime")
+alter table ${table.tableName} drop column  create_time;
+alter table ${table.tableName} add  column create_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间:创建记录时数据库会自动set值';
+#end
+#if(${field.name} == "isAvailable")
+alter table ${table.tableName} drop column  is_available;
+#end
+#if(${field.name} == "isDeleted")
+alter table ${table.tableName} drop column  is_deleted;
+#end
+#if(${field.name} == "versionNo")
+alter table ${table.tableName} drop column  version_no;
+#end
+#if(${field.name} == "createUsername")
+alter table ${table.tableName} drop column  create_username;
+#end
+#if(${field.name} == "createUserip")
+alter table ${table.tableName} drop column  create_userip;
+#end
+#if(${field.name} == "updateUserid")
+alter table ${table.tableName} drop column  update_userid;
+#end
+#if(${field.name} == "updateUsername")
+alter table ${table.tableName} drop column  update_username;
+#end
+#if(${field.name} == "updateUserip")
+alter table ${table.tableName} drop column  update_userip;
+#end
+#if(${field.name} == "createUserid")
+alter table ${table.tableName} drop column  create_userid;
+#end
+#if(${field.name} == "updateTime")
+alter table ${table.tableName} drop column  update_time;
+alter table ${table.tableName} add column update_time timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间:更新时数据库会自动set值';
+#end
+#if(${field.name} == "serverIp")
+alter table ${table.tableName} drop column  server_ip;
+#end
+#if(${field.name} == "createTimeDb")
+alter table ${table.tableName} drop column  create_time_db;
+#end
+#if(${field.name} == "updateTimeDb")
+alter table ${table.tableName} drop column  update_time_db;
+#end
+#if(${field.name} == "createUsermac")
+alter table ${table.tableName} drop column  create_usermac;
+#end
+#if(${field.name} == "updateUsermac")
+alter table ${table.tableName} drop column  update_usermac;
+#end								
+#end
+]]>
+	</content>
+</template>

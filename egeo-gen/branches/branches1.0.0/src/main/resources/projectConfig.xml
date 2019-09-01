@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<rootPath>D:/pro/zgxc/projectgen/</rootPath>
+	<author>xiaping</author>
+	<projectName>test</projectName>
+	<parentVersion>1.0.0-SNAPSHOT</parentVersion>
+	<version>1.0.0-SNAPSHOT</version>
+	<zgxcwUtilsVersion>1.0.0-SNAPSHOT</zgxcwUtilsVersion>
+	<zgxcwCoreVersion>1.0.0-SNAPSHOT</zgxcwCoreVersion>
+	<zgxcwDubboVersion>1.0.0-SNAPSHOT</zgxcwDubboVersion>
+	
+	<templates>
+		<template>template/project/BackRootPom.xml</template>
+		<template>template/project/BackBusinessPom.xml</template>
+		<template>template/project/BackBusinessSpringConf.xml</template>
+		<template>template/project/BackFacadeDubbo.xml</template>
+		<template>template/project/BackFacadePom.xml</template>
+		<template>template/project/BackWebPom.xml</template>
+		<template>template/project/BackWebSpringConf.xml</template>
+		<template>template/project/BackModelPom.xml</template>						
+	</templates>
+
+</config>

@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.secondhand.dao.write.CommodityWriteDAO">
+	<insert id="insert" parameterType="com.egeo.basics.secondhand.po.CommodityPO">
+		INSERT INTO commodity(
+        <trim suffixOverrides=",">
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="commodityName != null">
+				commodity_name,
+			</if>
+			<if test="commodityType != null">
+				commodity_type,
+			</if>
+			<if test="commodityContent != null">
+				commodity_content,
+			</if>
+			<if test="degree != null">
+				degree,
+			</if>
+			<if test="priceType != null">
+				price_type,
+			</if>
+			<if test="price != null">
+				price,
+			</if>
+			<if test="contactWay != null">
+				contact_way,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="isDeleted != null">
+				is_deleted,
+			</if>
+			<if test="goodReceiverCountryId != null">
+				good_receiver_country_id,
+			</if>
+			<if test="goodReceiverCountry != null">
+				good_receiver_country,
+			</if>
+			<if test="goodReceiverProvinceId != null">
+				good_receiver_province_id,
+			</if>
+			<if test="goodReceiverProvince != null">
+				good_receiver_province,
+			</if>
+			<if test="goodReceiverCityId != null">
+				good_receiver_city_id,
+			</if>
+			<if test="goodReceiverCity != null">
+				good_receiver_city,
+			</if>
+			<if test="goodReceiverCountyId != null">
+				good_receiver_county_id,
+			</if>
+			<if test="goodReceiverCounty != null">
+				good_receiver_county,
+			</if>
+			<if test="goodReceiverAreaId != null">
+				good_receiver_area_id,
+			</if>
+			<if test="goodReceiverArea != null">
+				good_receiver_area,
+			</if>
+			<if test="goodReceiverAddress != null">
+				good_receiver_address,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="platformId != null">
+				platform_id,
+			</if>
+        </trim>		
+		) VALUES (
+        <trim suffixOverrides=",">
+			<if test="userId != null">
+				#{userId},
+			</if>
+			<if test="commodityName != null">
+				#{commodityName},
+			</if>
+			<if test="commodityType != null">
+				#{commodityType},
+			</if>
+			<if test="commodityContent != null">
+				#{commodityContent},
+			</if>
+			<if test="degree != null">
+				#{degree},
+			</if>
+			<if test="priceType != null">
+				#{priceType},
+			</if>
+			<if test="price != null">
+				#{price},
+			</if>
+			<if test="contactWay != null">
+				#{contactWay},
+			</if>
+			<if test="status != null">
+				#{status},
+			</if>
+			<if test="isDeleted != null">
+				#{isDeleted},
+			</if>
+			<if test="goodReceiverCountryId != null">
+				#{goodReceiverCountryId},
+			</if>
+			<if test="goodReceiverCountry != null">
+				#{goodReceiverCountry},
+			</if>
+			<if test="goodReceiverProvinceId != null">
+				#{goodReceiverProvinceId},
+			</if>
+			<if test="goodReceiverProvince != null">
+				#{goodReceiverProvince},
+			</if>
+			<if test="goodReceiverCityId != null">
+				#{goodReceiverCityId},
+			</if>
+			<if test="goodReceiverCity != null">
+				#{goodReceiverCity},
+			</if>
+			<if test="goodReceiverCountyId != null">
+				#{goodReceiverCountyId},
+			</if>
+			<if test="goodReceiverCounty != null">
+				#{goodReceiverCounty},
+			</if>
+			<if test="goodReceiverAreaId != null">
+				#{goodReceiverAreaId},
+			</if>
+			<if test="goodReceiverArea != null">
+				#{goodReceiverArea},
+			</if>
+			<if test="goodReceiverAddress != null">
+				#{goodReceiverAddress},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime},
+			</if>
+			<if test="platformId != null">
+				#{platformId},
+			</if>
+        </trim>		
+		)
+		<selectKey keyProperty="id" resultType="java.lang.Long">
+			select LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+
+	
+	
+	<update id="update">
+	UPDATE commodity 
+		<set>
+			<if test="userId != null">
+				user_id = #{userId},
+			</if>			
+			<if test="commodityName != null">
+				commodity_name = #{commodityName},
+			</if>			
+			<if test="commodityType != null">
+				commodity_type = #{commodityType},
+			</if>			
+			<if test="commodityContent != null">
+				commodity_content = #{commodityContent},
+			</if>			
+			<if test="degree != null">
+				degree = #{degree},
+			</if>			
+			<if test="priceType != null">
+				price_type = #{priceType},
+			</if>			
+			<if test="price != null">
+				price = #{price},
+			</if>			
+			<if test="contactWay != null">
+				contact_way = #{contactWay},
+			</if>			
+			<if test="status != null">
+				status = #{status},
+			</if>			
+			<if test="isDeleted != null">
+				is_deleted = #{isDeleted},
+			</if>			
+			<if test="goodReceiverCountryId != null">
+				good_receiver_country_id = #{goodReceiverCountryId},
+			</if>			
+			<if test="goodReceiverCountry != null">
+				good_receiver_country = #{goodReceiverCountry},
+			</if>			
+			<if test="goodReceiverProvinceId != null">
+				good_receiver_province_id = #{goodReceiverProvinceId},
+			</if>			
+			<if test="goodReceiverProvince != null">
+				good_receiver_province = #{goodReceiverProvince},
+			</if>			
+			<if test="goodReceiverCityId != null">
+				good_receiver_city_id = #{goodReceiverCityId},
+			</if>			
+			<if test="goodReceiverCity != null">
+				good_receiver_city = #{goodReceiverCity},
+			</if>			
+			<if test="goodReceiverCountyId != null">
+				good_receiver_county_id = #{goodReceiverCountyId},
+			</if>			
+			<if test="goodReceiverCounty != null">
+				good_receiver_county = #{goodReceiverCounty},
+			</if>			
+			<if test="goodReceiverAreaId != null">
+				good_receiver_area_id = #{goodReceiverAreaId},
+			</if>			
+			<if test="goodReceiverArea != null">
+				good_receiver_area = #{goodReceiverArea},
+			</if>			
+			<if test="goodReceiverAddress != null">
+				good_receiver_address = #{goodReceiverAddress},
+			</if>			
+			<if test="createTime != null">
+				create_time = #{createTime},
+			</if>			
+			<if test="updateTime != null">
+				update_time = #{updateTime},
+			</if>			
+			<if test="platformId != null">
+				platform_id = #{platformId},
+			</if>			
+		</set>
+			WHERE id = #{id}
+	</update>	
+	
+
+	<update id="delete">
+		UPDATE commodity SET is_deleted = 1 WHERE id = #{id}
+	</update>
+
+	<update id="deleteByPara">
+		UPDATE commodity SET is_deleted = 1 
+		<where>
+			<if test="userId != null">
+				and user_id = #{userId}
+			</if>
+			<if test="commodityName != null">
+				and commodity_name = #{commodityName}
+			</if>
+			<if test="commodityType != null">
+				and commodity_type = #{commodityType}
+			</if>
+			<if test="commodityContent != null">
+				and commodity_content = #{commodityContent}
+			</if>
+			<if test="degree != null">
+				and degree = #{degree}
+			</if>
+			<if test="priceType != null">
+				and price_type = #{priceType}
+			</if>
+			<if test="price != null">
+				and price = #{price}
+			</if>
+			<if test="contactWay != null">
+				and contact_way = #{contactWay}
+			</if>
+			<if test="status != null">
+				and status = #{status}
+			</if>
+			<if test="isDeleted != null">
+				and is_deleted = #{isDeleted}
+			</if>
+			<if test="goodReceiverCountryId != null">
+				and good_receiver_country_id = #{goodReceiverCountryId}
+			</if>
+			<if test="goodReceiverCountry != null">
+				and good_receiver_country = #{goodReceiverCountry}
+			</if>
+			<if test="goodReceiverProvinceId != null">
+				and good_receiver_province_id = #{goodReceiverProvinceId}
+			</if>
+			<if test="goodReceiverProvince != null">
+				and good_receiver_province = #{goodReceiverProvince}
+			</if>
+			<if test="goodReceiverCityId != null">
+				and good_receiver_city_id = #{goodReceiverCityId}
+			</if>
+			<if test="goodReceiverCity != null">
+				and good_receiver_city = #{goodReceiverCity}
+			</if>
+			<if test="goodReceiverCountyId != null">
+				and good_receiver_county_id = #{goodReceiverCountyId}
+			</if>
+			<if test="goodReceiverCounty != null">
+				and good_receiver_county = #{goodReceiverCounty}
+			</if>
+			<if test="goodReceiverAreaId != null">
+				and good_receiver_area_id = #{goodReceiverAreaId}
+			</if>
+			<if test="goodReceiverArea != null">
+				and good_receiver_area = #{goodReceiverArea}
+			</if>
+			<if test="goodReceiverAddress != null">
+				and good_receiver_address = #{goodReceiverAddress}
+			</if>
+			<if test="createTime != null">
+				and create_time = #{createTime}
+			</if>
+			<if test="updateTime != null">
+				and update_time = #{updateTime}
+			</if>
+			<if test="platformId != null">
+				and platform_id = #{platformId}
+			</if>
+		</where>
+	</update>
+
+
+</mapper>
+	

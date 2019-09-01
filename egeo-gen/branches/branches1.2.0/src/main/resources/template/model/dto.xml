@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>po</name>
+	<filePath>basics-${module}-model/src/main/java/${filePath}/${module}/model/dto/</filePath>
+	<fileName>${className}DTO.java</fileName>
+	<content><![CDATA[package ${packageName}.${module}.model.dto;
+
+import java.io.Serializable;
+#foreach($element in $ref)
+import ${element};
+#end
+
+/**
+ * 
+ * @author ${author}
+ * @date ${today}
+ */
+public class ${className}DTO implements Serializable {
+	private static final long serialVersionUID = 1L;
+#if("${pk}" != "")
+
+	private ${pk.javaTypeName} ${pk.name};
+#end
+#foreach(${field} in ${fields})
+
+#if(${field.name} != "isDeleted")
+	/**
+	 * $!{field.comment}
+	 */
+	private ${field.javaTypeName} ${field.name};	
+#end	
+#end
+
+#if("${pk}" != "")
+	public ${pk.javaTypeName} ${pk.getter}() {
+		return ${pk.name};
+	}
+
+	/**
+	 * $!{pk.comment}
+	 * @param ${pk.name} $!{pk.comment}
+	 */
+	public void ${pk.setter}(${pk.javaTypeName} ${pk.name}) {
+		this.${pk.name} = ${pk.name};
+	}
+#end
+#foreach(${field} in ${fields})
+#if(${field.name} != "isDeleted")
+	/**
+	 * $!{field.comment}
+	 * @return $!{field.comment}
+	 */
+	public ${field.javaTypeName} ${field.getter}() {
+		return ${field.name};
+	}
+
+	/**
+	 * $!{field.comment}
+	 * @param ${field.name} $!{field.comment}
+	 */
+	public void ${field.setter}(${field.javaTypeName} ${field.name}) {
+		this.${field.name} = ${field.name};
+	}
+#end	
+#end
+}]]>
+	</content>
+</template>

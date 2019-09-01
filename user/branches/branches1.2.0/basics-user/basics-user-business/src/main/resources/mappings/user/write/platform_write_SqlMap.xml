@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.write.PlatformWriteDAO">
+	<insert id="insert" parameterType="com.egeo.basics.user.po.PlatformPO">
+		INSERT INTO u_platform(
+		name,
+		is_available,
+		del_flag
+		) VALUES (
+		#{name},
+		#{isAvailable},
+		#{delFlag}
+		)
+		<selectKey keyProperty="id" resultType="java.lang.Long">
+			select LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<update id="update">
+		UPDATE u_platform SET
+		name = #{name},
+		is_available = #{isAvailable},
+		del_flag = #{delFlag}
+		WHERE id = #{id}
+	</update>
+
+	<delete id="delete">
+		delete from u_platform where id = #{id}
+	</delete>
+</mapper>
+	

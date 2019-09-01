@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.read.dao.read.ParentChildrenReadDAO">
+	<resultMap type="com.egeo.basics.read.po.ParentChildrenPO" id="parentChildrenMap">
+		<result property="id" column="id" />
+		<result property="parentId" column="parent_id" />
+		<result property="childId" column="child_id" />
+	</resultMap>
+
+	<sql id="parentChildrenColumns">
+		id,
+		parent_id,
+		child_id
+	</sql>
+
+	<select id="findById" parameterType="com.egeo.basics.read.po.ParentChildrenPO" resultMap="parentChildrenMap">
+		SELECT
+		<include refid="parentChildrenColumns" />
+		FROM parent_children
+		WHERE id = #{po.id}
+	</select>
+
+	<select id="findOfPage" resultMap="parentChildrenMap">
+		SELECT
+		<include refid="parentChildrenColumns" />
+		FROM parent_children
+		<where>
+			<if test="po.parentId != null">
+				and parent_id = #{po.parentId}
+			</if>
+			<if test="po.childId != null">
+				and child_id = #{po.childId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>		
+			<otherwise>
+				ORDER BY id desc		
+			</otherwise>
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+	
+	<select id="countOfPage" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM parent_children
+		<where>
+			<if test="po.parentId != null">
+				and parent_id = #{po.parentId}
+			</if>
+			<if test="po.childId != null">
+				and child_id = #{po.childId}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findAll" resultMap="parentChildrenMap">
+		SELECT
+		<include refid="parentChildrenColumns" />
+		FROM parent_children
+		<where>
+			<if test="po.parentId != null">
+				and parent_id = #{po.parentId}
+			</if>
+			<if test="po.childId != null">
+				and child_id = #{po.childId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>			
+			<otherwise>
+				ORDER BY id desc		
+			</otherwise>
+		</choose>
+	</select>
+</mapper>
+	

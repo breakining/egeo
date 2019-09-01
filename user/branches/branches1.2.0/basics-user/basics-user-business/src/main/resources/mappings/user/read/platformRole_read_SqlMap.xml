@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.read.PlatformRoleReadDAO">
+	<resultMap type="com.egeo.basics.user.po.PlatformRolePO" id="platformRoleMap">
+		<result property="id" column="id" />
+		<result property="platformId" column="platform_id" />
+		<result property="roleId" column="role_id" />
+	</resultMap>
+
+	<sql id="platformRoleColumns">
+		id,
+		platform_id,
+		role_id
+	</sql>
+
+	<select id="findById" parameterType="com.egeo.basics.user.po.PlatformRolePO" resultMap="platformRoleMap">
+		SELECT
+		<include refid="platformRoleColumns" />
+		FROM u_platform_role
+		WHERE id = #{po.id}
+	</select>
+
+	<select id="findOfPage" resultMap="platformRoleMap">
+		SELECT
+		<include refid="platformRoleColumns" />
+		FROM u_platform_role
+		<where>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+			<if test="po.roleId != null">
+				and role_id = #{po.roleId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY id desc
+			</otherwise>
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+	
+	<select id="countOfPage" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM u_platform_role
+		<where>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+			<if test="po.roleId != null">
+				and role_id = #{po.roleId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY id desc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAll" resultMap="platformRoleMap">
+		SELECT
+		<include refid="platformRoleColumns" />
+		FROM u_platform_role
+		<where>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+			<if test="po.roleId != null">
+				and role_id = #{po.roleId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY id desc
+			</otherwise>
+		</choose>
+	</select>
+</mapper>
+	

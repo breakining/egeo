@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>converter</name>
+	<filePath>back-${module}-business/src/main/java/${filePath}/${module}/converter/</filePath>
+	<fileName>${className}Converter.java</fileName>
+	<content><![CDATA[package ${packageName}.${module}.converter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.egeo.basics.${module}.model.dto.${className}DTO;
+import com.egeo.back.${module}.model.vo.${className}VO;
+
+/**
+ * DTO和VO相互转换工具类
+ * 
+ * @author ${author}
+ * @date ${today}
+ */
+public class ${className}Converter {
+	
+	public static ${className}DTO toDTO(${className}VO src) {
+		if (src == null)
+		return null;	
+		${className}DTO tar = new ${className}DTO();
+#if("${pk}" != "")
+		tar.${pk.setter}(src.${pk.getter}());
+#end
+#foreach(${field} in ${fields})
+#if(${field.name} != "isDeleted")
+		tar.${field.setter}(src.${field.getter}());			
+#end
+#end
+		return tar;
+	}
+
+	public static ${className}VO toVO(${className}DTO src) {
+		if (src == null)
+		return null;
+		${className}VO tar = new ${className}VO();
+#if("${pk}" != "")
+		tar.${pk.setter}(src.${pk.getter}());
+#end
+#foreach(${field} in ${fields})
+#if(${field.name} != "isDeleted")
+		tar.${field.setter}(src.${field.getter}());
+#end				
+#end
+		return tar;
+	}
+
+	public static List<${className}DTO> toDTO(List<${className}VO> srcs) {
+		if (srcs == null)
+			return null;
+		List<${className}DTO> list = new ArrayList<${className}DTO>();
+		for (${className}VO src : srcs) {
+			list.add(toDTO(src));
+		}
+		return list;
+	}
+
+	public static List<${className}VO> toVO(List<${className}DTO> srcs) {
+		if (srcs == null)
+			return null;
+		List<${className}VO> list = new ArrayList<${className}VO>();
+		for (${className}DTO src : srcs) {
+			list.add(toVO(src));
+		}
+		return list;
+	}
+}]]>
+	</content>
+</template>

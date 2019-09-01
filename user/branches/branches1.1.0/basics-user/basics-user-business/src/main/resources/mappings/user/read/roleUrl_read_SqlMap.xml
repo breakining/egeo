@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.read.RoleUrlReadDAO">
+	<resultMap type="com.egeo.basics.user.po.RoleUrlPO" id="roleUrlMap">
+		<result property="id" column="id" />
+		<result property="roleId" column="role_id" />
+		<result property="urlId" column="url_id" />
+	</resultMap>
+
+	<sql id="roleUrlColumns">
+		id,
+		role_id,
+		url_id
+	</sql>
+
+	<select id="findById" parameterType="com.egeo.basics.user.po.RoleUrlPO" resultMap="roleUrlMap">
+		SELECT
+		<include refid="roleUrlColumns" />
+		FROM u_role_url
+		WHERE id = #{po.id}
+	</select>
+
+	<select id="findOfPage" resultMap="roleUrlMap">
+		SELECT
+		<include refid="roleUrlColumns" />
+		FROM u_role_url
+		<where>
+			<if test="po.roleId != null">
+				and role_id = #{po.roleId}
+			</if>
+			<if test="po.urlId != null">
+				and url_id = #{po.urlId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY id desc
+			</otherwise>
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+	
+	<select id="countOfPage" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM u_role_url
+		<where>
+			<if test="po.roleId != null">
+				and role_id = #{po.roleId}
+			</if>
+			<if test="po.urlId != null">
+				and url_id = #{po.urlId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY id desc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAll" resultMap="roleUrlMap">
+		SELECT
+		<include refid="roleUrlColumns" />
+		FROM u_role_url
+		<where>
+			<if test="po.roleId != null">
+				and role_id = #{po.roleId}
+			</if>
+			<if test="po.urlId != null">
+				and url_id = #{po.urlId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY id desc
+			</otherwise>
+		</choose>
+	</select>
+</mapper>
+	

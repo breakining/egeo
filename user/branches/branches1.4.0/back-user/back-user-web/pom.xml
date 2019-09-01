@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.egeo.back.user</groupId>
+		<artifactId>back-user</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>back-user-web</artifactId>
+	<packaging>war</packaging>
+	<name>back-user-web</name>
+	<url>http://maven.apache.org</url>
+
+	<dependencies>
+		<!-- 本项目模块包 -->
+		<dependency>
+			<groupId>com.egeo.back.user</groupId>
+			<artifactId>back-user-business</artifactId>
+		</dependency>
+		
+
+		<dependency>
+			<groupId>com.egeo.back.user</groupId>
+			<artifactId>back-user-model</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.egeo.back.user</groupId>
+			<artifactId>back-user-facade</artifactId>
+		</dependency>				
+		<!-- basics服务接口包 -->
+		<dependency>
+			<groupId>com.egeo.basics.user</groupId>
+			<artifactId>basics-user-api</artifactId>
+		</dependency>
+		<dependency>
+		  <groupId>com.egeo.basics.user</groupId>
+		  <artifactId>basics-user-model</artifactId>
+		</dependency>
+		<!-- 本公司公共包 -->
+		<dependency>
+			<groupId>com.egeo.utils</groupId>
+			<artifactId>egeo-utils</artifactId>
+		</dependency>
+		<dependency>
+		  <groupId>com.egeo</groupId>
+		  <artifactId>egeo-core</artifactId>
+		</dependency>
+		<!-- 以下为开源框架jar包 -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+		</dependency>
+		<!--架构项目依赖 -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+		</dependency>
+		<!-- Spring Begin -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+		<!-- Spring end -->
+		<!-- 工具包 -->
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		<!-- dubbo 需要的jar start -->
+		<dependency>
+			<groupId>org.jboss.netty</groupId>
+			<artifactId>netty</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.egeo</groupId>
+			<artifactId>egeo-dubbo</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.101tec</groupId>
+			<artifactId>zkclient</artifactId>
+		</dependency>
+		<!-- dubbo 需要的jar end -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+		<dependency>
+		    <groupId>com.alibaba</groupId>
+		    <artifactId>fastjson</artifactId>
+		</dependency>
+		<!-- 七牛jar -->
+		<dependency>
+		  <groupId>com.qiniu</groupId>
+		  <artifactId>qiniu-java-sdk</artifactId>
+		  <version>7.1.3</version>
+		</dependency>
+		<dependency>
+		  <groupId>com.qiniu</groupId>
+		  <artifactId>okio</artifactId>
+		  <version>1.8.0</version>
+		</dependency>
+		<dependency>
+		  <groupId>com.qiniu</groupId>
+		  <artifactId>okhttp</artifactId>
+		  <version>3.3.1</version>
+		</dependency>
+		<dependency>
+		  <groupId>com.qiniu</groupId>
+		  <artifactId>gson</artifactId>
+		  <version>2.6.2</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>javax.websocket</groupId>
+		    <artifactId>javax.websocket-api</artifactId>
+		    <version>1.1</version>
+		    <scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-websocket</artifactId>
+		    <version>5.0.0.RELEASE</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>back-user-web</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<executions>
+					 <execution>
+						<id>default-deploy</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+						<!-- skip默认deploy插件的执行 -->
+						<configuration>
+							<skip>true</skip>
+						</configuration>
+					 </execution>
+
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<version>2.5</version>
+				</configuration>
+			</plugin>
+		</plugins>		
+	</build>	
+</project>
+
+	

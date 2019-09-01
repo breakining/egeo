@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.write.UserRoleWriteDAO">
+	<insert id="insert" parameterType="com.egeo.basics.user.po.UserRolePO">
+		INSERT INTO u_user_role(
+		user_id,
+		role_id
+		) VALUES (
+		#{userId},
+		#{roleId}
+		)
+		<selectKey keyProperty="id" resultType="java.lang.Integer">
+			select LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<update id="update">
+		UPDATE u_user_role SET
+		user_id = #{userId},
+		role_id = #{roleId}
+		WHERE id = #{id}
+	</update>
+
+	<delete id="delete">
+		delete from u_user_role where id = #{id}
+	</delete>
+</mapper>
+	

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>action</name>
+	<filePath>back-${module}-web/src/main/java/${filePath}/${module}/web/action/</filePath>
+	<fileName>${className}Action.java</fileName>
+	<content><![CDATA[package ${packageName}.${module}.web.action;
+
+
+import javax.annotation.Resource;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.egeo.back.${module}.business.${className}Manage;
+import com.egeo.core.web.BaseSpringController;
+import com.egeo.core.web.JsonResult;
+
+
+
+@Controller
+@RequestMapping("${name}")
+public class ${className}Action extends BaseSpringController {
+	
+	@Resource(name="${name}")
+	private ${className}Manage ${name}Manage;
+	
+	
+}]]>
+	</content>
+</template>

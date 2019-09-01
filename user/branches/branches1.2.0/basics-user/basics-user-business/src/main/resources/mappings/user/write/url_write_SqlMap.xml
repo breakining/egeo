@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.write.UrlWriteDAO">
+	<insert id="insert" parameterType="com.egeo.basics.user.po.UrlPO">
+		INSERT INTO u_url(
+		url,
+		name,
+		description
+		) VALUES (
+		#{url},
+		#{name},
+		#{description}
+		)
+		<selectKey keyProperty="id" resultType="java.lang.Long">
+			select LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<update id="update">
+		UPDATE u_url SET
+		url = #{url},
+		name = #{name},
+		description = #{description}
+		WHERE id = #{id}
+	</update>
+
+	<delete id="delete">
+		delete from u_url where id = #{id}
+	</delete>
+</mapper>
+	

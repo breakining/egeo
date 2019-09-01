@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.read.MenuReadDAO">
+	<resultMap type="com.egeo.basics.user.po.MenuPO" id="menuMap">
+		<result property="id" column="id" />
+		<result property="parentId" column="parent_id" />
+		<result property="parentIds" column="parent_ids" />
+		<result property="name" column="name" />
+		<result property="sort" column="sort" />
+		<result property="href" column="href" />
+		<result property="target" column="target" />
+		<result property="icon" column="icon" />
+		<result property="isShow" column="is_show" />
+		<result property="permission" column="permission" />
+		<result property="createBy" column="create_by" />
+		<result property="createDate" column="create_date" />
+		<result property="updateBy" column="update_by" />
+		<result property="updateDate" column="update_date" />
+		<result property="remarks" column="remarks" />
+		<result property="delFlag" column="del_flag" />
+		<result property="parentName" column="parent_name" />
+	</resultMap>
+	
+	<resultMap type="com.egeo.basics.user.condition.MenuCondition" id="menuConditionMap" extends="menuMap">
+		<result property="parentName" column="parent_name" />
+	</resultMap>
+	
+	<sql id="menuColumns">
+		id,
+		parent_id,
+		name,
+		sort,
+		href,
+		target,
+		icon,
+		is_show,
+		permission,
+		create_by,
+		create_date,
+		update_by,
+		update_date,
+		remarks,
+		del_flag
+	</sql>
+	
+	<sql id="menuJoins">
+		LEFT JOIN u_menu p ON p.id = a.parent_id
+    </sql>
+
+	<select id="findById" parameterType="com.egeo.basics.user.po.MenuPO" resultMap="menuMap">
+		SELECT
+		<include refid="menuColumns" />
+		FROM u_menu
+		WHERE id = #{po.id}
+	</select>
+
+	<select id="findOfPage" resultMap="menuMap">
+		SELECT
+		<include refid="menuColumns" />
+		FROM u_menu
+		<where>
+			<if test="po.parentId != null">
+				and parent_id = #{po.parentId}
+			</if>
+			<if test="po.name != null">
+				and name = #{po.name}
+			</if>
+			<if test="po.sort != null">
+				and sort = #{po.sort}
+			</if>
+			<if test="po.href != null">
+				and href = #{po.href}
+			</if>
+			<if test="po.target != null">
+				and target = #{po.target}
+			</if>
+			<if test="po.icon != null">
+				and icon = #{po.icon}
+			</if>
+			<if test="po.isShow != null">
+				and is_show = #{po.isShow}
+			</if>
+			<if test="po.permission != null">
+				and permission = #{po.permission}
+			</if>
+			<if test="po.createBy != null">
+				and create_by = #{po.createBy}
+			</if>
+			<if test="po.createDate != null">
+				and create_date = #{po.createDate}
+			</if>
+			<if test="po.updateBy != null">
+				and update_by = #{po.updateBy}
+			</if>
+			<if test="po.updateDate != null">
+				and update_date = #{po.updateDate}
+			</if>
+			<if test="po.remarks != null">
+				and remarks = #{po.remarks}
+			</if>
+			<if test="po.delFlag != null">
+				and del_flag = #{po.delFlag}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY id desc
+			</otherwise>
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+	
+	<select id="countOfPage" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM u_menu
+		<where>
+			<if test="po.parentId != null">
+				and parent_id = #{po.parentId}
+			</if>
+			<if test="po.name != null">
+				and name = #{po.name}
+			</if>
+			<if test="po.sort != null">
+				and sort = #{po.sort}
+			</if>
+			<if test="po.href != null">
+				and href = #{po.href}
+			</if>
+			<if test="po.target != null">
+				and target = #{po.target}
+			</if>
+			<if test="po.icon != null">
+				and icon = #{po.icon}
+			</if>
+			<if test="po.isShow != null">
+				and is_show = #{po.isShow}
+			</if>
+			<if test="po.permission != null">
+				and permission = #{po.permission}
+			</if>
+			<if test="po.createBy != null">
+				and create_by = #{po.createBy}
+			</if>
+			<if test="po.createDate != null">
+				and create_date = #{po.createDate}
+			</if>
+			<if test="po.updateBy != null">
+				and update_by = #{po.updateBy}
+			</if>
+			<if test="po.updateDate != null">
+				and update_date = #{po.updateDate}
+			</if>
+			<if test="po.remarks != null">
+				and remarks = #{po.remarks}
+			</if>
+			<if test="po.delFlag != null">
+				and del_flag = #{po.delFlag}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY id desc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="getMenuListByUserId"  resultMap="menuConditionMap">
+		SELECT
+		a.id,
+		a.parent_id,
+		a.name,
+		a.href,
+		a.target,
+		a.icon,
+		a.sort,
+		a.is_show,
+		a.permission,
+		a.remarks,
+		a.create_by,
+		a.create_date,
+		a.update_by,
+		a.update_date,
+		a.del_flag,
+		p.name AS "parent_name"
+	FROM u_menu a
+		LEFT JOIN u_menu p ON p.id = a.parent_id
+		JOIN u_role_menu r
+		ON a.id=r.menu_id
+		AND a.is_show='1'
+		AND r.role_id in 
+		(select e.id from u_user u,u_user_role r,u_role e where u.id=r.user_id and r.role_id=e.id and u.id=#{UserId}) order by a.parent_id,a.sort
+	</select>
+	
+	<select id="findAll" resultMap="menuMap">
+		SELECT
+		<include refid="menuColumns" />
+		FROM u_menu
+		<where>
+			<if test="po.parentId != null">
+				and parent_id = #{po.parentId}
+			</if>
+			<if test="po.name != null">
+				and name = #{po.name}
+			</if>
+			<if test="po.sort != null">
+				and sort = #{po.sort}
+			</if>
+			<if test="po.href != null">
+				and href = #{po.href}
+			</if>
+			<if test="po.target != null">
+				and target = #{po.target}
+			</if>
+			<if test="po.icon != null">
+				and icon = #{po.icon}
+			</if>
+			<if test="po.isShow != null">
+				and is_show = #{po.isShow}
+			</if>
+			<if test="po.permission != null">
+				and permission = #{po.permission}
+			</if>
+			<if test="po.createBy != null">
+				and create_by = #{po.createBy}
+			</if>
+			<if test="po.createDate != null">
+				and create_date = #{po.createDate}
+			</if>
+			<if test="po.updateBy != null">
+				and update_by = #{po.updateBy}
+			</if>
+			<if test="po.updateDate != null">
+				and update_date = #{po.updateDate}
+			</if>
+			<if test="po.remarks != null">
+				and remarks = #{po.remarks}
+			</if>
+			<if test="po.delFlag != null">
+				and del_flag = #{po.delFlag}
+			</if>
+		</where>
+		order by parent_id,sort
+	</select>
+	
+	<select id="menuListByroleId"  resultMap="menuConditionMap">
+		SELECT
+		a.id,
+		a.parent_id,
+		a.name,
+		a.href,
+		a.target,
+		a.icon,
+		a.sort,
+		a.is_show,
+		a.permission,
+		a.remarks,
+		a.create_by,
+		a.create_date,
+		a.update_by,
+		a.update_date,
+		a.del_flag,
+		p.name AS "parent_name"
+	FROM u_menu a
+		LEFT JOIN u_menu p ON p.id = a.parent_id
+		JOIN u_role_menu r
+		ON a.id=r.menu_id
+		AND a.is_show='1'
+		AND r.role_id= #{roleId} order by a.parent_id,a.sort
+	</select>
+</mapper>
+	

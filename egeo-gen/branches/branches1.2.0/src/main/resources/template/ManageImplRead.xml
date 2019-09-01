@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>ReadManage</name>
+	<filePath>basics-${module}-business/src/main/java/${filePath}/${module}/business/read/impl/</filePath>
+	<fileName>${className}ReadManageImpl.java</fileName>
+	<content><![CDATA[package ${packageName}.${module}.business.read.impl;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import ${packageName}.${module}.business.read.${className}ReadManage;
+import ${packageName}.${module}.dao.read.${className}ReadDAO;
+
+@Service
+public class ${className}ReadManageImpl implements ${className}ReadManage {
+	Logger logger = LoggerFactory.getLogger(this.getClass());
+	@Autowired
+	private ${className}ReadDAO ${name}ReadDAO;
+	
+}]]>
+	</content>
+</template>

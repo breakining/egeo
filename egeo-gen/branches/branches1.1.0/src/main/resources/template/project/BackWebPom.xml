@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>backWebPom</name>
+	<filePath>back-${projectName}/back-${projectName}-web/</filePath>
+	<fileName>pom.xml</fileName>
+	<content><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.egeo.back.${projectName}</groupId>
+		<artifactId>back-${projectName}</artifactId>
+		<version>${version}</version>
+	</parent>
+	<artifactId>back-${projectName}-web</artifactId>
+	<packaging>war</packaging>
+	<name>back-${projectName}-web</name>
+	<url>http://maven.apache.org</url>
+
+	<dependencies>
+		<!-- 本项目模块包 -->
+		<dependency>
+			<groupId>com.egeo.back.${projectName}</groupId>
+			<artifactId>back-${projectName}-business</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.egeo.back.${projectName}</groupId>
+			<artifactId>back-${projectName}-model</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.egeo.back.${projectName}</groupId>
+			<artifactId>back-${projectName}-facade</artifactId>
+		</dependency>				
+		<!-- basics服务接口包 -->
+		<dependency>
+			<groupId>com.egeo.basics.${projectName}</groupId>
+			<artifactId>basics-${projectName}-api</artifactId>
+		</dependency>
+		<!-- 本公司公共包 -->
+		<dependency>
+			<groupId>com.egeo.utils</groupId>
+			<artifactId>egeo-utils</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.egeo</groupId>
+			<artifactId>egeo-core</artifactId>
+		</dependency>
+		<!-- 以下为开源框架jar包 -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+		</dependency>
+		<!--架构项目依赖 -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+		</dependency>
+		<!-- Spring Begin -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+		<!-- Spring end -->
+		<!-- 工具包 -->
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		<!-- dubbo 需要的jar start -->
+		<dependency>
+			<groupId>org.jboss.netty</groupId>
+			<artifactId>netty</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.egeo</groupId>
+			<artifactId>egeo-dubbo</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.101tec</groupId>
+			<artifactId>zkclient</artifactId>
+		</dependency>
+		<!-- dubbo 需要的jar end -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+		</dependency>
+
+	</dependencies>
+	<build>
+		<finalName>back-${projectName}-web</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<executions>
+					 <execution>
+						<id>default-deploy</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+						<!-- skip默认deploy插件的执行 -->
+						<configuration>
+							<skip>true</skip>
+						</configuration>
+					 </execution>
+
+				</executions>
+			</plugin>
+	</plugins>		
+	</build>	
+</project>
+]]>
+	</content>
+</template>

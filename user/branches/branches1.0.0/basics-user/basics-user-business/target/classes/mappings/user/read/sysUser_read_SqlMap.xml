@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.read.SysUserReadDAO">
+	<resultMap type="com.egeo.basics.user.po.SysUserPO" id="sysUserMap">
+		<result property="id" column="id" />
+		<result property="companyId" column="company_id" />
+		<result property="officeId" column="office_id" />
+		<result property="loginName" column="login_name" />
+		<result property="password" column="password" />
+		<result property="no" column="no" />
+		<result property="name" column="name" />
+		<result property="email" column="email" />
+		<result property="phone" column="phone" />
+		<result property="mobile" column="mobile" />
+		<result property="userType" column="user_type" />
+		<result property="photo" column="photo" />
+		<result property="loginIp" column="login_ip" />
+		<result property="loginDate" column="login_date" />
+		<result property="loginFlag" column="login_flag" />
+		<result property="createBy" column="create_by" />
+		<result property="createDate" column="create_date" />
+		<result property="updateBy" column="update_by" />
+		<result property="updateDate" column="update_date" />
+		<result property="remarks" column="remarks" />
+		<result property="delFlag" column="del_flag" />
+		<result property="qrcode" column="qrcode" />
+		<result property="sign" column="sign" />
+	</resultMap>
+
+	<sql id="sysUserColumns">
+		id,
+		company_id,
+		office_id,
+		login_name,
+		password,
+		no,
+		name,
+		email,
+		phone,
+		mobile,
+		user_type,
+		photo,
+		login_ip,
+		login_date,
+		login_flag,
+		create_by,
+		create_date,
+		update_by,
+		update_date,
+		remarks,
+		del_flag,
+		qrcode,
+		sign
+	</sql>
+
+	<select id="findById" parameterType="com.egeo.basics.user.po.SysUserPO" resultMap="sysUserMap">
+		SELECT
+		<include refid="sysUserColumns" />
+		FROM sys_user
+		WHERE id = #{po.id}
+	</select>
+
+	<select id="findOfPage" resultMap="sysUserMap">
+		SELECT
+		<include refid="sysUserColumns" />
+		FROM sys_user
+		<where>
+			<if test="po.companyId != null">
+				and company_id = #{po.companyId}
+			</if>
+			<if test="po.officeId != null">
+				and office_id = #{po.officeId}
+			</if>
+			<if test="po.loginName != null">
+				and login_name = #{po.loginName}
+			</if>
+			<if test="po.password != null">
+				and password = #{po.password}
+			</if>
+			<if test="po.no != null">
+				and no = #{po.no}
+			</if>
+			<if test="po.name != null">
+				and name = #{po.name}
+			</if>
+			<if test="po.email != null">
+				and email = #{po.email}
+			</if>
+			<if test="po.phone != null">
+				and phone = #{po.phone}
+			</if>
+			<if test="po.mobile != null">
+				and mobile = #{po.mobile}
+			</if>
+			<if test="po.userType != null">
+				and user_type = #{po.userType}
+			</if>
+			<if test="po.photo != null">
+				and photo = #{po.photo}
+			</if>
+			<if test="po.loginIp != null">
+				and login_ip = #{po.loginIp}
+			</if>
+			<if test="po.loginDate != null">
+				and login_date = #{po.loginDate}
+			</if>
+			<if test="po.loginFlag != null">
+				and login_flag = #{po.loginFlag}
+			</if>
+			<if test="po.createBy != null">
+				and create_by = #{po.createBy}
+			</if>
+			<if test="po.createDate != null">
+				and create_date = #{po.createDate}
+			</if>
+			<if test="po.updateBy != null">
+				and update_by = #{po.updateBy}
+			</if>
+			<if test="po.updateDate != null">
+				and update_date = #{po.updateDate}
+			</if>
+			<if test="po.remarks != null">
+				and remarks = #{po.remarks}
+			</if>
+			<if test="po.delFlag != null">
+				and del_flag = #{po.delFlag}
+			</if>
+			<if test="po.qrcode != null">
+				and qrcode = #{po.qrcode}
+			</if>
+			<if test="po.sign != null">
+				and sign = #{po.sign}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY id desc
+			</otherwise>
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+	
+	<select id="countOfPage" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM sys_user
+		<where>
+			<if test="po.companyId != null">
+				and company_id = #{po.companyId}
+			</if>
+			<if test="po.officeId != null">
+				and office_id = #{po.officeId}
+			</if>
+			<if test="po.loginName != null">
+				and login_name = #{po.loginName}
+			</if>
+			<if test="po.password != null">
+				and password = #{po.password}
+			</if>
+			<if test="po.no != null">
+				and no = #{po.no}
+			</if>
+			<if test="po.name != null">
+				and name = #{po.name}
+			</if>
+			<if test="po.email != null">
+				and email = #{po.email}
+			</if>
+			<if test="po.phone != null">
+				and phone = #{po.phone}
+			</if>
+			<if test="po.mobile != null">
+				and mobile = #{po.mobile}
+			</if>
+			<if test="po.userType != null">
+				and user_type = #{po.userType}
+			</if>
+			<if test="po.photo != null">
+				and photo = #{po.photo}
+			</if>
+			<if test="po.loginIp != null">
+				and login_ip = #{po.loginIp}
+			</if>
+			<if test="po.loginDate != null">
+				and login_date = #{po.loginDate}
+			</if>
+			<if test="po.loginFlag != null">
+				and login_flag = #{po.loginFlag}
+			</if>
+			<if test="po.createBy != null">
+				and create_by = #{po.createBy}
+			</if>
+			<if test="po.createDate != null">
+				and create_date = #{po.createDate}
+			</if>
+			<if test="po.updateBy != null">
+				and update_by = #{po.updateBy}
+			</if>
+			<if test="po.updateDate != null">
+				and update_date = #{po.updateDate}
+			</if>
+			<if test="po.remarks != null">
+				and remarks = #{po.remarks}
+			</if>
+			<if test="po.delFlag != null">
+				and del_flag = #{po.delFlag}
+			</if>
+			<if test="po.qrcode != null">
+				and qrcode = #{po.qrcode}
+			</if>
+			<if test="po.sign != null">
+				and sign = #{po.sign}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY id desc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAll" resultMap="sysUserMap">
+		SELECT
+		<include refid="sysUserColumns" />
+		FROM sys_user
+		<where>
+			<if test="po.companyId != null">
+				and company_id = #{po.companyId}
+			</if>
+			<if test="po.officeId != null">
+				and office_id = #{po.officeId}
+			</if>
+			<if test="po.loginName != null">
+				and login_name = #{po.loginName}
+			</if>
+			<if test="po.password != null">
+				and password = #{po.password}
+			</if>
+			<if test="po.no != null">
+				and no = #{po.no}
+			</if>
+			<if test="po.name != null">
+				and name = #{po.name}
+			</if>
+			<if test="po.email != null">
+				and email = #{po.email}
+			</if>
+			<if test="po.phone != null">
+				and phone = #{po.phone}
+			</if>
+			<if test="po.mobile != null">
+				and mobile = #{po.mobile}
+			</if>
+			<if test="po.userType != null">
+				and user_type = #{po.userType}
+			</if>
+			<if test="po.photo != null">
+				and photo = #{po.photo}
+			</if>
+			<if test="po.loginIp != null">
+				and login_ip = #{po.loginIp}
+			</if>
+			<if test="po.loginDate != null">
+				and login_date = #{po.loginDate}
+			</if>
+			<if test="po.loginFlag != null">
+				and login_flag = #{po.loginFlag}
+			</if>
+			<if test="po.createBy != null">
+				and create_by = #{po.createBy}
+			</if>
+			<if test="po.createDate != null">
+				and create_date = #{po.createDate}
+			</if>
+			<if test="po.updateBy != null">
+				and update_by = #{po.updateBy}
+			</if>
+			<if test="po.updateDate != null">
+				and update_date = #{po.updateDate}
+			</if>
+			<if test="po.remarks != null">
+				and remarks = #{po.remarks}
+			</if>
+			<if test="po.delFlag != null">
+				and del_flag = #{po.delFlag}
+			</if>
+			<if test="po.qrcode != null">
+				and qrcode = #{po.qrcode}
+			</if>
+			<if test="po.sign != null">
+				and sign = #{po.sign}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY id desc
+			</otherwise>
+		</choose>
+	</select>
+</mapper>
+	

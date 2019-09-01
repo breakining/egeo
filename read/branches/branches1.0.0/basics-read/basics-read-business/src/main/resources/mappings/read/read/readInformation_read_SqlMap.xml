@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.read.dao.read.ReadInformationReadDAO">
+	<resultMap type="com.egeo.basics.read.po.ReadInformationPO" id="readInformationMap">
+		<result property="id" column="id" />
+		<result property="userId" column="user_id" />
+		<result property="fromUid" column="from_uid" />
+		<result property="fromName" column="from_name" />
+		<result property="topicId" column="topic_id" />
+		<result property="isCommentPraise" column="is_comment_praise" />
+		<result property="type" column="type" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+	
+	<resultMap type="com.egeo.basics.read.condition.ReadInformationCondition" id="readInformationCondition" extends="readInformationMap">
+		<result property="topicHeadline" column="topic_headline" />
+	</resultMap>
+
+	<sql id="readInformationColumns">
+		id,
+		user_id,
+		from_uid,
+		from_name,
+		topic_id,
+		is_comment_praise,
+		type,
+		create_time,
+		update_time
+	</sql>
+
+	<select id="findById" parameterType="com.egeo.basics.read.po.ReadInformationPO" resultMap="readInformationMap">
+		SELECT
+		<include refid="readInformationColumns" />
+		FROM read_information
+		WHERE id = #{po.id}
+	</select>
+
+	<select id="findOfPage" resultMap="readInformationMap">
+		SELECT
+		<include refid="readInformationColumns" />
+		FROM read_information
+		<where>
+			<if test="po.userId != null">
+				and user_id = #{po.userId}
+			</if>
+			<if test="po.fromUid != null">
+				and from_uid = #{po.fromUid}
+			</if>
+			<if test="po.fromName != null">
+				and from_name = #{po.fromName}
+			</if>
+			<if test="po.topicId != null">
+				and topic_id = #{po.topicId}
+			</if>
+			<if test="po.isCommentPraise != null">
+				and is_comment_praise = #{po.isCommentPraise}
+			</if>
+			<if test="po.type != null">
+				and type = #{po.type}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>		
+			<otherwise>
+				ORDER BY id desc		
+			</otherwise>
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+	
+	<select id="countOfPage" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM read_information
+		<where>
+			<if test="po.userId != null">
+				and user_id = #{po.userId}
+			</if>
+			<if test="po.fromUid != null">
+				and from_uid = #{po.fromUid}
+			</if>
+			<if test="po.fromName != null">
+				and from_name = #{po.fromName}
+			</if>
+			<if test="po.topicId != null">
+				and topic_id = #{po.topicId}
+			</if>
+			<if test="po.isCommentPraise != null">
+				and is_comment_praise = #{po.isCommentPraise}
+			</if>
+			<if test="po.type != null">
+				and type = #{po.type}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findAll" resultMap="readInformationMap">
+		SELECT
+		<include refid="readInformationColumns" />
+		FROM read_information
+		<where>
+			<if test="po.userId != null">
+				and user_id = #{po.userId}
+			</if>
+			<if test="po.fromUid != null">
+				and from_uid = #{po.fromUid}
+			</if>
+			<if test="po.fromName != null">
+				and from_name = #{po.fromName}
+			</if>
+			<if test="po.topicId != null">
+				and topic_id = #{po.topicId}
+			</if>
+			<if test="po.isCommentPraise != null">
+				and is_comment_praise = #{po.isCommentPraise}
+			</if>
+			<if test="po.type != null">
+				and type = #{po.type}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>			
+			<otherwise>
+				ORDER BY id desc		
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="cntById" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM read_information
+		WHERE user_id = #{userId} and type = 0
+	</select>
+	
+	<select id="readInformationByUserId" resultMap="readInformationCondition">
+		SELECT
+		ti.id,
+		ti.user_id,
+		ti.from_uid,
+		ti.from_name,
+		ti.topic_id,
+		ti.is_comment_praise,
+		ti.type,
+		ti.create_time,
+		ti.update_time,
+		t.topic_headline
+		FROM read_information ti
+		LEFT JOIN topic t on t.id = ti.topic_id
+		<where>
+			<if test="po.userId != null">
+				and ti.user_id = #{po.userId}
+			</if>
+			<if test="po.fromUid != null">
+				and ti.from_uid = #{po.fromUid}
+			</if>
+			<if test="po.fromName != null">
+				and ti.from_name = #{po.fromName}
+			</if>
+			<if test="po.topicId != null">
+				and ti.topic_id = #{po.topicId}
+			</if>
+			<if test="po.isCommentPraise != null">
+				and ti.is_comment_praise = #{po.isCommentPraise}
+			</if>
+			<if test="po.type != null">
+				and ti.type = #{po.type}
+			</if>
+			<if test="po.createTime != null">
+				and ti.create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and ti.update_time = #{po.updateTime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>		
+			<otherwise>
+				ORDER BY ti.type
+			</otherwise>
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+</mapper>
+	

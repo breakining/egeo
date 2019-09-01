@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.read.RoleReadDAO">
+	<resultMap type="com.egeo.basics.user.po.RolePO" id="roleMap">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="enname" column="enname" />
+		<result property="roleType" column="role_type" />
+		<result property="isSys" column="is_sys" />
+		<result property="useable" column="useable" />
+		<result property="remarks" column="remarks" />
+		<result property="platformId" column="platform_id" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+
+	<sql id="roleColumns">
+		id,
+		name,
+		enname,
+		role_type,
+		is_sys,
+		useable,
+		remarks,
+		platform_id,
+		create_time,
+		update_time
+	</sql>
+
+	<select id="findById" parameterType="com.egeo.basics.user.po.RolePO" resultMap="roleMap">
+		SELECT
+		<include refid="roleColumns" />
+		FROM u_role
+		WHERE id = #{po.id}
+	</select>
+
+	<select id="findOfPage" resultMap="roleMap">
+		SELECT
+		<include refid="roleColumns" />
+		FROM u_role
+		<where>
+			<if test="po.id != null">
+				and id = #{po.id}
+			</if>
+			<if test="po.name != null">
+				and name = #{po.name}
+			</if>
+			<if test="po.enname != null">
+				and enname = #{po.enname}
+			</if>
+			<if test="po.roleType != null">
+				and role_type = #{po.roleType}
+			</if>
+			<if test="po.isSys != null">
+				and is_sys = #{po.isSys}
+			</if>
+			<if test="po.useable != null">
+				and useable = #{po.useable}
+			</if>
+			<if test="po.remarks != null">
+				and remarks = #{po.remarks}
+			</if>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>		
+			<otherwise>
+				ORDER BY id desc		
+			</otherwise>
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+	
+	<select id="countOfPage" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM u_role
+		<where>
+			<if test="po.id != null">
+				and id = #{po.id}
+			</if>
+			<if test="po.name != null">
+				and name = #{po.name}
+			</if>
+			<if test="po.enname != null">
+				and enname = #{po.enname}
+			</if>
+			<if test="po.roleType != null">
+				and role_type = #{po.roleType}
+			</if>
+			<if test="po.isSys != null">
+				and is_sys = #{po.isSys}
+			</if>
+			<if test="po.useable != null">
+				and useable = #{po.useable}
+			</if>
+			<if test="po.remarks != null">
+				and remarks = #{po.remarks}
+			</if>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findAll" resultMap="roleMap">
+		SELECT
+		<include refid="roleColumns" />
+		FROM u_role
+		<where>
+			<if test="po.id != null">
+				and id = #{po.id}
+			</if>
+			<if test="po.name != null">
+				and name = #{po.name}
+			</if>
+			<if test="po.enname != null">
+				and enname = #{po.enname}
+			</if>
+			<if test="po.roleType != null">
+				and role_type = #{po.roleType}
+			</if>
+			<if test="po.isSys != null">
+				and is_sys = #{po.isSys}
+			</if>
+			<if test="po.useable != null">
+				and useable = #{po.useable}
+			</if>
+			<if test="po.remarks != null">
+				and remarks = #{po.remarks}
+			</if>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>			
+			<otherwise>
+				ORDER BY id desc		
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="findRoleListByUserId" resultMap="roleMap">
+		SELECT
+		<include refid="roleColumns" />
+		FROM u_role
+		LEFT JOIN u_user_role ur ON ur.role_id = #{po.id}
+		<where>
+			<if test="po.useable != null">
+				and useable = #{po.useable}
+			</if>
+		</where>		
+	</select>		
+	
+	<select id="roleByPlatformId" resultMap="roleMap">
+		SELECT
+		r.id,
+		r.name,
+		r.enname,
+		r.role_type,
+		r.is_sys,
+		r.useable,
+		r.remarks,
+		r.platform_id,
+		r.create_time,
+		r.update_time
+		FROM u_role r
+		LEFT JOIN u_platform_role pr ON pr.role_id = r.id
+		where pr.platform_id = #{platformId}
+	</select>	
+	<select id="roleListByUserId" resultMap="roleMap">
+		SELECT
+		r.id,
+		r.name,
+		r.enname,
+		r.role_type,
+		r.is_sys,
+		r.useable,
+		r.remarks,
+		r.platform_id,
+		r.create_time,
+		r.update_time
+		FROM u_role r
+		LEFT JOIN u_user_role ur ON ur.role_id = r.id
+		where ur.user_id = #{id}
+	</select>	
+</mapper>
+	

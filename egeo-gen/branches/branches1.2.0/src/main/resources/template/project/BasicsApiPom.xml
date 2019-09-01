@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>basicsApiPom</name>
+	<filePath>basics-${projectName}/basics-${projectName}-api/</filePath>
+	<fileName>pom.xml</fileName>
+	<content><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.egeo.basics.${projectName}</groupId>
+		<artifactId>basics-${projectName}</artifactId>
+		<version>${version}</version>
+	</parent>
+	<artifactId>basics-${projectName}-api</artifactId>
+	<name>basics-${projectName}-api</name>
+	<url>http://maven.apache.org</url>
+	<dependencies>
+		<dependency>
+			<groupId>com.egeo.basics.${projectName}</groupId>
+			<artifactId>basics-${projectName}-model</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.egeo</groupId>
+			<artifactId>egeo-core</artifactId>
+		</dependency>		
+	</dependencies>
+</project>
+]]>
+	</content>
+</template>

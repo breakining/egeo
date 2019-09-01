@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>mapper</name>
+	<filePath>basics-${module}-business/src/main/resources/mappings/${module}/write/</filePath>
+	<fileName>${name}_write_SqlMap.xml</fileName>
+	<content><![CDATA[<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${packageName}.${module}.dao.write.${className}WriteDAO">
+	<insert id="insert" parameterType="${packageName}.${module}.po.${className}PO">
+		INSERT INTO ${table.tableName}(
+        <trim suffixOverrides=",">
+#foreach(${field} in ${fields})        
+			<if test="${field.name} != null">
+				${field.column.columnName},
+			</if>
+#end			
+        </trim>		
+		) VALUES (
+        <trim suffixOverrides=",">
+#foreach(${field} in ${fields})        
+			<if test="${field.name} != null">
+				#{${field.name}},
+			</if>
+#end
+        </trim>		
+		)
+		<selectKey keyProperty="${pk.name}" resultType="${pk.javaType.name}">
+			select LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+
+	
+	
+	<update id="update">
+	UPDATE ${table.tableName} 
+		<set>
+#foreach(${field} in ${fields})
+			<if test="${field.name} != null">
+				${field.column.columnName} = #{${field.name}},
+			</if>			
+#end
+		</set>
+			WHERE $!{pk.column.columnName} = #{${pk.name}}
+	</update>	
+	
+#set($hasDeleted = false)
+#foreach(${field} in ${fields})
+#if(${field.column.columnName} == "is_deleted")
+#set($hasDeleted = true)
+#end
+#end
+
+#if($hasDeleted)
+	<update id="delete">
+		UPDATE ${table.tableName} SET is_deleted = 1 WHERE $!{pk.column.columnName} = #{${pk.name}}
+	</update>
+#else
+	<delete id="delete">
+		delete from ${table.tableName} where $!{pk.column.columnName} = #{${pk.name}}
+	</delete>
+#end
+
+#if($hasDeleted)
+	<update id="deleteByPara">
+		UPDATE ${table.tableName} SET is_deleted = 1 
+		<where>
+#foreach(${field} in ${fields})
+			<if test="${field.name} != null">
+				and ${field.column.columnName} = #{${field.name}}
+			</if>
+#end
+		</where>
+	</update>
+#else
+	<delete id="deleteByPara">
+		delete from ${table.tableName} 
+		<where>
+#foreach(${field} in ${fields})
+			<if test="${field.name} != null">
+				and ${field.column.columnName} = #{${field.name}}
+			</if>
+#end
+		</where>
+	</delete>
+#end
+
+
+</mapper>]]>
+	</content>
+</template>

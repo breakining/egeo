@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+	  <groupId>com.egeo</groupId> 
+	  <artifactId>pom-egeo-public</artifactId> 
+	  <version>1.0.0-SNAPSHOT</version> 
+	</parent>
+	<groupId>com.egeo.gen</groupId>
+	<artifactId>egeo-gen</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>egeo-gen</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+	
+		<dependency>
+		  <groupId>com.egeo</groupId>
+		  <artifactId>egeo-jdbc</artifactId>
+		  <version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+		  <groupId>com.egeo</groupId>
+		  <artifactId>egeo-core</artifactId>
+		  <version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+		  <groupId>com.egeo.utils</groupId>
+		  <artifactId>egeo-utils</artifactId>
+		  <version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+		</dependency>
+		<!-- json转换包 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+		</dependency>
+		<!-- velocity -->
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity</artifactId>
+			<version>1.7</version>
+		</dependency>
+		<dependency>
+			<groupId>velocity-tools</groupId>
+			<artifactId>velocity-tools</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+</project>

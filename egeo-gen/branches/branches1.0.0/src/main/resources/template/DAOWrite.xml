@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>WriteDAO</name>
+	<filePath>basics-${module}-business/src/main/java/${filePath}/${module}/dao/write/</filePath>
+	<fileName>${className}WriteDAO.java</fileName>
+	<content><![CDATA[package ${packageName}.${module}.dao.write;
+
+import ${packageName}.${module}.po.${className}PO;
+import com.egeo.core.orm.BaseWriteDAO;
+
+public interface ${className}WriteDAO extends BaseWriteDAO<${className}PO> {
+}]]>
+	</content>
+</template>

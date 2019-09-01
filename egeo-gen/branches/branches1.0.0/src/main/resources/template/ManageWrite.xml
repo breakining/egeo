@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>WriteManage</name>
+	<filePath>basics-${module}-business/src/main/java/${filePath}/${module}/business/write/</filePath>
+	<fileName>${className}WriteManage.java</fileName>
+	<content><![CDATA[package ${packageName}.${module}.business.write;
+
+public interface ${className}WriteManage {
+}]]>
+	</content>
+</template>

@@ -1,0 +1,18 @@
+#macro(showHead $title)
+<head >
+	<meta charset="UTF-8">
+	<title>$title</title>
+	<link rel="stylesheet" type="text/css" href="static/jquery-easyui-1.4.2/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="static/jquery-easyui-1.4.2/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="static/jquery-easyui-1.4.2/demo/demo.css">
+	<script type="text/javascript" src="static/jquery-easyui-1.4.2/jquery.min.js"></script>
+	<script type="text/javascript" src="static/jquery-easyui-1.4.2/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="static/jquery-easyui-1.4.2/locale/easyui-lang-zh_CN.js"></script>
+</head>
+#end
+#macro(showLinkButton $title $icon $event)
+	#if("$!icon" != "")
+		#set($btn_icon = "iconCls:'$!icon'")
+	#end
+	<a href="javascript:void();" class="easyui-linkbutton" onclick="$!event" data-options="$!btn_icon">$!title</a>
+#end

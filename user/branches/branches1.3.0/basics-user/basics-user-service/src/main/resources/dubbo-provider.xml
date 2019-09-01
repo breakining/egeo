@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+            http://www.springframework.org/schema/beans/spring-beans.xsd  
+            http://code.alibabatech.com/schema/dubbo  
+            http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="basics-scheduler-service" />
+
+	<!-- 使用zookeeper注册中心暴露服务地址 -->
+	<dubbo:registry protocol="zookeeper" address="${cluster1.serverList}" />
+
+	<!-- 用dubbo协议默认在20880端口暴露服务 -->
+	<dubbo:protocol name="dubbo" port="${dubbo.provider.port}" dispatcher="all" threadpool="fixed" threads="${dubbo.provider.threads}" />
+	
+	<dubbo:provider filter="user" timeout="${dubbo.provider.timeout}" retries="${dubbo.provider.retries}"/>
+	
+	<!-- read -->
+	
+	<dubbo:service interface="com.egeo.basics.user.api.read.PlatformReadService" ref="platformReadService" />
+	
+	<dubbo:service interface="com.egeo.basics.user.api.read.RoleReadService" ref="roleReadService" />
+	
+	<dubbo:service interface="com.egeo.basics.user.api.read.RoleMenuPlatformReadService" ref="roleMenuPlatformReadService" />
+	
+	<dubbo:service interface="com.egeo.basics.user.api.read.UserReadService" ref="userReadService" />
+	
+	<dubbo:service interface="com.egeo.basics.user.api.read.UserExtendReadService" ref="userExtendReadService" />
+	
+	<dubbo:service interface="com.egeo.basics.user.api.read.RoleUrlReadService" ref="roleUrlReadService" />
+	
+	<dubbo:service interface="com.egeo.basics.user.api.read.UserPlatformReadService" ref="userPlatformReadService" />
+	
+	<dubbo:service interface="com.egeo.basics.user.api.read.UserRoleReadService" ref="userRoleReadService" />
+	
+	<dubbo:service interface="com.egeo.basics.user.api.read.UserCookieReadService" ref="userCookieReadService" />
+	
+	<dubbo:service interface="com.egeo.basics.user.api.read.UserLoginReadService" ref="userLoginReadService" />
+	
+	<dubbo:service interface="com.egeo.basics.user.api.read.UrlReadService" ref="urlReadService" />
+	
+	<dubbo:service interface="com.egeo.basics.user.api.read.MenuReadService" ref="menuReadService" />
+	
+	<!-- write -->
+	<dubbo:service interface="com.egeo.basics.user.api.write.PlatformWriteService" ref="platformWriteService" />
+		
+	<dubbo:service interface="com.egeo.basics.user.api.write.RoleWriteService" ref="roleWriteService" />
+	
+	<dubbo:service interface="com.egeo.basics.user.api.write.RoleMenuPlatformWriteService" ref="roleMenuPlatformWriteService" />
+	
+	<dubbo:service interface="com.egeo.basics.user.api.write.RoleUrlWriteService" ref="roleUrlWriteService" />
+	
+	<dubbo:service interface="com.egeo.basics.user.api.write.UserWriteService" ref="userWriteService" />
+		
+	<dubbo:service interface="com.egeo.basics.user.api.write.UserExtendWriteService" ref="userExtendWriteService" />
+		
+	<dubbo:service interface="com.egeo.basics.user.api.write.UserPlatformWriteService" ref="userPlatformWriteService" />
+	
+	<dubbo:service interface="com.egeo.basics.user.api.write.UserRoleWriteService" ref="userRoleWriteService" />
+	
+	<dubbo:service interface="com.egeo.basics.user.api.write.UserCookieWriteService" ref="userCookieWriteService" />		
+	
+	<dubbo:service interface="com.egeo.basics.user.api.write.UserLoginWriteService" ref="userLoginWriteService" />
+		
+	<dubbo:service interface="com.egeo.basics.user.api.write.UrlWriteService" ref="urlWriteService" />
+	
+	<dubbo:service interface="com.egeo.basics.user.api.write.MenuWriteService" ref="menuWriteService" />
+	
+	
+</beans> 
+
+	

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>mapper</name>
+	<filePath>basics-${module}-business/src/main/resources/mappings/${module}/read/</filePath>
+	<fileName>${name}_read_SqlMap.xml</fileName>
+	<content><![CDATA[<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${packageName}.${module}.dao.read.${className}ReadDAO">
+	<resultMap type="${packageName}.${module}.po.${className}PO" id="${name}Map">
+		<result property="${pk.name}" column="${pk.column.columnName}" />
+#foreach(${field} in ${fields})
+		<result property="${field.name}" column="${field.column.columnName}" />
+#end
+	</resultMap>
+
+	<sql id="${name}Columns">
+		${pk.column.columnName},
+#foreach(${field} in ${fields})
+#if(${velocityCount} == $!{fields.size()})
+		${field.column.columnName}
+#else
+		${field.column.columnName},
+#end
+#end
+	</sql>
+
+	<select id="findById" parameterType="${packageName}.${module}.po.${className}PO" resultMap="${name}Map">
+		SELECT
+		<include refid="${name}Columns" />
+		FROM ${table.tableName}
+		WHERE $!{pk.column.columnName} = #{po.${pk.name}}
+	</select>
+
+	<select id="findOfPage" resultMap="${name}Map">
+		SELECT
+		<include refid="${name}Columns" />
+		FROM ${table.tableName}
+		<where>
+#foreach(${field} in ${fields})
+			<if test="po.${field.name} != null">
+				and ${field.column.columnName} = #{po.${field.name}}
+			</if>
+#end
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+#if("$!{pk}" != "")
+			<otherwise>
+				ORDER BY ${pk.column.columnName} desc
+			</otherwise>
+#end
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+	
+	<select id="countOfPage" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM ${table.tableName}
+		<where>
+#foreach(${field} in ${fields})
+			<if test="po.${field.name} != null">
+				and ${field.column.columnName} = #{po.${field.name}}
+			</if>
+#end
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+#if("$!{pk}" != "")
+			<otherwise>
+				ORDER BY ${pk.column.columnName} desc
+			</otherwise>
+#end
+		</choose>
+	</select>
+	
+	<select id="findAll" resultMap="${name}Map">
+		SELECT
+		<include refid="${name}Columns" />
+		FROM ${table.tableName}
+		<where>
+#foreach(${field} in ${fields})
+			<if test="po.${field.name} != null">
+				and ${field.column.columnName} = #{po.${field.name}}
+			</if>
+#end
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+#if("$!{pk}" != "")
+			<otherwise>
+				ORDER BY ${pk.column.columnName} desc
+			</otherwise>
+#end
+		</choose>
+	</select>
+</mapper>]]>
+	</content>
+</template>

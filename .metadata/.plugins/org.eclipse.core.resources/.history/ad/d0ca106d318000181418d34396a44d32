@@ -1,0 +1,30 @@
+package test;
+
+import java.rmi.RemoteException;
+
+import javax.xml.rpc.ServiceException;
+
+import cn.evun.ime.ws.service.impl.PdKnifeRecordsServiceImplServiceLocator;
+
+public class JCKnife {
+	public static void main(String[] args) throws RemoteException, ServiceException {
+		String content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><TxControl>"
+				+"<docId>2015032615280001</docId>"
+				+"<msgCatg>XML</msgCatg>"
+				+"<charset>UTF-8</charset>"
+				+"<version>1.0</version>"
+				+"<docDT>20150326152813</docDT>"
+				+"<txData><ItemList>"
+				+"<Item><toolno>T01</toolno><time>2017-11-06 14:00:00</time><usecount>1000</usecount><lasttoolno>T02</lasttoolno><stno>ST01</stno></Item>"				
+				+"</ItemList></txData>"
+				+"</TxControl>";
+		
+		PdKnifeRecordsServiceImplServiceLocator service = new PdKnifeRecordsServiceImplServiceLocator();
+		String result =  service.getPdKnifeRecordsServiceImplPort().MESJC04(content);
+		System.out.println("========================================================");
+		System.out.println(result);
+		System.out.println("========================================================");
+	}
+	
+
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>BasicsDubboProvider</name>
+	<filePath>basics-${projectName}/basics-${projectName}-service/src/main/resources/</filePath>
+	<fileName>dubbo-provider.xml</fileName>
+	<content><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+            http://www.springframework.org/schema/beans/spring-beans.xsd  
+            http://code.alibabatech.com/schema/dubbo  
+            http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="basics-${projectName}-service" />
+
+	<!-- 使用zookeeper注册中心暴露服务地址 -->
+	<dubbo:registry protocol="zookeeper" address="${cluster1.serverList}" />
+
+
+	<!-- 用dubbo协议默认在20880端口暴露服务 -->
+	<dubbo:protocol name="dubbo" port="${dubbo.provider.port}" dispatcher="all" threadpool="fixed" threads="${dubbo.provider.threads}" />
+	
+	<dubbo:provider filter="user" timeout="${dubbo.provider.timeout}" retries="${dubbo.provider.retries}"/>
+	<!-- read -->
+	
+	<!-- write -->
+	
+
+	
+
+
+</beans> 
+]]>
+	</content>
+</template>

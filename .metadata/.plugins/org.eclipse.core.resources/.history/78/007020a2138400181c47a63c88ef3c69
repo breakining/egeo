@@ -1,0 +1,31 @@
+package test;
+
+
+import java.rmi.RemoteException;
+
+import javax.xml.rpc.ServiceException;
+
+import cn.evun.ime.ws.service.impl.AndonServiceImplServiceLocator;
+import cn.evun.ime.ws.service.impl.ProdutionInterfaceServiceImplServiceLocator;
+
+public class ProductionInterface {
+	
+	public static void main(String[] args) throws RemoteException, ServiceException {
+		String content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><TxControl>"
+				+"<docId>2015032615280001</docId>"
+				+"<msgCatg>XML</msgCatg>"
+				+"<charset>UTF-8</charset>"
+				+"<version>1.0</version>"
+				+"<docDT>20150326152813</docDT>"
+				+"<txData><ItemList>"
+				+"<Item><factory>1088</factory><linecode>PLTEST01</linecode><stno>ST002</stno><alarmtype>2</alarmtype><orderytpe>2</orderytpe><time>2018-07-05 16:35:00</time></Item>"				
+				+"</ItemList></txData>"
+				+"</TxControl>";
+		ProdutionInterfaceServiceImplServiceLocator service =  new ProdutionInterfaceServiceImplServiceLocator();
+		String result = service.getAndonServiceImplPort().MESZP05(content);
+		System.out.println("========================================================");
+		System.out.println(result);
+		System.out.println("========================================================");
+	}
+
+}

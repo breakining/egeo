@@ -1,0 +1,22 @@
+package test;
+
+public class RR {
+	
+	public static String suffix(String str){
+		
+		while(true){
+			if(str.startsWith("0")){
+				str=str.substring(1);
+			}else{
+				break;
+			}
+		}
+		
+		return str;
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(RR.suffix("005500werwe"));
+	}
+
+}

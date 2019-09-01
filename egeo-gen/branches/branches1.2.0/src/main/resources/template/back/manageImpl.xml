@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>manageImpl</name>
+	<filePath>back-${module}-business/src/main/java/${filePath}/${module}/business/impl/</filePath>
+	<fileName>${className}ManageImpl.java</fileName>
+	<content><![CDATA[package ${packageName}.${module}.business.impl;
+	
+
+import javax.annotation.Resource;
+import org.springframework.stereotype.Service;
+
+import com.egeo.back.${module}.business.${className}Manage;
+import com.egeo.back.${module}.facade.${className}Facade;
+
+@Service("${name}")
+public class ${className}ManageImpl implements ${className}Manage{
+
+	
+	@Resource(name="${name}Facade")
+	private ${className}Facade ${name}Facade;
+	
+
+
+}]]>
+	</content>
+</template>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.read.DepartmentRelationReadDAO">
+	<resultMap type="com.egeo.basics.user.po.DepartmentRelationPO" id="departmentRelationMap">
+		<result property="id" column="id" />
+		<result property="pid" column="pid" />
+		<result property="departmentId" column="department_id" />
+	</resultMap>
+
+	<sql id="departmentRelationColumns">
+		id,
+		pid,
+		department_id
+	</sql>
+
+	<select id="findById" parameterType="com.egeo.basics.user.po.DepartmentRelationPO" resultMap="departmentRelationMap">
+		SELECT
+		<include refid="departmentRelationColumns" />
+		FROM u_department_relation
+		WHERE id = #{po.id}
+	</select>
+
+	<select id="findOfPage" resultMap="departmentRelationMap">
+		SELECT
+		<include refid="departmentRelationColumns" />
+		FROM u_department_relation
+		<where>
+			<if test="po.pid != null">
+				and pid = #{po.pid}
+			</if>
+			<if test="po.departmentId != null">
+				and department_id = #{po.departmentId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>		
+			<otherwise>
+				ORDER BY id desc		
+			</otherwise>
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+	
+	<select id="countOfPage" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM u_department_relation
+		<where>
+			<if test="po.pid != null">
+				and pid = #{po.pid}
+			</if>
+			<if test="po.departmentId != null">
+				and department_id = #{po.departmentId}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findAll" resultMap="departmentRelationMap">
+		SELECT
+		<include refid="departmentRelationColumns" />
+		FROM u_department_relation
+		<where>
+			<if test="po.pid != null">
+				and pid = #{po.pid}
+			</if>
+			<if test="po.departmentId != null">
+				and department_id = #{po.departmentId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>			
+			<otherwise>
+				ORDER BY id desc		
+			</otherwise>
+		</choose>
+	</select>
+</mapper>
+	

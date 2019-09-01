@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.read.PlatformReadDAO">
+	<resultMap type="com.egeo.basics.user.po.PlatformPO" id="platformMap">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="isAvailable" column="is_available" />
+		<result property="remark" column="remark" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+
+	<sql id="platformColumns">
+		id,
+		name,
+		is_available,
+		remark,
+		create_time,
+		update_time
+	</sql>
+
+	<select id="findById" parameterType="com.egeo.basics.user.po.PlatformPO" resultMap="platformMap">
+		SELECT
+		<include refid="platformColumns" />
+		FROM u_platform
+		WHERE id = #{po.id}
+	</select>
+
+	<select id="findOfPage" resultMap="platformMap">
+		SELECT
+		<include refid="platformColumns" />
+		FROM u_platform
+		<where>
+			<if test="po.id != null">
+				and id = #{po.id}
+			</if>
+			<if test="po.name != null">
+				and name = #{po.name}
+			</if>
+			<if test="po.isAvailable != null">
+				and is_available = #{po.isAvailable}
+			</if>
+			<if test="po.remark != null">
+				and remark = #{po.remark}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>		
+			<otherwise>
+				ORDER BY id desc		
+			</otherwise>
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+	
+	<select id="countOfPage" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM u_platform
+		<where>
+			<if test="po.id != null">
+				and id = #{po.id}
+			</if>
+			<if test="po.name != null">
+				and name = #{po.name}
+			</if>
+			<if test="po.isAvailable != null">
+				and is_available = #{po.isAvailable}
+			</if>
+			<if test="po.remark != null">
+				and remark = #{po.remark}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findAll" resultMap="platformMap">
+		SELECT
+		<include refid="platformColumns" />
+		FROM u_platform
+		<where>
+			<if test="po.id != null">
+				and id = #{po.id}
+			</if>
+			<if test="po.name != null">
+				and name = #{po.name}
+			</if>
+			<if test="po.isAvailable != null">
+				and is_available = #{po.isAvailable}
+			</if>
+			<if test="po.remark != null">
+				and remark = #{po.remark}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>			
+			<otherwise>
+				ORDER BY id desc		
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="PlatformByUserId" parameterType="java.lang.Long" resultMap="platformMap">
+		SELECT
+		id,
+		name,
+		is_available,
+		remark
+		FROM u_platform
+		WHERE id in (
+			select platform_id from u_user_platform where user_id=#{useId}
+		) and id != 1
+	</select>
+	<select id="PlatformByUid" parameterType="java.lang.Long" resultMap="platformMap">
+		SELECT
+		up.id,
+		p.name,
+		up.is_available,
+	    p.remark
+		FROM u_platform p
+        LEFT JOIN u_user_platform up ON p.id = up.platform_id
+		WHERE up.user_id = #{userId} and up.id != 1
+	</select>
+	<select id="find" parameterType="java.lang.Long" resultMap="platformMap">
+		SELECT
+		id,
+		name,
+		is_available,
+		remark
+		FROM u_platform
+		WHERE id = #{pid}
+	</select>
+</mapper>
+	

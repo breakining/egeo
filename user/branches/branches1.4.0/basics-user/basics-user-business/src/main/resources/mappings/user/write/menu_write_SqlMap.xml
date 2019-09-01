@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.write.MenuWriteDAO">
+	<insert id="insert" parameterType="com.egeo.basics.user.po.MenuPO">
+		INSERT INTO u_menu(
+        <trim suffixOverrides=",">
+			<if test="parentId != null">
+				parent_id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="sort != null">
+				sort,
+			</if>
+			<if test="href != null">
+				href,
+			</if>
+			<if test="icon != null">
+				icon,
+			</if>
+			<if test="isShow != null">
+				is_show,
+			</if>
+			<if test="permission != null">
+				permission,
+			</if>
+			<if test="remarks != null">
+				remarks,
+			</if>
+			<if test="platformId != null">
+				platform_id,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+        </trim>		
+		) VALUES (
+        <trim suffixOverrides=",">
+			<if test="parentId != null">
+				#{parentId},
+			</if>
+			<if test="name != null">
+				#{name},
+			</if>
+			<if test="sort != null">
+				#{sort},
+			</if>
+			<if test="href != null">
+				#{href},
+			</if>
+			<if test="icon != null">
+				#{icon},
+			</if>
+			<if test="isShow != null">
+				#{isShow},
+			</if>
+			<if test="permission != null">
+				#{permission},
+			</if>
+			<if test="remarks != null">
+				#{remarks},
+			</if>
+			<if test="platformId != null">
+				#{platformId},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime},
+			</if>
+        </trim>		
+		)
+		<selectKey keyProperty="id" resultType="java.lang.Long">
+			select LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+
+	
+	
+	<update id="update">
+	UPDATE u_menu 
+		<set>
+			<if test="parentId != null">
+				parent_id = #{parentId},
+			</if>			
+			<if test="name != null">
+				name = #{name},
+			</if>			
+			<if test="sort != null">
+				sort = #{sort},
+			</if>			
+			<if test="href != null">
+				href = #{href},
+			</if>			
+			<if test="icon != null">
+				icon = #{icon},
+			</if>			
+			<if test="isShow != null">
+				is_show = #{isShow},
+			</if>			
+			<if test="permission != null">
+				permission = #{permission},
+			</if>			
+			<if test="remarks != null">
+				remarks = #{remarks},
+			</if>			
+			<if test="platformId != null">
+				platform_id = #{platformId},
+			</if>			
+			<if test="createTime != null">
+				create_time = #{createTime},
+			</if>			
+			<if test="updateTime != null">
+				update_time = #{updateTime},
+			</if>			
+		</set>
+			WHERE id = #{id}
+	</update>	
+	
+
+	<delete id="delete">
+		delete from u_menu where id = #{id}
+	</delete>
+
+	<delete id="deleteByPara">
+		delete from u_menu 
+		<where>
+			<if test="parentId != null">
+				and parent_id = #{parentId}
+			</if>
+			<if test="name != null">
+				and name = #{name}
+			</if>
+			<if test="sort != null">
+				and sort = #{sort}
+			</if>
+			<if test="href != null">
+				and href = #{href}
+			</if>
+			<if test="icon != null">
+				and icon = #{icon}
+			</if>
+			<if test="isShow != null">
+				and is_show = #{isShow}
+			</if>
+			<if test="permission != null">
+				and permission = #{permission}
+			</if>
+			<if test="remarks != null">
+				and remarks = #{remarks}
+			</if>
+			<if test="platformId != null">
+				and platform_id = #{platformId}
+			</if>
+			<if test="createTime != null">
+				and create_time = #{createTime}
+			</if>
+			<if test="updateTime != null">
+				and update_time = #{updateTime}
+			</if>
+		</where>
+	</delete>
+
+
+</mapper>
+	

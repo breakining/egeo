@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.read.CompanyReadDAO">
+	<resultMap type="com.egeo.basics.user.po.CompanyPO" id="companyMap">
+		<result property="id" column="id" />
+		<result property="companyName" column="company_name" />
+		<result property="companyCelebrateTime" column="company_celebrate_time" />
+		<result property="companyMailSuffix" column="company_mail_suffix" />
+		<result property="registrationStatus" column="registration_status" />
+		<result property="companyContent" column="company_content" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+		<result property="platformId" column="platform_id" />
+	</resultMap>
+
+	<sql id="companyColumns">
+		id,
+		company_name,
+		company_celebrate_time,
+		company_mail_suffix,
+		registration_status,
+		company_content,
+		create_time,
+		update_time,
+		platform_id
+	</sql>
+
+	<select id="findById" parameterType="com.egeo.basics.user.po.CompanyPO" resultMap="companyMap">
+		SELECT
+		<include refid="companyColumns" />
+		FROM u_company
+		WHERE id = #{po.id}
+	</select>
+
+	<select id="findOfPage" resultMap="companyMap">
+		SELECT
+		<include refid="companyColumns" />
+		FROM u_company
+		<where>
+			<if test="po.companyName != null">
+				and company_name like concat('%',#{po.companyName},'%') 
+			</if>
+			<if test="po.companyCelebrateTime != null">
+				and company_celebrate_time = #{po.companyCelebrateTime}
+			</if>
+			<if test="po.companyMailSuffix != null">
+				and company_mail_suffix = #{po.companyMailSuffix}
+			</if>
+			<if test="po.registrationStatus != null">
+				and registration_status = #{po.registrationStatus}
+			</if>
+			<if test="po.companyContent != null">
+				and company_content = #{po.companyContent}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>		
+			<otherwise>
+				ORDER BY id desc		
+			</otherwise>
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+	
+	<select id="countOfPage" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM u_company
+		<where>
+			<if test="po.companyName != null">
+				and company_name like concat('%',#{po.companyName},'%') 
+			</if>
+			<if test="po.companyCelebrateTime != null">
+				and company_celebrate_time = #{po.companyCelebrateTime}
+			</if>
+			<if test="po.companyMailSuffix != null">
+				and company_mail_suffix = #{po.companyMailSuffix}
+			</if>
+			<if test="po.registrationStatus != null">
+				and registration_status = #{po.registrationStatus}
+			</if>
+			<if test="po.companyContent != null">
+				and company_content = #{po.companyContent}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findAll" resultMap="companyMap">
+		SELECT
+		<include refid="companyColumns" />
+		FROM u_company
+		<where>
+			<if test="po.companyName != null">
+				and company_name like concat('%',#{po.companyName},'%') 
+			</if>
+			<if test="po.companyCelebrateTime != null">
+				and company_celebrate_time = #{po.companyCelebrateTime}
+			</if>
+			<if test="po.companyMailSuffix != null">
+				and company_mail_suffix = #{po.companyMailSuffix}
+			</if>
+			<if test="po.registrationStatus != null">
+				and registration_status = #{po.registrationStatus}
+			</if>
+			<if test="po.companyContent != null">
+				and company_content = #{po.companyContent}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>			
+			<otherwise>
+				ORDER BY id desc		
+			</otherwise>
+		</choose>
+	</select>
+</mapper>
+	

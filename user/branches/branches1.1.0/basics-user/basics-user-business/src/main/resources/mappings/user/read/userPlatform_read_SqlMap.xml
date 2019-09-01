@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.read.UserPlatformReadDAO">
+	<resultMap type="com.egeo.basics.user.po.UserPlatformPO" id="userPlatformMap">
+		<result property="userId" column="user_id" />
+		<result property="platformId" column="platform_id" />
+	</resultMap>
+
+	<sql id="userPlatformColumns">
+		user_id,
+		platform_id
+	</sql>
+
+	<select id="findById" parameterType="com.egeo.basics.user.po.UserPlatformPO" resultMap="userPlatformMap">
+		SELECT
+		<include refid="userPlatformColumns" />
+		FROM u_user_platform
+		WHERE user_id = #{po.userId}
+	</select>
+
+	<select id="findOfPage" resultMap="userPlatformMap">
+		SELECT
+		<include refid="userPlatformColumns" />
+		FROM u_user_platform
+		<where>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY user_id desc
+			</otherwise>
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+	
+	<select id="countOfPage" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM u_user_platform
+		<where>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY user_id desc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAll" resultMap="userPlatformMap">
+		SELECT
+		<include refid="userPlatformColumns" />
+		FROM u_user_platform
+		<where>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY user_id desc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="userIsExitPlatform" parameterType="com.egeo.basics.user.po.UserPlatformPO" resultMap="userPlatformMap">
+		SELECT
+		<include refid="userPlatformColumns" />
+		FROM u_user_platform
+		WHERE user_id = #{po.userId} and platform_id = #{po.platformId}
+	</select>	
+</mapper>
+	

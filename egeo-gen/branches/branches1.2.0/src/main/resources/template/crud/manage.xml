@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>manage</name>
+	<filePath>back-${module}/back-${module}-business/src/main/java/com/egeo/back/${module}/business/</filePath>
+	<fileName>${className}Manage.java</fileName>
+	<content><![CDATA[package com.egeo.back.${module}.business;
+
+import java.util.List;
+	
+import com.egeo.basics.${module}.model.dto.${className}DTO;
+import com.egeo.core.common.PageResult;
+import com.egeo.core.orm.Pagination;	
+
+public interface ${className}Manage {
+
+#if(${findById})	
+	public ${className}DTO find${className}ById(${className}DTO dto);	
+#end
+
+#if(${findOfPage})	
+	public PageResult<${className}DTO> find${className}OfPage(${className}DTO dto,Pagination page);
+#end
+
+#if(${findAll})		
+	public List<${className}DTO> find${className}All(${className}DTO dto);
+#end
+
+#if(${insert})	
+	Long insert${className}WithTx(${className}DTO dto);
+#end
+
+#if(${update})	
+	int update${className}WithTx(${className}DTO dto);
+#end
+
+#if(${delete})
+	int delete${className}WithTx(${className}DTO dto);
+#end
+}]]>
+	</content>
+</template>

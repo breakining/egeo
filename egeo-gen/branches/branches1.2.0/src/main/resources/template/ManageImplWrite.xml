@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>WriteManage</name>
+	<filePath>basics-${module}-business/src/main/java/${filePath}/${module}/business/write/impl/</filePath>
+	<fileName>${className}WriteManageImpl.java</fileName>
+	<content><![CDATA[package ${packageName}.${module}.business.write.impl;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import ${packageName}.${module}.business.write.${className}WriteManage;
+import ${packageName}.${module}.dao.write.${className}WriteDAO;
+
+@Service
+public class ${className}WriteManageImpl implements ${className}WriteManage {
+	Logger logger = LoggerFactory.getLogger(this.getClass());
+	@Autowired
+	private ${className}WriteDAO ${name}WriteDAO;
+}]]>
+	</content>
+</template>

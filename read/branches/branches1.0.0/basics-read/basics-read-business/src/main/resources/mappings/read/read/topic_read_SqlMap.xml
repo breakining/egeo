@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.read.dao.read.TopicReadDAO">
+	<resultMap type="com.egeo.basics.read.po.TopicPO" id="topicMap">
+		<result property="id" column="id" />
+		<result property="companyId" column="company_id"/>
+		<result property="booksName" column="books_name" />
+		<result property="author" column="author" />
+		<result property="publishingHouse" column="publishing_house" />
+		<result property="topicHeadline" column="topic_headline" />
+		<result property="topicContent" column="topic_content" />
+		<result property="topicType" column="topic_type" />
+		<result property="topicCover" column="topic_cover" />
+		<result property="userId" column="user_id" />
+		<result property="userName" column="user_name" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+		<result property="platformId" column="platform_id" />
+	</resultMap>
+	
+	<resultMap type="com.egeo.basics.read.condition.TopicCondition" id="topicCondition" extends="topicMap">
+		<result property="commentNumber" column="comment_number" />
+		<result property="praiseNumber" column="praise_number" />
+		<result property="praiseType" column="praise_type" />
+	</resultMap>
+
+	<sql id="topicColumns">
+		id,
+		company_id,
+		books_name,
+		author,
+		publishing_house,
+		topic_headline,
+		topic_content,
+		topic_type,
+		topic_cover,
+		user_id,
+		user_name,
+		create_time,
+		update_time,
+		platform_id
+	</sql>
+
+	<select id="findById" parameterType="com.egeo.basics.read.po.TopicPO" resultMap="topicMap">
+		SELECT
+		<include refid="topicColumns" />
+		FROM topic
+		WHERE id = #{po.id}
+	</select>
+
+	<select id="findOfPage" resultMap="topicMap">
+		SELECT
+		<include refid="topicColumns" />
+		FROM topic
+		<where>
+			<if test="po.companyId != null">
+				and company_id = #{po.companyId}
+			</if>
+			<if test="po.booksName != null">
+				and books_name = #{po.booksName}
+			</if>
+			<if test="po.author != null">
+				and author = #{po.author}
+			</if>
+			<if test="po.publishingHouse != null">
+				and publishing_house = #{po.publishingHouse}
+			</if>
+			<if test="po.topicHeadline != null">
+				and topic_headline like concat('%',#{po.topicHeadline},'%')
+			</if>
+			<if test="po.topicContent != null">
+				and topic_content = #{po.topicContent}
+			</if>
+			<if test="po.topicType != null">
+				and topic_type = #{po.topicType}
+			</if>
+			<if test="po.topicCover != null">
+				and topic_cover = #{po.topicCover}
+			</if>
+			<if test="po.userId != null">
+				and user_id = #{po.userId}
+			</if>
+			<if test="po.userName != null">
+				and user_name = #{po.userName}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>		
+			<otherwise>
+				ORDER BY create_time desc		
+			</otherwise>
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+	
+	<select id="countOfPage" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM topic
+		<where>
+			<if test="po.companyId != null">
+				and company_id = #{po.companyId}
+			</if>
+			<if test="po.booksName != null">
+				and books_name = #{po.booksName}
+			</if>
+			<if test="po.author != null">
+				and author = #{po.author}
+			</if>
+			<if test="po.publishingHouse != null">
+				and publishing_house = #{po.publishingHouse}
+			</if>
+			<if test="po.topicHeadline != null">
+				and topic_headline like concat('%',#{po.topicHeadline},'%')
+			</if>
+			<if test="po.topicContent != null">
+				and topic_content = #{po.topicContent}
+			</if>
+			<if test="po.topicType != null">
+				and topic_type = #{po.topicType}
+			</if>
+			<if test="po.topicCover != null">
+				and topic_cover = #{po.topicCover}
+			</if>
+			<if test="po.userId != null">
+				and user_id = #{po.userId}
+			</if>
+			<if test="po.userName != null">
+				and user_name = #{po.userName}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findAll" resultMap="topicMap">
+		SELECT
+		<include refid="topicColumns" />
+		FROM topic
+		<where>
+			<if test="po.companyId != null">
+				and company_id = #{po.companyId}
+			</if>
+			<if test="po.booksName != null">
+				and books_name = #{po.booksName}
+			</if>
+			<if test="po.author != null">
+				and author = #{po.author}
+			</if>
+			<if test="po.publishingHouse != null">
+				and publishing_house = #{po.publishingHouse}
+			</if>
+			<if test="po.topicHeadline != null">
+				and topic_headline like concat('%',#{po.topicHeadline},'%')
+			</if>
+			<if test="po.topicContent != null">
+				and topic_content = #{po.topicContent}
+			</if>
+			<if test="po.topicType != null">
+				and topic_type = #{po.topicType}
+			</if>
+			<if test="po.topicCover != null">
+				and topic_cover = #{po.topicCover}
+			</if>
+			<if test="po.userId != null">
+				and user_id = #{po.userId}
+			</if>
+			<if test="po.userName != null">
+				and user_name = #{po.userName}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>			
+			<otherwise>
+				ORDER BY create_time desc		
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="topicOfPageApp" resultMap="topicCondition">
+		SELECT 
+		t.id,
+		t.company_id,
+		t.books_name,
+		t.author,
+		t.publishing_house,
+		t.topic_headline,
+		t.topic_content,
+		t.topic_type,
+		t.topic_cover,
+		t.user_id,
+		t.user_name,
+		t.create_time, 
+		t.update_time,
+		t.platform_id,
+		(SELECT count(1) from `comment` WHERE topic_id = t.id) comment_number,
+		<!-- (SELECT count(1) from read_praise WHERE topic_id = t.id) praise_number, -->
+		(SELECT praise_number from read_praise_number WHERE topic_id = t.id ) praise_number,
+		(SELECT count(1) from read_praise WHERE topic_id = t.id and user_id = #{po.userId}) praise_type
+		from topic t
+		<where>
+			<if test="po.companyId != null">
+				and company_id = #{po.companyId}
+			</if>
+			<if test="po.booksName != null">
+				and t.books_name = #{po.booksName}
+			</if>
+			<if test="po.author != null">
+				and author = #{po.author}
+			</if>
+			<if test="po.publishingHouse != null">
+				and publishing_house = #{po.publishingHouse}
+			</if>
+			<if test="po.topicHeadline != null">
+				and t.topic_headline like concat('%',#{po.topicHeadline},'%')
+			</if>
+			<if test="po.topicContent != null">
+				and t.topic_content = #{po.topicContent}
+			</if>
+			<if test="po.topicType != null">
+				and t.topic_type = #{po.topicType}
+			</if>
+			<if test="po.topicCover != null">
+				and t.topic_cover = #{po.topicCover}
+			</if>
+			<if test="po.userId != null">
+				and t.user_id = #{po.userId}
+			</if>
+			<if test="po.userName != null">
+				and user_name = #{po.userName}
+			</if>
+			<if test="po.createTime != null">
+				and t.create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and t.update_time = #{po.updateTime}
+			</if>
+			<if test="po.platformId != null">
+				and t.platform_id = #{po.platformId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>		
+			<otherwise>
+				ORDER BY t.create_time desc		
+			</otherwise>
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+	
+	<select id="topicByIdApp" resultMap="topicCondition">
+		SELECT 
+		t.id,
+		t.company_id,
+		t.books_name,
+		t.author,
+		t.publishing_house,
+		t.topic_headline,
+		t.topic_content,
+		t.topic_type,
+		t.topic_cover,
+		t.user_id,
+		t.user_name,
+		t.create_time,
+		t.update_time,
+		t.platform_id,
+		(SELECT count(1) from `comment` WHERE topic_id = t.id) comment_number,
+		<!-- (SELECT count(1) from read_praise WHERE topic_id = t.id) praise_number, -->
+		(SELECT praise_number from read_praise_number WHERE topic_id = t.id ) praise_number,
+		(SELECT count(1) from read_praise WHERE topic_id = t.id and user_id = #{po.userId}) praise_type
+		from topic t
+		<where>
+			<if test="po.id != null">
+				and t.id = #{po.id}
+			</if>
+			<if test="po.companyId != null">
+				and company_id = #{po.companyId}
+			</if>
+			<if test="po.booksName != null">
+				and t.books_name = #{po.booksName}
+			</if>
+			<if test="po.author != null">
+				and author = #{po.author}
+			</if>
+			<if test="po.publishingHouse != null">
+				and publishing_house = #{po.publishingHouse}
+			</if>
+			<if test="po.topicHeadline != null">
+				and t.topic_headline like concat('%',#{po.topicHeadline},'%')
+			</if>
+			<if test="po.topicContent != null">
+				and t.topic_content = #{po.topicContent}
+			</if>
+			<if test="po.topicType != null">
+				and t.topic_type = #{po.topicType}
+			</if>
+			<if test="po.topicCover != null">
+				and t.topic_cover = #{po.topicCover}
+			</if>
+			<if test="po.userId != null">
+				and t.user_id = #{po.userId}
+			</if>
+			<if test="po.userName != null">
+				and user_name = #{po.userName}
+			</if>
+			<if test="po.createTime != null">
+				and t.create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and t.update_time = #{po.updateTime}
+			</if>
+			<if test="po.platformId != null">
+				and t.platform_id = #{po.platformId}
+			</if>
+		</where>
+	</select>
+</mapper>
+	

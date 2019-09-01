@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>WriteService</name>
+	<filePath>basics-${module}-service/src/main/java/${filePath}/${module}/service/write/</filePath>
+	<fileName>${className}WriteServiceImpl.java</fileName>
+	<content><![CDATA[package ${packageName}.${module}.service.write;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import ${packageName}.${module}.api.write.${className}WriteService;
+import ${packageName}.${module}.service.BaseService;
+import ${packageName}.${module}.business.write.${className}WriteManage;
+
+@Service("${name}WriteService")
+public class ${className}WriteServiceImpl extends BaseService implements ${className}WriteService {
+	@Autowired
+	private ${className}WriteManage ${name}WriteManage;
+}]]>
+	</content>
+</template>

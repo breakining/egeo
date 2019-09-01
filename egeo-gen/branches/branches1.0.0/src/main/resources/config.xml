@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<rootPath>E:/maven/taotao2/egeo/user/branches/</rootPath>
+	<author>minfulong</author>
+	<packageName>com.egeo.basics</packageName>
+	<tableSchema>user</tableSchema>
+	<module>user</module>
+	<prefix>u_</prefix>
+	<templates>
+		<template>template/model/dto.xml</template>
+		<template>template/model/condition.xml</template>
+		<template>template/model/po.xml</template>
+		<template>template/model/converter.xml</template>
+		<template>template/DAORead.xml</template>
+		<template>template/DAOWrite.xml</template>
+		<template>template/MapperRead.xml</template>
+		<template>template/MapperWrite.xml</template>
+		<template>template/ManageRead.xml</template>
+		<template>template/ManageWrite.xml</template>
+		<template>template/ManageImplRead.xml</template>
+		<template>template/ManageImplWrite.xml</template>
+
+		<template>template/APIRead.xml</template>
+		<template>template/APIWrite.xml</template>
+		<template>template/ServiceRead.xml</template>
+		<template>template/ServiceWrite.xml</template>
+
+<!-- 		<template>template/conf/dubbo-provider.xml</template> -->
+		
+<!-- 		<template>template/back/action.xml</template>
+		<template>template/back/facade.xml</template>
+		<template>template/back/manage.xml</template>
+		<template>template/back/manageImpl.xml</template> -->
+	</templates>
+	<tables>
+
+	</tables>
+</config>

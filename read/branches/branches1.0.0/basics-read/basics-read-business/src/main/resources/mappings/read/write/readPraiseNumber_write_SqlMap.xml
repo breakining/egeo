@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.read.dao.write.ReadPraiseNumberWriteDAO">
+
+
+
+	<insert id="savereadPraiseNumber" parameterType="com.egeo.basics.read.po.ReadPraiseNumberPO">
+		INSERT INTO read_praise_number(
+        <trim suffixOverrides=",">
+			<if test="po.topicId != null">
+				topic_id,
+			</if>
+				praise_number,
+			<if test="po.platformId != null">
+				platform_id,
+			</if>
+        </trim>		
+		) VALUES (
+        <trim suffixOverrides=",">
+			<if test="po.topicId != null">
+				#{po.topicId},
+			</if>
+				1,
+			<if test="po.platformId != null">
+				#{po.platformId},
+			</if>
+        </trim>		
+		)
+		<selectKey keyProperty="id" resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	
+	</insert>
+	
+
+	
+	<update id="decreaseReadPraiseNumber" parameterType="com.egeo.basics.read.po.ReadPraiseNumberPO">
+	UPDATE read_praise_number
+		<set>			
+			<if test="po.topicId != null">
+				topic_id = #{po.topicId},
+			</if>			
+			<if test="po.praiseNumber != null">
+				praise_number = #{po.praiseNumber}-1,
+			</if>			
+			<if test="po.platformId != null">
+				platform_id = #{po.platformId},
+			</if>			
+		</set>
+			WHERE id = #{po.id}
+	</update>
+	
+		
+	<update id="increaseReadPraiseNumber" parameterType="com.egeo.basics.read.po.ReadPraiseNumberPO">
+	UPDATE read_praise_number
+		<set>			
+			<if test="po.topicId != null">
+				topic_id = #{po.topicId},
+			</if>			
+			<if test="po.praiseNumber != null">
+				praise_number = #{po.praiseNumber}+1,
+			</if>			
+			<if test="po.platformId != null">
+				platform_id = #{po.platformId},
+			</if>			
+		</set>
+			WHERE id = #{po.id}
+	</update>	
+	
+
+
+	<delete id="delete">
+		delete from read_praise_number where id = #{po.id}
+	</delete>
+
+
+
+</mapper>
+	

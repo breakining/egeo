@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.read.dao.read.ReadPraiseNumberReadDAO">
+	<resultMap type="com.egeo.basics.read.po.ReadPraiseNumberPO" id="readPraiseNumberMap">
+		<result property="id" column="id" />
+		<result property="topicId" column="topic_id" />
+		<result property="praiseNumber" column="praise_number" />
+		<result property="platformId" column="platform_id" />
+	</resultMap>
+
+	<sql id="readPraiseNumberColumns">
+		id,
+		topic_id,
+		praise_number,
+		platform_id
+	</sql>
+
+	
+	<select id="findAll" resultMap="readPraiseNumberMap">
+		SELECT
+		<include refid="readPraiseNumberColumns" />
+		FROM read_praise_number
+		<where>
+			<if test="po.topicId != null">
+				and topic_id = #{po.topicId}
+			</if>
+			<if test="po.praiseNumber != null">
+				and praise_number = #{po.praiseNumber}
+			</if>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+		</where>
+	</select>
+</mapper>
+	

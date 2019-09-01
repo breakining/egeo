@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.write.UserLoginWriteDAO">
+	<insert id="insert" parameterType="com.egeo.basics.user.po.UserLoginPO">
+		INSERT INTO u_user_login(
+		user_id,
+		username,
+		login_result,
+		login_time,
+		ip,
+		browser,
+		is_available,
+		is_deleted,
+		version_no,
+		create_userid,
+		create_username,
+		create_userip,
+		create_usermac,
+		create_time,
+		create_time_db,
+		server_ip,
+		update_userid,
+		update_username,
+		update_userip,
+		update_usermac,
+		update_time,
+		update_time_db,
+		client_versionno,
+		company_id,
+		platform_id
+		) VALUES (
+		#{userId},
+		#{username},
+		#{loginResult},
+		#{loginTime},
+		#{ip},
+		#{browser},
+		#{isAvailable},
+		#{isDeleted},
+		#{versionNo},
+		#{createUserid},
+		#{createUsername},
+		#{createUserip},
+		#{createUsermac},
+		#{createTime},
+		#{createTimeDb},
+		#{serverIp},
+		#{updateUserid},
+		#{updateUsername},
+		#{updateUserip},
+		#{updateUsermac},
+		#{updateTime},
+		#{updateTimeDb},
+		#{clientVersionno},
+		#{companyId},
+		#{platformId}
+		)
+		<selectKey keyProperty="id" resultType="java.lang.Integer">
+			select LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<update id="update">
+		UPDATE u_user_login SET
+		user_id = #{userId},
+		username = #{username},
+		login_result = #{loginResult},
+		login_time = #{loginTime},
+		ip = #{ip},
+		browser = #{browser},
+		is_available = #{isAvailable},
+		is_deleted = #{isDeleted},
+		version_no = #{versionNo},
+		create_userid = #{createUserid},
+		create_username = #{createUsername},
+		create_userip = #{createUserip},
+		create_usermac = #{createUsermac},
+		create_time = #{createTime},
+		create_time_db = #{createTimeDb},
+		server_ip = #{serverIp},
+		update_userid = #{updateUserid},
+		update_username = #{updateUsername},
+		update_userip = #{updateUserip},
+		update_usermac = #{updateUsermac},
+		update_time = #{updateTime},
+		update_time_db = #{updateTimeDb},
+		client_versionno = #{clientVersionno},
+		company_id = #{companyId},
+		platform_id = #{platformId}
+		WHERE id = #{id}
+	</update>
+
+	<delete id="delete">
+		delete from u_user_login where id = #{id}
+	</delete>
+</mapper>
+	

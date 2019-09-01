@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.read.UserExtendReadDAO">
+	<resultMap type="com.egeo.basics.user.po.UserExtendPO" id="userExtendMap">
+		<result property="id" column="id" />
+		<result property="sex" column="sex" />
+		<result property="nickname" column="nickname" />
+		<result property="headPicUrl" column="head_pic_url" />
+		<result property="name" column="name" />
+		<result property="regtime" column="regtime" />
+		<result property="birthday" column="birthday" />
+		<result property="mobile" column="mobile" />
+		<result property="qq" column="qq" />
+		<result property="memberCode" column="member_code" />
+		<result property="remark" column="remark" />
+		<result property="lastlogin" column="lastlogin" />
+		<result property="activityInfo" column="activity_info" />
+		<result property="isComplete" column="is_complete" />
+		<result property="deviceId" column="device_id" />
+		<result property="deviceType" column="device_type" />
+		<result property="weixin" column="weixin" />
+		<result property="workaddressId" column="workaddress_id" />
+		<result property="status" column="status" />
+		<result property="address" column="address" />
+	</resultMap>
+
+	<sql id="userExtendColumns">
+		id,
+		sex,
+		nickname,
+		head_pic_url,
+		name,
+		regtime,
+		birthday,
+		mobile,
+		qq,
+		member_code,
+		remark,
+		lastlogin,
+		activity_info,
+		is_complete,
+		device_id,
+		device_type,
+		weixin,
+		workaddress_id,
+		status,
+		address
+	</sql>
+
+	<select id="findById" parameterType="com.egeo.basics.user.po.UserExtendPO" resultMap="userExtendMap">
+		SELECT
+		<include refid="userExtendColumns" />
+		FROM u_user_extend
+		WHERE id = #{po.id}
+	</select>
+
+	<select id="findOfPage" resultMap="userExtendMap">
+		SELECT
+		<include refid="userExtendColumns" />
+		FROM u_user_extend
+		<where>
+			<if test="po.sex != null">
+				and sex = #{po.sex}
+			</if>
+			<if test="po.nickname != null">
+				and nickname = #{po.nickname}
+			</if>
+			<if test="po.headPicUrl != null">
+				and head_pic_url = #{po.headPicUrl}
+			</if>
+			<if test="po.name != null">
+				and name = #{po.name}
+			</if>
+			<if test="po.regtime != null">
+				and regtime = #{po.regtime}
+			</if>
+			<if test="po.birthday != null">
+				and birthday = #{po.birthday}
+			</if>
+			<if test="po.mobile != null">
+				and mobile = #{po.mobile}
+			</if>
+			<if test="po.qq != null">
+				and qq = #{po.qq}
+			</if>
+			<if test="po.memberCode != null">
+				and member_code = #{po.memberCode}
+			</if>
+			<if test="po.remark != null">
+				and remark = #{po.remark}
+			</if>
+			<if test="po.lastlogin != null">
+				and lastlogin = #{po.lastlogin}
+			</if>
+			<if test="po.activityInfo != null">
+				and activity_info = #{po.activityInfo}
+			</if>
+			<if test="po.isComplete != null">
+				and is_complete = #{po.isComplete}
+			</if>
+			<if test="po.deviceId != null">
+				and device_id = #{po.deviceId}
+			</if>
+			<if test="po.deviceType != null">
+				and device_type = #{po.deviceType}
+			</if>
+			<if test="po.weixin != null">
+				and weixin = #{po.weixin}
+			</if>
+			<if test="po.workaddressId != null">
+				and workaddress_id = #{po.workaddressId}
+			</if>
+			<if test="po.status != null">
+				and status = #{po.status}
+			</if>
+			<if test="po.address != null">
+				and address = #{po.address}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY id desc
+			</otherwise>
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+	
+	<select id="countOfPage" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM u_user_extend
+		<where>
+			<if test="po.sex != null">
+				and sex = #{po.sex}
+			</if>
+			<if test="po.nickname != null">
+				and nickname = #{po.nickname}
+			</if>
+			<if test="po.headPicUrl != null">
+				and head_pic_url = #{po.headPicUrl}
+			</if>
+			<if test="po.name != null">
+				and name = #{po.name}
+			</if>
+			<if test="po.regtime != null">
+				and regtime = #{po.regtime}
+			</if>
+			<if test="po.birthday != null">
+				and birthday = #{po.birthday}
+			</if>
+			<if test="po.mobile != null">
+				and mobile = #{po.mobile}
+			</if>
+			<if test="po.qq != null">
+				and qq = #{po.qq}
+			</if>
+			<if test="po.memberCode != null">
+				and member_code = #{po.memberCode}
+			</if>
+			<if test="po.remark != null">
+				and remark = #{po.remark}
+			</if>
+			<if test="po.lastlogin != null">
+				and lastlogin = #{po.lastlogin}
+			</if>
+			<if test="po.activityInfo != null">
+				and activity_info = #{po.activityInfo}
+			</if>
+			<if test="po.isComplete != null">
+				and is_complete = #{po.isComplete}
+			</if>
+			<if test="po.deviceId != null">
+				and device_id = #{po.deviceId}
+			</if>
+			<if test="po.deviceType != null">
+				and device_type = #{po.deviceType}
+			</if>
+			<if test="po.weixin != null">
+				and weixin = #{po.weixin}
+			</if>
+			<if test="po.workaddressId != null">
+				and workaddress_id = #{po.workaddressId}
+			</if>
+			<if test="po.status != null">
+				and status = #{po.status}
+			</if>
+			<if test="po.address != null">
+				and address = #{po.address}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY id desc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAll" resultMap="userExtendMap">
+		SELECT
+		<include refid="userExtendColumns" />
+		FROM u_user_extend
+		<where>
+			<if test="po.sex != null">
+				and sex = #{po.sex}
+			</if>
+			<if test="po.nickname != null">
+				and nickname = #{po.nickname}
+			</if>
+			<if test="po.headPicUrl != null">
+				and head_pic_url = #{po.headPicUrl}
+			</if>
+			<if test="po.name != null">
+				and name = #{po.name}
+			</if>
+			<if test="po.regtime != null">
+				and regtime = #{po.regtime}
+			</if>
+			<if test="po.birthday != null">
+				and birthday = #{po.birthday}
+			</if>
+			<if test="po.mobile != null">
+				and mobile = #{po.mobile}
+			</if>
+			<if test="po.qq != null">
+				and qq = #{po.qq}
+			</if>
+			<if test="po.memberCode != null">
+				and member_code = #{po.memberCode}
+			</if>
+			<if test="po.remark != null">
+				and remark = #{po.remark}
+			</if>
+			<if test="po.lastlogin != null">
+				and lastlogin = #{po.lastlogin}
+			</if>
+			<if test="po.activityInfo != null">
+				and activity_info = #{po.activityInfo}
+			</if>
+			<if test="po.isComplete != null">
+				and is_complete = #{po.isComplete}
+			</if>
+			<if test="po.deviceId != null">
+				and device_id = #{po.deviceId}
+			</if>
+			<if test="po.deviceType != null">
+				and device_type = #{po.deviceType}
+			</if>
+			<if test="po.weixin != null">
+				and weixin = #{po.weixin}
+			</if>
+			<if test="po.workaddressId != null">
+				and workaddress_id = #{po.workaddressId}
+			</if>
+			<if test="po.status != null">
+				and status = #{po.status}
+			</if>
+			<if test="po.address != null">
+				and address = #{po.address}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY id desc
+			</otherwise>
+		</choose>
+	</select>
+</mapper>
+	

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.read.UserPlatformReadDAO">
+	<resultMap type="com.egeo.basics.user.po.UserPlatformPO" id="userPlatformMap">
+		<result property="id" column="id" />
+		<result property="userId" column="user_id" />
+		<result property="platformId" column="platform_id" />
+		<result property="isAvailable" column="is_available" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+
+	<sql id="userPlatformColumns">
+		id,
+		user_id,
+		platform_id,
+		is_available,
+		create_time,
+		update_time
+	</sql>
+
+	<select id="findById" parameterType="com.egeo.basics.user.po.UserPlatformPO" resultMap="userPlatformMap">
+		SELECT
+		<include refid="userPlatformColumns" />
+		FROM u_user_platform
+		WHERE id = #{po.id}
+	</select>
+
+	<select id="findOfPage" resultMap="userPlatformMap">
+		SELECT
+		<include refid="userPlatformColumns" />
+		FROM u_user_platform
+		<where>
+			<if test="po.userId != null">
+				and user_id = #{po.userId}
+			</if>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+			<if test="po.isAvailable != null">
+				and is_available = #{po.isAvailable}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>		
+			<otherwise>
+				ORDER BY id desc		
+			</otherwise>
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+	
+	<select id="countOfPage" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM u_user_platform
+		<where>
+			<if test="po.userId != null">
+				and user_id = #{po.userId}
+			</if>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+			<if test="po.isAvailable != null">
+				and is_available = #{po.isAvailable}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findAll" resultMap="userPlatformMap">
+		SELECT
+		<include refid="userPlatformColumns" />
+		FROM u_user_platform
+		<where>
+			<if test="po.userId != null">
+				and user_id = #{po.userId}
+			</if>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+			<if test="po.isAvailable != null">
+				and is_available = #{po.isAvailable}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>			
+			<otherwise>
+				ORDER BY id desc		
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="userIsExitPlatform" parameterType="com.egeo.basics.user.po.UserPlatformPO" resultMap="userPlatformMap">
+		SELECT
+		<include refid="userPlatformColumns" />
+		FROM u_user_platform
+		WHERE user_id = #{po.userId} and platform_id = #{po.platformId} and is_available = 1
+	</select>	
+</mapper>
+	

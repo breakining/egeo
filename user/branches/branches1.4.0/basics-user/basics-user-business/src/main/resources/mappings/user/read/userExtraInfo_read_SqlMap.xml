@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.read.UserExtraInfoReadDAO">
+	<resultMap type="com.egeo.basics.user.po.UserExtraInfoPO" id="userExtraInfoMap">
+		<result property="id" column="id" />
+		<result property="tableName" column="table_name" />
+		<result property="isExist" column="is_exist" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+
+	<sql id="userExtraInfoColumns">
+		id,
+		table_name,
+		is_exist,
+		create_time,
+		update_time
+	</sql>
+
+	<select id="findById" parameterType="com.egeo.basics.user.po.UserExtraInfoPO" resultMap="userExtraInfoMap">
+		SELECT
+		<include refid="userExtraInfoColumns" />
+		FROM u_user_extra_info
+		WHERE id = #{po.id}
+	</select>
+
+	<select id="findOfPage" resultMap="userExtraInfoMap">
+		SELECT
+		<include refid="userExtraInfoColumns" />
+		FROM u_user_extra_info
+		<where>
+			<if test="po.tableName != null">
+				and table_name = #{po.tableName}
+			</if>
+			<if test="po.isExist != null">
+				and is_exist = #{po.isExist}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>		
+			<otherwise>
+				ORDER BY id desc		
+			</otherwise>
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+	
+	<select id="countOfPage" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM u_user_extra_info
+		<where>
+			<if test="po.tableName != null">
+				and table_name = #{po.tableName}
+			</if>
+			<if test="po.isExist != null">
+				and is_exist = #{po.isExist}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findAll" resultMap="userExtraInfoMap">
+		SELECT
+		<include refid="userExtraInfoColumns" />
+		FROM u_user_extra_info
+		<where>
+			<if test="po.tableName != null">
+				and table_name = #{po.tableName}
+			</if>
+			<if test="po.isExist != null">
+				and is_exist = #{po.isExist}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>			
+			<otherwise>
+				ORDER BY id desc		
+			</otherwise>
+		</choose>
+	</select>
+</mapper>
+	

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>dubbo-provider</name>
+	<filePath>basics-${module}-service/src/main/resources/${name}/</filePath>
+	<fileName>dubbo-auto-creator.xml</fileName>
+	<content><![CDATA[
+	<dubbo:service interface="${packageName}.${module}.api.read.${className}ReadService" ref="${name}ReadService" />
+	
+	<dubbo:service interface="${packageName}.${module}.api.write.${className}WriteService" ref="${name}WriteService" />
+]]>
+	</content>
+</template>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>ReadService</name>
+	<filePath>basics-${module}/basics-${module}-service/src/main/java/com/egeo/basics/${module}/service/read/</filePath>
+	<fileName>${className}ReadServiceImpl.java</fileName>
+	<content><![CDATA[package com.egeo.basics.${module}.service.read;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.egeo.basics.${module}.api.read.${className}ReadService;
+import com.egeo.basics.${module}.business.read.${className}ReadManage;
+import com.egeo.basics.${module}.converter.${className}Converter;
+import com.egeo.basics.${module}.model.dto.${className}DTO;
+import com.egeo.basics.${module}.po.${className}PO;
+import com.egeo.core.basics.service.BaseService;
+import com.egeo.core.common.PageResult;
+import com.egeo.core.orm.Pagination;
+
+@Service("${name}ReadService")
+public class ${className}ReadServiceImpl extends BaseService implements ${className}ReadService {
+	@Autowired
+	private ${className}ReadManage ${name}ReadManage;
+
+#if(${findById})
+	@Override
+	public ${className}DTO find${className}ById(${className}DTO dto) {
+		${className}PO po = ${className}Converter.toPO(dto);
+		${className}PO list = ${name}ReadManage.find${className}ById(po);		
+		return ${className}Converter.toDTO(list);
+	}
+#end
+
+#if(${findOfPage})	
+	@Override
+	public PageResult<${className}DTO> find${className}OfPage(${className}DTO dto, Pagination page) {
+		${className}PO po = ${className}Converter.toPO(dto);
+        PageResult<${className}PO> pageResult = ${name}ReadManage.find${className}OfPage(po, page);
+        
+        List<${className}DTO> list = ${className}Converter.toDTO(pageResult.getList());
+        PageResult<${className}DTO> result = new PageResult<${className}DTO>();
+        result.setList(list);
+        result.setPageNo(pageResult.getPageNo());
+        result.setPageSize(pageResult.getPageSize());
+        result.setTotalSize(pageResult.getTotalSize());
+        return result;
+	}
+#end
+
+#if(${findAll})	
+	@Override
+	public List<${className}DTO> find${className}All(${className}DTO dto) {
+		${className}PO po = ${className}Converter.toPO(dto);
+		List<${className}PO> list = ${name}ReadManage.find${className}All(po);		
+		return ${className}Converter.toDTO(list);
+	}
+#end
+}]]>
+	</content>
+</template>

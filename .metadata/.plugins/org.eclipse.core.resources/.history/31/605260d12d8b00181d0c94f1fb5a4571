@@ -1,0 +1,18 @@
+package test;
+
+public class RR {
+	
+	public String suffix(String str){
+		
+		String s=str;
+		while(true){
+			if(s.startsWith("0")){
+				s=s.substring(1);
+			}
+			break;
+		}
+		
+		return s;
+	}
+
+}

@@ -1,0 +1,17 @@
+eclipse.preferences.version=1
+encoding//src/main/java/cn/evun/ime/ws/service/AndonService.java=UTF-8
+encoding//src/main/java/cn/evun/ime/ws/service/EquipmentInterfaceService.java=UTF-8
+encoding//src/main/java/cn/evun/ime/ws/service/PdKnifeRecordsService.java=UTF-8
+encoding//src/main/java/cn/evun/ime/ws/service/ProdutionInterfaceService.java=UTF-8
+encoding//src/main/java/cn/evun/ime/ws/service/impl/AndonServiceImplService.java=UTF-8
+encoding//src/main/java/cn/evun/ime/ws/service/impl/AndonServiceImplServiceLocator.java=UTF-8
+encoding//src/main/java/cn/evun/ime/ws/service/impl/AndonServiceImplServiceSoapBindingStub.java=UTF-8
+encoding//src/main/java/cn/evun/ime/ws/service/impl/EquipmentInterfaceServiceImplService.java=UTF-8
+encoding//src/main/java/cn/evun/ime/ws/service/impl/EquipmentInterfaceServiceImplServiceLocator.java=UTF-8
+encoding//src/main/java/cn/evun/ime/ws/service/impl/EquipmentInterfaceServiceImplServiceSoapBindingStub.java=UTF-8
+encoding//src/main/java/cn/evun/ime/ws/service/impl/PdKnifeRecordsServiceImplService.java=UTF-8
+encoding//src/main/java/cn/evun/ime/ws/service/impl/PdKnifeRecordsServiceImplServiceLocator.java=UTF-8
+encoding//src/main/java/cn/evun/ime/ws/service/impl/PdKnifeRecordsServiceImplServiceSoapBindingStub.java=UTF-8
+encoding//src/main/java/cn/evun/ime/ws/service/impl/ProdutionInterfaceServiceImplService.java=UTF-8
+encoding//src/main/java/cn/evun/ime/ws/service/impl/ProdutionInterfaceServiceImplServiceLocator.java=UTF-8
+encoding//src/main/java/cn/evun/ime/ws/service/impl/ProdutionInterfaceServiceImplServiceSoapBindingStub.java=UTF-8

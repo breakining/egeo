@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.write.RoleUrlWriteDAO">
+	<insert id="insert" parameterType="com.egeo.basics.user.po.RoleUrlPO">
+		INSERT INTO u_role_url(
+		role_id,
+		url_id
+		) VALUES (
+		#{roleId},
+		#{urlId}
+		)
+		<selectKey keyProperty="id" resultType="java.lang.Integer">
+			select LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<update id="update">
+		UPDATE u_role_url SET
+		role_id = #{roleId},
+		url_id = #{urlId}
+		WHERE id = #{id}
+	</update>
+
+	<delete id="delete">
+		delete from u_role_url where id = #{id}
+	</delete>
+</mapper>
+	

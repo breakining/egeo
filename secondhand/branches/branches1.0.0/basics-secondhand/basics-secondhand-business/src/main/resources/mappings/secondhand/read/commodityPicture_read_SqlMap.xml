@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.secondhand.dao.read.CommodityPictureReadDAO">
+	<resultMap type="com.egeo.basics.secondhand.po.CommodityPicturePO" id="commodityPictureMap">
+		<result property="id" column="id" />
+		<result property="commodityId" column="commodity_id" />
+		<result property="pictureId" column="picture_id" />
+		<result property="sortValue" column="sort_value" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+		<result property="platformId" column="platform_id" />
+	</resultMap>
+	
+	<resultMap type="com.egeo.basics.secondhand.condition.CommodityPictureCondition" id="commodityPictureCondition" extends="commodityPictureMap">
+		<result property="pictureUrl" column="picture_url" />
+	</resultMap>
+
+	<sql id="commodityPictureColumns">
+		id,
+		commodity_id,
+		picture_id,
+		sort_value,
+		create_time,
+		update_time,
+		platform_id
+	</sql>
+
+	<select id="findById" parameterType="com.egeo.basics.secondhand.po.CommodityPicturePO" resultMap="commodityPictureMap">
+		SELECT
+		<include refid="commodityPictureColumns" />
+		FROM commodity_picture
+		WHERE id = #{po.id}
+	</select>
+
+	<select id="findOfPage" resultMap="commodityPictureMap">
+		SELECT
+		<include refid="commodityPictureColumns" />
+		FROM commodity_picture
+		<where>
+			<if test="po.commodityId != null">
+				and commodity_id = #{po.commodityId}
+			</if>
+			<if test="po.pictureId != null">
+				and picture_id = #{po.pictureId}
+			</if>
+			<if test="po.sortValue != null">
+				and sort_value = #{po.sortValue}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>		
+			<otherwise>
+				ORDER BY sort_value
+			</otherwise>
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+	
+	<select id="countOfPage" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM commodity_picture
+		<where>
+			<if test="po.commodityId != null">
+				and commodity_id = #{po.commodityId}
+			</if>
+			<if test="po.pictureId != null">
+				and picture_id = #{po.pictureId}
+			</if>
+			<if test="po.sortValue != null">
+				and sort_value = #{po.sortValue}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findAll" resultMap="commodityPictureMap">
+		SELECT
+		<include refid="commodityPictureColumns" />
+		FROM commodity_picture
+		<where>
+			<if test="po.commodityId != null">
+				and commodity_id = #{po.commodityId}
+			</if>
+			<if test="po.pictureId != null">
+				and picture_id = #{po.pictureId}
+			</if>
+			<if test="po.sortValue != null">
+				and sort_value = #{po.sortValue}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>			
+			<otherwise>
+				ORDER BY sort_value
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="commodityPictureByCommodityId" resultMap="commodityPictureCondition">
+		SELECT
+		cp.id,
+		cp.commodity_id,
+		cp.picture_id,
+		cp.sort_value,
+		cp.create_time,
+		cp.update_time,
+		cp.platform_id,
+		p.url picture_url
+		from commodity_picture cp
+		LEFT JOIN picture p on cp.picture_id = p.id
+		WHERE cp.commodity_id = #{commodityId} ORDER BY cp.sort_value
+	</select>
+</mapper>
+	

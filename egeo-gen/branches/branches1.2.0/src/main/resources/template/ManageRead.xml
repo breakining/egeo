@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>ReadManage</name>
+	<filePath>basics-${module}-business/src/main/java/${filePath}/${module}/business/read/</filePath>
+	<fileName>${className}ReadManage.java</fileName>
+	<content><![CDATA[package ${packageName}.${module}.business.read;
+
+public interface ${className}ReadManage {
+}]]>
+	</content>
+</template>

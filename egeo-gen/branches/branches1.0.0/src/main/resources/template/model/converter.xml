@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>converter</name>
+	<filePath>basics-${module}-service/src/main/java/${filePath}/${module}/converter/</filePath>
+	<fileName>${className}Converter.java</fileName>
+	<content><![CDATA[package ${packageName}.${module}.converter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import ${packageName}.${module}.model.dto.${name}.${className}DTO;
+import ${packageName}.${module}.po.${className}PO;
+
+/**
+ * DTO和PO相互转换工具类
+ * 
+ * @author ${author}
+ * @date ${today}
+ */
+public class ${className}Converter {
+	
+	public static ${className}DTO toDTO(${className}PO src) {
+		${className}DTO tar = new ${className}DTO();
+#if("${pk}" != "")
+		tar.${pk.setter}(src.${pk.getter}());
+#end
+#foreach(${field} in ${fields})
+		tar.${field.setter}(src.${field.getter}());
+#end
+		return tar;
+	}
+
+	public static ${className}PO toPO(${className}DTO src) {
+		${className}PO tar = new ${className}PO();
+#if("${pk}" != "")
+		tar.${pk.setter}(src.${pk.getter}());
+#end
+#foreach(${field} in ${fields})
+		tar.${field.setter}(src.${field.getter}());
+#end
+		return tar;
+	}
+
+	public static List<${className}DTO> toDTO(List<${className}PO> srcs) {
+		if (srcs == null)
+			return null;
+		List<${className}DTO> list = new ArrayList<${className}DTO>();
+		for (${className}PO src : srcs) {
+			list.add(toDTO(src));
+		}
+		return list;
+	}
+
+	public static List<${className}PO> toPO(List<${className}DTO> srcs) {
+		if (srcs == null)
+			return null;
+		List<${className}PO> list = new ArrayList<${className}PO>();
+		for (${className}DTO src : srcs) {
+			list.add(toPO(src));
+		}
+		return list;
+	}
+}]]>
+	</content>
+</template>

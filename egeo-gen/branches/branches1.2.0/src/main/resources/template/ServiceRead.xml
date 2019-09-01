@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>ReadService</name>
+	<filePath>basics-${module}-service/src/main/java/${filePath}/${module}/service/read/</filePath>
+	<fileName>${className}ReadServiceImpl.java</fileName>
+	<content><![CDATA[package ${packageName}.${module}.service.read;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.egeo.core.basics.service.BaseService;
+import ${packageName}.${module}.api.read.${className}ReadService;
+import ${packageName}.${module}.business.read.${className}ReadManage;
+
+@Service("${name}ReadService")
+public class ${className}ReadServiceImpl extends BaseService implements ${className}ReadService {
+	@Autowired
+	private ${className}ReadManage ${name}ReadManage;
+}]]>
+	</content>
+</template>

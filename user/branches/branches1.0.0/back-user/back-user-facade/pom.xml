@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.egeo.back.user</groupId>
+		<artifactId>back-user</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>back-user-facade</artifactId>
+	<name>back-user-facade</name>
+	<url>http://maven.apache.org</url>
+	<dependencies>
+		<!-- 本项目模块包 -->
+		<dependency>
+			<groupId>com.egeo.back.user</groupId>
+			<artifactId>back-user-model</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- basics服务api包 -->
+		<dependency>
+			<groupId>com.egeo.basics.user</groupId>
+			<artifactId>basics-user-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- 本公司dubbo扩展包 -->
+		<dependency>
+			<groupId>com.egeo</groupId>
+			<artifactId>egeo-dubbo</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- Spring Start -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- Spring End -->
+		<!-- dubbo -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo</artifactId>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+</project>
+
+	

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.read.UserLoginReadDAO">
+	<resultMap type="com.egeo.basics.user.po.UserLoginPO" id="userLoginMap">
+		<result property="id" column="id" />
+		<result property="userId" column="user_id" />
+		<result property="username" column="username" />
+		<result property="loginResult" column="login_result" />
+		<result property="loginTime" column="login_time" />
+		<result property="ip" column="ip" />
+		<result property="browser" column="browser" />
+		<result property="companyId" column="company_id" />
+		<result property="platformId" column="platform_id" />
+	</resultMap>
+
+	<sql id="userLoginColumns">
+		id,
+		user_id,
+		username,
+		login_result,
+		login_time,
+		ip,
+		browser,
+		company_id,
+		platform_id
+	</sql>
+
+	<select id="findById" parameterType="com.egeo.basics.user.po.UserLoginPO" resultMap="userLoginMap">
+		SELECT
+		<include refid="userLoginColumns" />
+		FROM u_user_login
+		WHERE id = #{po.id}
+	</select>
+
+	<select id="findOfPage" resultMap="userLoginMap">
+		SELECT
+		<include refid="userLoginColumns" />
+		FROM u_user_login
+		<where>
+			<if test="po.userId != null">
+				and user_id = #{po.userId}
+			</if>
+			<if test="po.username != null">
+				and username = #{po.username}
+			</if>
+			<if test="po.loginResult != null">
+				and login_result = #{po.loginResult}
+			</if>
+			<if test="po.loginTime != null">
+				and login_time = #{po.loginTime}
+			</if>
+			<if test="po.ip != null">
+				and ip = #{po.ip}
+			</if>
+			<if test="po.browser != null">
+				and browser = #{po.browser}
+			</if>
+			<if test="po.companyId != null">
+				and company_id = #{po.companyId}
+			</if>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>		
+			<otherwise>
+				ORDER BY id desc		
+			</otherwise>
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+	
+	<select id="countOfPage" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM u_user_login
+		<where>
+			<if test="po.userId != null">
+				and user_id = #{po.userId}
+			</if>
+			<if test="po.username != null">
+				and username = #{po.username}
+			</if>
+			<if test="po.loginResult != null">
+				and login_result = #{po.loginResult}
+			</if>
+			<if test="po.loginTime != null">
+				and login_time = #{po.loginTime}
+			</if>
+			<if test="po.ip != null">
+				and ip = #{po.ip}
+			</if>
+			<if test="po.browser != null">
+				and browser = #{po.browser}
+			</if>
+			<if test="po.companyId != null">
+				and company_id = #{po.companyId}
+			</if>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findAll" resultMap="userLoginMap">
+		SELECT
+		<include refid="userLoginColumns" />
+		FROM u_user_login
+		<where>
+			<if test="po.userId != null">
+				and user_id = #{po.userId}
+			</if>
+			<if test="po.username != null">
+				and username = #{po.username}
+			</if>
+			<if test="po.loginResult != null">
+				and login_result = #{po.loginResult}
+			</if>
+			<if test="po.loginTime != null">
+				and login_time = #{po.loginTime}
+			</if>
+			<if test="po.ip != null">
+				and ip = #{po.ip}
+			</if>
+			<if test="po.browser != null">
+				and browser = #{po.browser}
+			</if>
+			<if test="po.companyId != null">
+				and company_id = #{po.companyId}
+			</if>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>			
+			<otherwise>
+				ORDER BY id desc		
+			</otherwise>
+		</choose>
+	</select>
+</mapper>
+	

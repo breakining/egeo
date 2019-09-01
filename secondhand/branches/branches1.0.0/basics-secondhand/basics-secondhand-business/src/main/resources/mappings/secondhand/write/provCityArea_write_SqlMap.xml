@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.secondhand.dao.write.ProvCityAreaWriteDAO">
+	<insert id="insert" parameterType="com.egeo.basics.secondhand.po.ProvCityAreaPO">
+		INSERT INTO prov_city_area(
+        <trim suffixOverrides=",">
+			<if test="areaname != null">
+				areaname,
+			</if>
+			<if test="parentno != null">
+				parentno,
+			</if>
+			<if test="areacode != null">
+				areacode,
+			</if>
+			<if test="arealevel != null">
+				arealevel,
+			</if>
+			<if test="typename != null">
+				typename,
+			</if>
+        </trim>		
+		) VALUES (
+        <trim suffixOverrides=",">
+			<if test="areaname != null">
+				#{areaname},
+			</if>
+			<if test="parentno != null">
+				#{parentno},
+			</if>
+			<if test="areacode != null">
+				#{areacode},
+			</if>
+			<if test="arealevel != null">
+				#{arealevel},
+			</if>
+			<if test="typename != null">
+				#{typename},
+			</if>
+        </trim>		
+		)
+		<selectKey keyProperty="id" resultType="java.lang.Long">
+			select LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+
+	
+	
+	<update id="update">
+	UPDATE prov_city_area 
+		<set>
+			<if test="areaname != null">
+				areaname = #{areaname},
+			</if>			
+			<if test="parentno != null">
+				parentno = #{parentno},
+			</if>			
+			<if test="areacode != null">
+				areacode = #{areacode},
+			</if>			
+			<if test="arealevel != null">
+				arealevel = #{arealevel},
+			</if>			
+			<if test="typename != null">
+				typename = #{typename},
+			</if>			
+		</set>
+			WHERE id = #{id}
+	</update>	
+	
+
+	<delete id="delete">
+		delete from prov_city_area where id = #{id}
+	</delete>
+
+	<delete id="deleteByPara">
+		delete from prov_city_area 
+		<where>
+			<if test="areaname != null">
+				and areaname = #{areaname}
+			</if>
+			<if test="parentno != null">
+				and parentno = #{parentno}
+			</if>
+			<if test="areacode != null">
+				and areacode = #{areacode}
+			</if>
+			<if test="arealevel != null">
+				and arealevel = #{arealevel}
+			</if>
+			<if test="typename != null">
+				and typename = #{typename}
+			</if>
+		</where>
+	</delete>
+
+
+</mapper>
+	

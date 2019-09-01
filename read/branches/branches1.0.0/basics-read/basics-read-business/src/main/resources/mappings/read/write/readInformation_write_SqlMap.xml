@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.read.dao.write.ReadInformationWriteDAO">
+	<insert id="insert" parameterType="com.egeo.basics.read.po.ReadInformationPO">
+		INSERT INTO read_information(
+        <trim suffixOverrides=",">
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="fromUid != null">
+				from_uid,
+			</if>
+			<if test="fromName != null">
+				from_name,
+			</if>
+			<if test="topicId != null">
+				topic_id,
+			</if>
+			<if test="isCommentPraise != null">
+				is_comment_praise,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+        </trim>		
+		) VALUES (
+        <trim suffixOverrides=",">
+			<if test="userId != null">
+				#{userId},
+			</if>
+			<if test="fromUid != null">
+				#{fromUid},
+			</if>
+			<if test="fromName != null">
+				#{fromName},
+			</if>
+			<if test="topicId != null">
+				#{topicId},
+			</if>
+			<if test="isCommentPraise != null">
+				#{isCommentPraise},
+			</if>
+			<if test="type != null">
+				#{type},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime},
+			</if>
+        </trim>		
+		)
+		<selectKey keyProperty="id" resultType="java.lang.Long">
+			select LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+
+	
+	
+	<update id="update">
+	UPDATE read_information 
+		<set>
+			<if test="userId != null">
+				user_id = #{userId},
+			</if>			
+			<if test="fromUid != null">
+				from_uid = #{fromUid},
+			</if>			
+			<if test="fromName != null">
+				from_name = #{fromName},
+			</if>			
+			<if test="topicId != null">
+				topic_id = #{topicId},
+			</if>			
+			<if test="isCommentPraise != null">
+				is_comment_praise = #{isCommentPraise},
+			</if>			
+			<if test="type != null">
+				type = #{type},
+			</if>			
+			<if test="createTime != null">
+				create_time = #{createTime},
+			</if>			
+			<if test="updateTime != null">
+				update_time = #{updateTime},
+			</if>			
+		</set>
+			WHERE id = #{id}
+	</update>	
+	
+
+	<delete id="delete">
+		delete from read_information where id = #{id}
+	</delete>
+
+	<delete id="deleteByPara">
+		delete from read_information 
+		<where>
+			<if test="userId != null">
+				and user_id = #{userId}
+			</if>
+			<if test="fromUid != null">
+				and from_uid = #{fromUid}
+			</if>
+			<if test="fromName != null">
+				and from_name = #{fromName}
+			</if>
+			<if test="topicId != null">
+				and topic_id = #{topicId}
+			</if>
+			<if test="isCommentPraise != null">
+				and is_comment_praise = #{isCommentPraise}
+			</if>
+			<if test="type != null">
+				and type = #{type}
+			</if>
+			<if test="createTime != null">
+				and create_time = #{createTime}
+			</if>
+			<if test="updateTime != null">
+				and update_time = #{updateTime}
+			</if>
+		</where>
+	</delete>
+	
+	<insert id="insertReadInformationByPraiseWithTx" parameterType="com.egeo.basics.read.po.ReadPraisePO">
+		INSERT INTO read_information(
+				user_id,
+				from_uid,
+				from_name,
+				topic_id,
+				is_comment_praise,
+				type
+		) select
+				#{userId},
+				#{fromUid},
+				#{fromName},
+				#{topicId},
+				#{isCommentPraise},
+				#{type}
+				from dual where not exists   
+      (select 1 from read_information where user_id= #{userId} and topic_id= #{topicId} and from_uid = #{fromUid})
+		<selectKey keyProperty="id" resultType="java.lang.Long">
+			select LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+
+</mapper>
+	

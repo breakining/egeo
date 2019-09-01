@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>condition</name>
+	<filePath>basics-${module}/basics-${module}-business/src/main/java/com/egeo/basics/${module}/condition/</filePath>
+	<fileName>${className}Condition.java</fileName>
+	<content><![CDATA[package com.egeo.basics.${module}.condition;
+
+import com.egeo.basics.${module}.po.${className}PO;
+
+/**
+ * 
+ * @author ${author}
+ * @date ${today}
+ */
+public class ${className}Condition extends ${className}PO {
+	private static final long serialVersionUID = 1L;
+
+}]]>
+	</content>
+</template>

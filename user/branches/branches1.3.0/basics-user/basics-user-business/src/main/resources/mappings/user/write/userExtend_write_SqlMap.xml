@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.write.UserExtendWriteDAO">
+	<insert id="insert" parameterType="com.egeo.basics.user.po.UserExtendPO">
+		INSERT INTO u_user_extend(
+        <trim suffixOverrides=",">
+        	<if test="id != null">
+				id,
+			</if>
+			<if test="sex != null">
+				sex,
+			</if>
+			<if test="nickname != null">
+				nickname,
+			</if>
+			<if test="headPicUrl != null">
+				head_pic_url,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="regtime != null">
+				regtime,
+			</if>
+			<if test="birthday != null">
+				birthday,
+			</if>
+			<if test="mobile != null">
+				mobile,
+			</if>
+			<if test="qq != null">
+				qq,
+			</if>
+			<if test="memberCode != null">
+				member_code,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="lastlogin != null">
+				lastlogin,
+			</if>
+			<if test="activityInfo != null">
+				activity_info,
+			</if>
+			<if test="isComplete != null">
+				is_complete,
+			</if>
+			<if test="deviceId != null">
+				device_id,
+			</if>
+			<if test="deviceType != null">
+				device_type,
+			</if>
+			<if test="weixin != null">
+				weixin,
+			</if>
+			<if test="workaddressId != null">
+				workaddress_id,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="isDeleted != null">
+				is_deleted,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+        </trim>		
+		) VALUES (
+        <trim suffixOverrides=",">
+       	 	<if test="id != null">
+				#{id},
+			</if>
+			<if test="sex != null">
+				#{sex},
+			</if>
+			<if test="nickname != null">
+				#{nickname},
+			</if>
+			<if test="headPicUrl != null">
+				#{headPicUrl},
+			</if>
+			<if test="name != null">
+				#{name},
+			</if>
+			<if test="regtime != null">
+				#{regtime},
+			</if>
+			<if test="birthday != null">
+				#{birthday},
+			</if>
+			<if test="mobile != null">
+				#{mobile},
+			</if>
+			<if test="qq != null">
+				#{qq},
+			</if>
+			<if test="memberCode != null">
+				#{memberCode},
+			</if>
+			<if test="remark != null">
+				#{remark},
+			</if>
+			<if test="lastlogin != null">
+				#{lastlogin},
+			</if>
+			<if test="activityInfo != null">
+				#{activityInfo},
+			</if>
+			<if test="isComplete != null">
+				#{isComplete},
+			</if>
+			<if test="deviceId != null">
+				#{deviceId},
+			</if>
+			<if test="deviceType != null">
+				#{deviceType},
+			</if>
+			<if test="weixin != null">
+				#{weixin},
+			</if>
+			<if test="workaddressId != null">
+				#{workaddressId},
+			</if>
+			<if test="status != null">
+				#{status},
+			</if>
+			<if test="address != null">
+				#{address},
+			</if>
+			<if test="isDeleted != null">
+				#{isDeleted},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime},
+			</if>
+        </trim>		
+		)
+		<selectKey keyProperty="id" resultType="java.lang.Long">
+			select LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+
+	
+	
+	<update id="update">
+	UPDATE u_user_extend 
+		<set>
+			<if test="sex != null">
+				sex = #{sex},
+			</if>			
+			<if test="nickname != null">
+				nickname = #{nickname},
+			</if>			
+			<if test="headPicUrl != null">
+				head_pic_url = #{headPicUrl},
+			</if>			
+			<if test="name != null">
+				name = #{name},
+			</if>			
+			<if test="regtime != null">
+				regtime = #{regtime},
+			</if>			
+			<if test="birthday != null">
+				birthday = #{birthday},
+			</if>			
+			<if test="mobile != null">
+				mobile = #{mobile},
+			</if>			
+			<if test="qq != null">
+				qq = #{qq},
+			</if>			
+			<if test="memberCode != null">
+				member_code = #{memberCode},
+			</if>			
+			<if test="remark != null">
+				remark = #{remark},
+			</if>			
+			<if test="lastlogin != null">
+				lastlogin = #{lastlogin},
+			</if>			
+			<if test="activityInfo != null">
+				activity_info = #{activityInfo},
+			</if>			
+			<if test="isComplete != null">
+				is_complete = #{isComplete},
+			</if>			
+			<if test="deviceId != null">
+				device_id = #{deviceId},
+			</if>			
+			<if test="deviceType != null">
+				device_type = #{deviceType},
+			</if>			
+			<if test="weixin != null">
+				weixin = #{weixin},
+			</if>			
+			<if test="workaddressId != null">
+				workaddress_id = #{workaddressId},
+			</if>			
+			<if test="status != null">
+				status = #{status},
+			</if>			
+			<if test="address != null">
+				address = #{address},
+			</if>			
+			<if test="isDeleted != null">
+				is_deleted = #{isDeleted},
+			</if>			
+			<if test="createTime != null">
+				create_time = #{createTime},
+			</if>			
+			<if test="updateTime != null">
+				update_time = #{updateTime},
+			</if>			
+		</set>
+			WHERE id = #{id}
+	</update>	
+	
+
+	<update id="delete">
+		UPDATE u_user_extend SET is_deleted = 1 WHERE id = #{id}
+	</update>
+
+	<update id="deleteByPara">
+		UPDATE u_user_extend SET is_deleted = 1 
+		<where>
+			<if test="sex != null">
+				and sex = #{sex}
+			</if>
+			<if test="nickname != null">
+				and nickname = #{nickname}
+			</if>
+			<if test="headPicUrl != null">
+				and head_pic_url = #{headPicUrl}
+			</if>
+			<if test="name != null">
+				and name = #{name}
+			</if>
+			<if test="regtime != null">
+				and regtime = #{regtime}
+			</if>
+			<if test="birthday != null">
+				and birthday = #{birthday}
+			</if>
+			<if test="mobile != null">
+				and mobile = #{mobile}
+			</if>
+			<if test="qq != null">
+				and qq = #{qq}
+			</if>
+			<if test="memberCode != null">
+				and member_code = #{memberCode}
+			</if>
+			<if test="remark != null">
+				and remark = #{remark}
+			</if>
+			<if test="lastlogin != null">
+				and lastlogin = #{lastlogin}
+			</if>
+			<if test="activityInfo != null">
+				and activity_info = #{activityInfo}
+			</if>
+			<if test="isComplete != null">
+				and is_complete = #{isComplete}
+			</if>
+			<if test="deviceId != null">
+				and device_id = #{deviceId}
+			</if>
+			<if test="deviceType != null">
+				and device_type = #{deviceType}
+			</if>
+			<if test="weixin != null">
+				and weixin = #{weixin}
+			</if>
+			<if test="workaddressId != null">
+				and workaddress_id = #{workaddressId}
+			</if>
+			<if test="status != null">
+				and status = #{status}
+			</if>
+			<if test="address != null">
+				and address = #{address}
+			</if>
+			<if test="isDeleted != null">
+				and is_deleted = #{isDeleted}
+			</if>
+			<if test="createTime != null">
+				and create_time = #{createTime}
+			</if>
+			<if test="updateTime != null">
+				and update_time = #{updateTime}
+			</if>
+		</where>
+	</update>
+
+
+</mapper>
+	

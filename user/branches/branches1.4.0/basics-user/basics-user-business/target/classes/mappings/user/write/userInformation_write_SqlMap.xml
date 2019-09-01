@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.write.UserInformationWriteDAO">
+	<insert id="insert" parameterType="com.egeo.basics.user.po.UserInformationPO">
+		INSERT INTO u_user_information(
+        <trim suffixOverrides=",">
+			<if test="headline != null">
+				headline,
+			</if>
+			<if test="headlineContent != null">
+				headline_content,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="dispatchUserId != null">
+				dispatch_user_id,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="platformId != null">
+				platform_id,
+			</if>
+        </trim>		
+		) VALUES (
+        <trim suffixOverrides=",">
+			<if test="headline != null">
+				#{headline},
+			</if>
+			<if test="headlineContent != null">
+				#{headlineContent},
+			</if>
+			<if test="userId != null">
+				#{userId},
+			</if>
+			<if test="dispatchUserId != null">
+				#{dispatchUserId},
+			</if>
+			<if test="type != null">
+				#{type},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime},
+			</if>
+			<if test="platformId != null">
+				#{platformId},
+			</if>
+        </trim>		
+		)
+		<selectKey keyProperty="id" resultType="java.lang.Long">
+			select LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+
+	
+	
+	<update id="update">
+	UPDATE u_user_information 
+		<set>
+			<if test="headline != null">
+				headline = #{headline},
+			</if>			
+			<if test="headlineContent != null">
+				headline_content = #{headlineContent},
+			</if>			
+			<if test="userId != null">
+				user_id = #{userId},
+			</if>			
+			<if test="dispatchUserId != null">
+				dispatch_user_id = #{dispatchUserId},
+			</if>			
+			<if test="type != null">
+				type = #{type},
+			</if>			
+			<if test="createTime != null">
+				create_time = #{createTime},
+			</if>			
+			<if test="updateTime != null">
+				update_time = #{updateTime},
+			</if>			
+			<if test="platformId != null">
+				platform_id = #{platformId},
+			</if>			
+		</set>
+			WHERE id = #{id}
+	</update>	
+	
+
+	<delete id="delete">
+		delete from u_user_information where id = #{id}
+	</delete>
+
+	<delete id="deleteByPara">
+		delete from u_user_information 
+		<where>
+			<if test="headline != null">
+				and headline = #{headline}
+			</if>
+			<if test="headlineContent != null">
+				and headline_content = #{headlineContent}
+			</if>
+			<if test="userId != null">
+				and user_id = #{userId}
+			</if>
+			<if test="dispatchUserId != null">
+				and dispatch_user_id = #{dispatchUserId}
+			</if>
+			<if test="type != null">
+				and type = #{type}
+			</if>
+			<if test="createTime != null">
+				and create_time = #{createTime}
+			</if>
+			<if test="updateTime != null">
+				and update_time = #{updateTime}
+			</if>
+			<if test="platformId != null">
+				and platform_id = #{platformId}
+			</if>
+		</where>
+	</delete>
+
+
+</mapper>
+	

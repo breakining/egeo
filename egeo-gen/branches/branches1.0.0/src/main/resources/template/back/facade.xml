@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>facade</name>
+	<filePath>back-${module}-facade/src/main/java/${filePath}/${module}/facade/</filePath>
+	<fileName>${className}Facade.java</fileName>
+	<content><![CDATA[package ${packageName}.${module}.facade;
+
+import java.util.List;
+
+import org.springframework.stereotype.Component;
+
+import com.alibaba.dubbo.config.annotation.Reference;
+import com.egeo.basics.${module}.api.read.${className}ReadService;
+import com.egeo.basics.${module}.model.dto.${name}.${className}DTO;
+
+@Component
+public class ${className}Facade {
+	
+	@Reference
+	private ${className}ReadService ${name}ReadService;
+	
+	public List<${className}DTO>  findAll(${className}DTO ${name}DTO){
+		
+		return (List<${className}DTO>) ${name}ReadService.findAll(${name}DTO);		
+	}
+
+}]]>
+	</content>
+</template>

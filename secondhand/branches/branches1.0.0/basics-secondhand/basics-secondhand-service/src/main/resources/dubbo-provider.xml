@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+            http://www.springframework.org/schema/beans/spring-beans.xsd  
+            http://code.alibabatech.com/schema/dubbo  
+            http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="basics-secondhand-service" />
+
+	<!-- 使用zookeeper注册中心暴露服务地址 -->
+	<dubbo:registry protocol="zookeeper" address="${cluster1.serverList}" />
+
+
+	<!-- 用dubbo协议默认在20880端口暴露服务 -->
+	<dubbo:protocol name="dubbo" port="${dubbo.provider.port}" dispatcher="all" threadpool="fixed" threads="${dubbo.provider.threads}" />
+	
+	<dubbo:provider filter="user" timeout="${dubbo.provider.timeout}" retries="${dubbo.provider.retries}"/>
+	<!-- read -->
+	<dubbo:service interface="com.egeo.basics.secondhand.api.read.CommodityReadService" ref="commodityReadService" />
+	<dubbo:service interface="com.egeo.basics.secondhand.api.read.CommodityPictureReadService" ref="commodityPictureReadService" />
+	<dubbo:service interface="com.egeo.basics.secondhand.api.read.PictureReadService" ref="pictureReadService" />
+	<dubbo:service interface="com.egeo.basics.secondhand.api.read.ProvCityAreaReadService" ref="provCityAreaReadService" />
+	
+	<!-- write -->
+	<dubbo:service interface="com.egeo.basics.secondhand.api.write.CommodityWriteService" ref="commodityWriteService" />
+	<dubbo:service interface="com.egeo.basics.secondhand.api.write.CommodityPictureWriteService" ref="commodityPictureWriteService" />
+	<dubbo:service interface="com.egeo.basics.secondhand.api.write.PictureWriteService" ref="pictureWriteService" />
+	<dubbo:service interface="com.egeo.basics.secondhand.api.write.ProvCityAreaWriteService" ref="provCityAreaWriteService" />
+	
+
+
+</beans> 
+
+	

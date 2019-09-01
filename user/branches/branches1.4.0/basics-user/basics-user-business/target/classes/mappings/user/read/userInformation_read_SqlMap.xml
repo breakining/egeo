@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.read.UserInformationReadDAO">
+	<resultMap type="com.egeo.basics.user.po.UserInformationPO" id="userInformationMap">
+		<result property="id" column="id" />
+		<result property="headline" column="headline" />
+		<result property="headlineContent" column="headline_content" />
+		<result property="userId" column="user_id" />
+		<result property="dispatchUserId" column="dispatch_user_id" />
+		<result property="type" column="type" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+		<result property="platformId" column="platform_id" />
+	</resultMap>
+
+	<sql id="userInformationColumns">
+		id,
+		headline,
+		headline_content,
+		user_id,
+		dispatch_user_id,
+		type,
+		create_time,
+		update_time,
+		platform_id
+	</sql>
+
+	<select id="findById" parameterType="com.egeo.basics.user.po.UserInformationPO" resultMap="userInformationMap">
+		SELECT
+		<include refid="userInformationColumns" />
+		FROM u_user_information
+		WHERE id = #{po.id}
+	</select>
+
+	<select id="findOfPage" resultMap="userInformationMap">
+		SELECT
+		<include refid="userInformationColumns" />
+		FROM u_user_information
+		<where>
+			<if test="po.headline != null">
+				and headline = #{po.headline}
+			</if>
+			<if test="po.headlineContent != null">
+				and headline_content = #{po.headlineContent}
+			</if>
+			<if test="po.userId != null">
+				and user_id = #{po.userId}
+			</if>
+			<if test="po.dispatchUserId != null">
+				and dispatch_user_id = #{po.dispatchUserId}
+			</if>
+			<if test="po.type != null">
+				and type = #{po.type}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>		
+			<otherwise>
+				ORDER BY id desc		
+			</otherwise>
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+	
+	<select id="countOfPage" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM u_user_information
+		<where>
+			<if test="po.headline != null">
+				and headline = #{po.headline}
+			</if>
+			<if test="po.headlineContent != null">
+				and headline_content = #{po.headlineContent}
+			</if>
+			<if test="po.userId != null">
+				and user_id = #{po.userId}
+			</if>
+			<if test="po.dispatchUserId != null">
+				and dispatch_user_id = #{po.dispatchUserId}
+			</if>
+			<if test="po.type != null">
+				and type = #{po.type}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findAll" resultMap="userInformationMap">
+		SELECT
+		<include refid="userInformationColumns" />
+		FROM u_user_information
+		<where>
+			<if test="po.headline != null">
+				and headline = #{po.headline}
+			</if>
+			<if test="po.headlineContent != null">
+				and headline_content = #{po.headlineContent}
+			</if>
+			<if test="po.userId != null">
+				and user_id = #{po.userId}
+			</if>
+			<if test="po.dispatchUserId != null">
+				and dispatch_user_id = #{po.dispatchUserId}
+			</if>
+			<if test="po.type != null">
+				and type = #{po.type}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>			
+			<otherwise>
+				ORDER BY id desc		
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="cntByUserId" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM u_user_information
+		WHERE user_id = #{po.userId} and platform_id = #{po.platformId} and type = 0
+	</select>
+</mapper>
+	

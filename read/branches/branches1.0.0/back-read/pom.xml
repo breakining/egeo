@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+	  <groupId>com.egeo</groupId> 
+	  <artifactId>pom-egeo-public</artifactId> 
+	  <version>1.0.0-SNAPSHOT</version> 
+	</parent>
+	<groupId>com.egeo.back.read</groupId>
+	<artifactId>back-read</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<properties>
+		<egeo.utils.version>1.0.0-SNAPSHOT</egeo.utils.version>
+		<egeo.core.version>1.0.0-SNAPSHOT</egeo.core.version>
+		<egeo.dubbo.version>1.0.0-SNAPSHOT</egeo.dubbo.version>		
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.egeo.back.read</groupId>
+				<artifactId>back-read-model</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.egeo.back.read</groupId>
+				<artifactId>back-read-facade</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.egeo.back.read</groupId>
+				<artifactId>back-read-business</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.egeo.basics.read</groupId>
+				<artifactId>basics-read-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.egeo.basics.user</groupId>
+				<artifactId>basics-user-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.egeo.basics.read</groupId>
+				<artifactId>basics-read-model</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.egeo</groupId>
+				<artifactId>egeo-core</artifactId>
+				<version>${egeo.core.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.egeo.utils</groupId>
+				<artifactId>egeo-utils</artifactId>
+				<version>${egeo.utils.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.egeo</groupId>
+				<artifactId>egeo-dubbo</artifactId>
+				<version>${egeo.dubbo.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<modules>
+		<module>back-read-web</module>
+		<module>back-read-model</module>
+		<module>back-read-facade</module>
+		<module>back-read-business</module>
+	</modules>
+</project>
+
+	

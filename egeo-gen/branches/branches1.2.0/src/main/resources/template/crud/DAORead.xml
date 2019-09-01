@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>ReadDAO</name>
+	<filePath>basics-${module}/basics-${module}-business/src/main/java/com/egeo/basics/${module}/dao/read/</filePath>
+	<fileName>${className}ReadDAO.java</fileName>
+	<content><![CDATA[package com.egeo.basics.${module}.dao.read;
+
+import com.egeo.basics.${module}.po.${className}PO;
+import com.egeo.core.orm.BaseReadDAO;
+
+public interface ${className}ReadDAO extends BaseReadDAO<${className}PO>{
+}]]>
+	</content>
+</template>

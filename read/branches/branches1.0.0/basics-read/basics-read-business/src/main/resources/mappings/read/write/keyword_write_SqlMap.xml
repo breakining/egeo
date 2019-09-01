@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.read.dao.write.KeywordWriteDAO">
+	<insert id="insert" parameterType="com.egeo.basics.read.po.KeywordPO">
+		INSERT INTO keyword(
+        <trim suffixOverrides=",">
+			<if test="keywordContent != null">
+				keyword_content,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+        </trim>		
+		) VALUES (
+        <trim suffixOverrides=",">
+			<if test="keywordContent != null">
+				#{keywordContent},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+        </trim>		
+		)
+		<selectKey keyProperty="id" resultType="java.lang.Long">
+			select LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+
+	
+	
+	<update id="update">
+	UPDATE keyword 
+		<set>
+			<if test="keywordContent != null">
+				keyword_content = #{keywordContent},
+			</if>			
+			<if test="createTime != null">
+				create_time = #{createTime},
+			</if>			
+		</set>
+			WHERE id = #{id}
+	</update>	
+	
+
+	<delete id="delete">
+		delete from keyword where id = #{id}
+	</delete>
+
+	<delete id="deleteByPara">
+		delete from keyword 
+		<where>
+			<if test="keywordContent != null">
+				and keyword_content = #{keywordContent}
+			</if>
+			<if test="createTime != null">
+				and create_time = #{createTime}
+			</if>
+		</where>
+	</delete>
+
+
+</mapper>
+	

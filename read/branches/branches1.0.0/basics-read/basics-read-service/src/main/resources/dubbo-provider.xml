@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+            http://www.springframework.org/schema/beans/spring-beans.xsd  
+            http://code.alibabatech.com/schema/dubbo  
+            http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="basics-read-service" />
+
+	<!-- 使用zookeeper注册中心暴露服务地址 -->
+	<dubbo:registry protocol="zookeeper" address="${cluster1.serverList}" />
+
+
+	<!-- 用dubbo协议默认在20880端口暴露服务 -->
+	<dubbo:protocol name="dubbo" port="${dubbo.provider.port}" dispatcher="all" threadpool="fixed" threads="${dubbo.provider.threads}" />
+	
+	<dubbo:provider filter="user" timeout="${dubbo.provider.timeout}" retries="${dubbo.provider.retries}"/>
+	<!-- read -->
+	<dubbo:service interface="com.egeo.basics.read.api.read.CommentReadService" ref="commentReadService" />
+	<dubbo:service interface="com.egeo.basics.read.api.read.ParentChildrenReadService" ref="parentChildrenReadService" />
+	<dubbo:service interface="com.egeo.basics.read.api.read.PictureReadService" ref="pictureReadService" />
+	<dubbo:service interface="com.egeo.basics.read.api.read.ReadInformationReadService" ref="readInformationReadService" />
+	<dubbo:service interface="com.egeo.basics.read.api.read.ReadPraiseReadService" ref="readPraiseReadService" />
+	<dubbo:service interface="com.egeo.basics.read.api.read.ReadRecommendReadService" ref="readRecommendReadService" />
+	<dubbo:service interface="com.egeo.basics.read.api.read.TopicReadService" ref="topicReadService" />
+	<dubbo:service interface="com.egeo.basics.read.api.read.KeywordReadService" ref="keywordReadService" />
+	<dubbo:service interface="com.egeo.basics.read.api.read.ReadPraiseNumberReadService" ref="readPraiseNumberReadService" />
+	
+	<!-- write -->
+	<dubbo:service interface="com.egeo.basics.read.api.write.CommentWriteService" ref="commentWriteService" />
+	<dubbo:service interface="com.egeo.basics.read.api.write.ParentChildrenWriteService" ref="parentChildrenWriteService" />
+	<dubbo:service interface="com.egeo.basics.read.api.write.PictureWriteService" ref="pictureWriteService" />
+	<dubbo:service interface="com.egeo.basics.read.api.write.ReadInformationWriteService" ref="readInformationWriteService" />
+	<dubbo:service interface="com.egeo.basics.read.api.write.ReadPraiseWriteService" ref="readPraiseWriteService" />
+	<dubbo:service interface="com.egeo.basics.read.api.write.ReadRecommendWriteService" ref="readRecommendWriteService" />
+	<dubbo:service interface="com.egeo.basics.read.api.write.TopicWriteService" ref="topicWriteService" />
+	<dubbo:service interface="com.egeo.basics.read.api.write.KeywordWriteService" ref="keywordWriteService" />
+	<dubbo:service interface="com.egeo.basics.read.api.write.ReadPraiseNumberWriteService" ref="readPraiseNumberWriteService" />
+	
+	
+
+
+</beans> 
+
+	

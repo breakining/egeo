@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.read.UserReadDAO">
+
+	<select id="queryUserByIds" resultMap="userMap">
+		select * from u_user
+		where id in
+		<foreach collection="ids" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</select>
+
+	<resultMap type="com.egeo.basics.user.po.UserPO" id="userMap">
+		<result property="id" column="id" />
+		<result property="loginName" column="login_name" />
+		<result property="password" column="password" />
+		<result property="mobile" column="mobile" />
+		<result property="mail" column="mail" />
+		<result property="qrcode" column="qrcode" />
+		<result property="salt" column="salt" />
+		<result property="updateSalt" column="update_salt" />
+		<result property="companyId" column="company_id" />
+		<result property="isAvailable" column="is_available" />
+		<result property="isDeleted" column="is_deleted" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+
+	<resultMap type="com.egeo.basics.user.condition.UserCondition" id="userConditionMap" extends="userMap">
+		<result property="uxId" column="ux_id" />
+		<result property="sex" column="sex" />
+		<result property="nickname" column="nickname" />
+		<result property="headPicUrl" column="head_pic_url" />
+		<result property="name" column="name" />
+	</resultMap>
+
+	<sql id="userColumns">
+		id,
+		login_name,
+		password,
+		mobile,
+		mail,
+		qrcode,
+		salt,
+		update_salt,
+		company_id,
+		is_available,
+		is_deleted,
+		create_time,
+		update_time
+	</sql>
+
+	<select id="findById" parameterType="com.egeo.basics.user.po.UserPO" resultMap="userMap">
+		SELECT
+		<include refid="userColumns" />
+		FROM u_user
+		WHERE id = #{po.id}
+	</select>
+
+	<select id="findOfPage" resultMap="userMap">
+		SELECT
+		<include refid="userColumns" />
+		FROM u_user
+		<where>
+			<if test="po.id != null">
+				and id = #{po.id}
+			</if>
+			<if test="po.loginName != null">
+				and login_name = #{po.loginName}
+			</if>
+			<if test="po.password != null">
+				and password = #{po.password}
+			</if>
+			<if test="po.mobile != null">
+				and mobile = #{po.mobile}
+			</if>
+			<if test="po.mail != null">
+				and mail = #{po.mail}
+			</if>
+			<if test="po.qrcode != null">
+				and qrcode = #{po.qrcode}
+			</if>
+			<if test="po.salt != null">
+				and salt = #{po.salt}
+			</if>
+			<if test="po.updateSalt != null">
+				and update_salt = #{po.updateSalt}
+			</if>
+			<if test="po.companyId != null">
+				and company_id = #{po.companyId}
+			</if>
+			<if test="po.isAvailable != null">
+				and is_available = #{po.isAvailable}
+			</if>
+			<if test="po.isDeleted != null">
+				and is_deleted = #{po.isDeleted}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>		
+			<otherwise>
+				ORDER BY id desc		
+			</otherwise>
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+	
+	<select id="countOfPage" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM u_user
+		<where>
+			<if test="po.loginName != null">
+				and login_name = #{po.loginName}
+			</if>
+			<if test="po.password != null">
+				and password = #{po.password}
+			</if>
+			<if test="po.mobile != null">
+				and mobile = #{po.mobile}
+			</if>
+			<if test="po.mail != null">
+				and mail = #{po.mail}
+			</if>
+			<if test="po.qrcode != null">
+				and qrcode = #{po.qrcode}
+			</if>
+			<if test="po.salt != null">
+				and salt = #{po.salt}
+			</if>
+			<if test="po.updateSalt != null">
+				and update_salt = #{po.updateSalt}
+			</if>
+			<if test="po.companyId != null">
+				and company_id = #{po.companyId}
+			</if>
+			<if test="po.isAvailable != null">
+				and is_available = #{po.isAvailable}
+			</if>
+			<if test="po.isDeleted != null">
+				and is_deleted = #{po.isDeleted}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+			<if test="po.beginTime != null">
+				and create_time > #{po.beginTime}
+			</if>
+			<if test="po.finishTime != null">
+				and #{po.finishTime} > create_time
+			</if>
+		</where>
+	</select>
+	
+	<select id="page" resultMap="userMap">
+		SELECT
+		u.id,
+		u.login_name,
+		u.password,
+		u.mobile,
+		u.mail,
+		u.qrcode,
+		u.salt,
+		u.update_salt,
+		u.company_id,
+		u.create_time
+		FROM u_user u
+		LEFT JOIN u_user_extend ue ON u.id = ue.id
+		<where>
+			<if test="po.id != null">
+				and u.id = #{po.id}
+			</if>
+			<if test="po.loginName != null">
+				and u.login_name = #{po.loginName}
+			</if>
+			<if test="po.mobile != null">
+				and u.mobile = #{po.mobile}
+			</if>
+			<if test="po.mail != null">
+				and u.mail = #{po.mail}
+			</if>
+			<if test="po.qrcode != null">
+				and u.qrcode = #{po.qrcode}
+			</if>
+			<if test="po.salt != null">
+				and u.salt = #{po.salt}
+			</if>
+			<if test="po.updateSalt != null">
+				and u.update_salt = #{po.updateSalt}
+			</if>
+			<if test="po.companyId != null">
+				and u.company_id = #{po.companyId}
+			</if>
+			<if test="po.isAvailable != null">
+				and u.is_available = #{po.isAvailable}
+			</if>
+			<if test="po.isDeleted != null">
+				and u.is_deleted = #{po.isDeleted}
+			</if>
+			<if test="po.beginTime != null">
+				and u.create_time > #{po.beginTime}
+			</if>
+			<if test="po.finishTime != null">
+				and #{po.finishTime} > u.create_time
+			</if>
+			<if test="po.name != null">
+				and ue.name = #{po.name}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY u.id
+			</otherwise>
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+		
+	</select>
+	
+<select id="count" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM u_user u
+		LEFT JOIN u_user_extend ue ON u.id = ue.id
+		<where>
+			<if test="po.id != null">
+				and u.id = #{po.id}
+			</if>
+			<if test="po.loginName != null">
+				and u.login_name = #{po.loginName}
+			</if>
+			<if test="po.mobile != null">
+				and u.mobile = #{po.mobile}
+			</if>
+			<if test="po.mail != null">
+				and u.mail = #{po.mail}
+			</if>
+			<if test="po.qrcode != null">
+				and u.qrcode = #{po.qrcode}
+			</if>
+			<if test="po.salt != null">
+				and u.salt = #{po.salt}
+			</if>
+			<if test="po.updateSalt != null">
+				and u.update_salt = #{po.updateSalt}
+			</if>
+			<if test="po.companyId != null">
+				and u.company_id = #{po.companyId}
+			</if>
+			<if test="po.isAvailable != null">
+				and u.is_available = #{po.isAvailable}
+			</if>
+			<if test="po.isDeleted != null">
+				and u.is_deleted = #{po.isDeleted}
+			</if>
+			<if test="po.beginTime != null">
+				and u.create_time > #{po.beginTime}
+			</if>
+			<if test="po.finishTime != null">
+				and #{po.finishTime} > u.create_time
+			</if>
+			<if test="po.name != null">
+				and ue.name = #{po.name}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY u.id desc
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="findAll" resultMap="userMap">
+		SELECT
+		<include refid="userColumns" />
+		FROM u_user
+		<where>
+			<if test="po.loginName != null">
+				and login_name = #{po.loginName}
+			</if>
+			<if test="po.password != null">
+				and password = #{po.password}
+			</if>
+			<if test="po.mobile != null">
+				and mobile = #{po.mobile}
+			</if>
+			<if test="po.mail != null">
+				and mail = #{po.mail}
+			</if>
+			<if test="po.qrcode != null">
+				and qrcode = #{po.qrcode}
+			</if>
+			<if test="po.salt != null">
+				and salt = #{po.salt}
+			</if>
+			<if test="po.updateSalt != null">
+				and update_salt = #{po.updateSalt}
+			</if>
+			<if test="po.companyId != null">
+				and company_id = #{po.companyId}
+			</if>
+			<if test="po.isAvailable != null">
+				and is_available = #{po.isAvailable}
+			</if>
+			<if test="po.isDeleted != null">
+				and is_deleted = #{po.isDeleted}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>			
+			<otherwise>
+				ORDER BY id desc		
+			</otherwise>
+		</choose>
+	</select>
+	<select id="findOfPageUser" resultMap="userConditionMap">
+		SELECT
+			u.id,
+			u.login_name,
+			u.mobile,
+			u.mail,
+			u.qrcode,
+			u.update_salt,
+			u.company_id,
+			u.create_time,
+			ux.sex,
+			ux.nickname,
+			ux.head_pic_url,
+			ux.name
+		FROM u_user u
+	    	LEFT JOIN u_user_extend ux ON u.id = ux.id
+	    	LEFT JOIN u_user_cookie uc ON u.id = uc.user_id
+		<where>
+		    <if test="userCondition.id != null">
+				and u.id = #{userCondition.id}
+			</if>
+			<if test="userCondition.loginName != null">
+				and u.login_name = #{userCondition.loginName}
+			</if>
+			<if test="userCondition.mobile != null">
+				and u.mobile = #{userCondition.mobile}
+			</if>
+			<if test="userCondition.mail != null">
+				and u.mail = #{userCondition.mail}
+			</if>
+			<if test="userCondition.qrcode != null">
+				and u.qrcode = #{userCondition.qrcode}
+			</if>
+			<if test="userCondition.updateSalt != null">
+				and u.update_salt = #{userCondition.updateSalt}
+			</if>
+			<if test="userCondition.companyId != null">
+				and u.company_id = #{userCondition.companyId}
+			</if>
+			<if test="userCondition.sex != null">
+				and ux.sex = #{userCondition.sex}
+			</if>
+			<if test="userCondition.nickname != null">
+				and ux.nickname = #{userCondition.nickname}
+			</if>
+			<if test="userCondition.headPicUrl != null">
+				and ux.head_pic_url = #{userCondition.headPicUrl}
+			</if>
+			<if test="userCondition.name != null">
+				and ux.name = #{userCondition.name}
+			</if>
+			<if test="userCondition.beginTime != null">
+				and u.create_time > #{userCondition.beginTime}
+			</if>
+			<if test="userCondition.finishTime != null">
+				and #{userCondition.finishTime} > u.create_time
+			</if>
+			<if test="userCondition.isDeleted != null">
+				and u.is_deleted = #{userCondition.isDeleted}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY id desc
+			</otherwise>
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+	
+	<select id="countOfPageUser" resultType="java.lang.Integer">
+		SELECT
+			count(1) cnt
+		FROM u_user u
+	    	LEFT JOIN u_user_extend ux ON u.id = ux.id
+	    	LEFT JOIN u_user_cookie uc ON u.id = uc.user_id
+		<where>
+		    <if test="userCondition.id != null">
+				and u.id = #{userCondition.id}
+			</if>
+			<if test="userCondition.loginName != null">
+				and u.login_name = #{userCondition.loginName}
+			</if>
+			<if test="userCondition.mobile != null">
+				and u.mobile = #{userCondition.mobile}
+			</if>
+			<if test="userCondition.mail != null">
+				and u.mail = #{userCondition.mail}
+			</if>
+			<if test="userCondition.qrcode != null">
+				and u.qrcode = #{userCondition.qrcode}
+			</if>
+			<if test="userCondition.updateSalt != null">
+				and u.update_salt = #{userCondition.updateSalt}
+			</if>
+			<if test="userCondition.companyId != null">
+				and u.company_id = #{userCondition.companyId}
+			</if>
+			<if test="userCondition.sex != null">
+				and ux.sex = #{userCondition.sex}
+			</if>
+			<if test="userCondition.nickname != null">
+				and ux.nickname = #{userCondition.nickname}
+			</if>
+			<if test="userCondition.headPicUrl != null">
+				and ux.head_pic_url = #{userCondition.headPicUrl}
+			</if>
+			<if test="userCondition.name != null">
+				and ux.name = #{userCondition.name}
+			</if>
+			<if test="userCondition.beginTime != null">
+				and u.create_time > #{userCondition.beginTime}
+			</if>
+			<if test="userCondition.finishTime != null">
+				and #{userCondition.finishTime} > u.create_time
+			</if>
+			<if test="userCondition.isDeleted != null">
+				and u.is_deleted = #{userCondition.isDeleted}
+			</if>
+		</where>
+	</select>
+	<select id="findUniqueUser" resultMap="userMap">
+			SELECT
+			<include refid="userColumns" />
+			FROM u_user
+			<where>
+				<if test="po.loginName != null">
+					and login_name = #{po.loginName}
+				</if>
+				<if test="po.mobile != null">
+					and mobile = #{po.mobile}
+				</if>
+				<if test="po.mail != null">
+					and mail = #{po.mail}
+				</if>
+
+			</where>
+			<choose>
+				<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+					ORDER BY ${page.orderBy}
+				</when>
+				<otherwise>
+					ORDER BY id desc
+				</otherwise>
+			</choose>
+	</select>
+	
+	<select id="userWelfareAppById" resultMap="userConditionMap">
+		SELECT u.id,ue.nickname,u.mobile,ue.head_pic_url from u_user u
+		LEFT JOIN u_user_extend ue on u.id = ue.id
+		WHERE u.id = #{userId}
+	</select>
+</mapper>
+	

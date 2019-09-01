@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.read.UrlReadDAO">
+	<resultMap type="com.egeo.basics.user.po.UrlPO" id="urlMap">
+		<result property="id" column="id" />
+		<result property="url" column="url" />
+	</resultMap>
+
+	<sql id="urlColumns">
+		id,
+		url
+	</sql>
+
+	<select id="findById" parameterType="com.egeo.basics.user.po.UrlPO" resultMap="urlMap">
+		SELECT
+		<include refid="urlColumns" />
+		FROM u_url
+		WHERE id = #{po.id}
+	</select>
+
+	<select id="findOfPage" resultMap="urlMap">
+		SELECT
+		<include refid="urlColumns" />
+		FROM u_url
+		<where>
+			<if test="po.url != null">
+				and url = #{po.url}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY id desc
+			</otherwise>
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+	
+	<select id="countOfPage" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM u_url
+		<where>
+			<if test="po.url != null">
+				and url = #{po.url}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY id desc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAll" resultMap="urlMap">
+		SELECT
+		<include refid="urlColumns" />
+		FROM u_url
+		<where>
+			<if test="po.url != null">
+				and url = #{po.url}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY id desc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="getUrlListByUserId" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT DISTINCT u.url FROM u_url u
+		LEFT JOIN u_role_url ru ON ru.url_id = u.id
+		LEFT JOIN u_user_role ro  ON ro.role_id = ru.role_id
+		where ro.user_id= #{userId}
+	</select>	
+</mapper>
+	

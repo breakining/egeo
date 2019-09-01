@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.write.UserWriteDAO">
+	<insert id="insert" parameterType="com.egeo.basics.user.po.UserPO">
+		INSERT INTO u_user(
+        <trim suffixOverrides=",">
+			<if test="loginName != null">
+				login_name,
+			</if>
+			<if test="password != null">
+				password,
+			</if>
+			<if test="mobile != null">
+				mobile,
+			</if>
+			<if test="mail != null">
+				mail,
+			</if>
+			<if test="qrcode != null">
+				qrcode,
+			</if>
+			<if test="salt != null">
+				salt,
+			</if>
+			<if test="updateSalt != null">
+				update_salt,
+			</if>
+			<if test="companyId != null">
+				company_id,
+			</if>
+			<if test="isAvailable != null">
+				is_available,
+			</if>
+			<if test="isDeleted != null">
+				is_deleted,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+        </trim>		
+		) VALUES (
+        <trim suffixOverrides=",">
+			<if test="loginName != null">
+				#{loginName},
+			</if>
+			<if test="password != null">
+				#{password},
+			</if>
+			<if test="mobile != null">
+				#{mobile},
+			</if>
+			<if test="mail != null">
+				#{mail},
+			</if>
+			<if test="qrcode != null">
+				#{qrcode},
+			</if>
+			<if test="salt != null">
+				#{salt},
+			</if>
+			<if test="updateSalt != null">
+				#{updateSalt},
+			</if>
+			<if test="companyId != null">
+				#{companyId},
+			</if>
+			<if test="isAvailable != null">
+				#{isAvailable},
+			</if>
+			<if test="isDeleted != null">
+				#{isDeleted},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime},
+			</if>
+        </trim>		
+		)
+		<selectKey keyProperty="id" resultType="java.lang.Long">
+			select LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+
+	
+	
+	<update id="update">
+	UPDATE u_user 
+		<set>
+			<if test="loginName != null">
+				login_name = #{loginName},
+			</if>			
+			<if test="password != null">
+				password = #{password},
+			</if>			
+			<if test="mobile != null">
+				mobile = #{mobile},
+			</if>			
+			<if test="mail != null">
+				mail = #{mail},
+			</if>			
+			<if test="qrcode != null">
+				qrcode = #{qrcode},
+			</if>			
+			<if test="salt != null">
+				salt = #{salt},
+			</if>			
+			<if test="updateSalt != null">
+				update_salt = #{updateSalt},
+			</if>			
+			<if test="companyId != null">
+				company_id = #{companyId},
+			</if>			
+			<if test="isAvailable != null">
+				is_available = #{isAvailable},
+			</if>			
+			<if test="isDeleted != null">
+				is_deleted = #{isDeleted},
+			</if>			
+			<if test="createTime != null">
+				create_time = #{createTime},
+			</if>			
+			<if test="updateTime != null">
+				update_time = #{updateTime},
+			</if>			
+		</set>
+			WHERE id = #{id}
+	</update>	
+	
+
+	<update id="delete">
+		UPDATE u_user SET is_deleted = 1 WHERE id = #{id}
+	</update>
+
+	<update id="deleteByPara">
+		UPDATE u_user SET is_deleted = 1 
+		<where>
+			<if test="loginName != null">
+				and login_name = #{loginName}
+			</if>
+			<if test="password != null">
+				and password = #{password}
+			</if>
+			<if test="mobile != null">
+				and mobile = #{mobile}
+			</if>
+			<if test="mail != null">
+				and mail = #{mail}
+			</if>
+			<if test="qrcode != null">
+				and qrcode = #{qrcode}
+			</if>
+			<if test="salt != null">
+				and salt = #{salt}
+			</if>
+			<if test="updateSalt != null">
+				and update_salt = #{updateSalt}
+			</if>
+			<if test="companyId != null">
+				and company_id = #{companyId}
+			</if>
+			<if test="isAvailable != null">
+				and is_available = #{isAvailable}
+			</if>
+			<if test="isDeleted != null">
+				and is_deleted = #{isDeleted}
+			</if>
+			<if test="createTime != null">
+				and create_time = #{createTime}
+			</if>
+			<if test="updateTime != null">
+				and update_time = #{updateTime}
+			</if>
+		</where>
+	</update>
+
+	<update id="updateUserPassword">
+	UPDATE u_user set `password` = #{password} WHERE mail = #{mail}
+	</update>	
+
+</mapper>
+	

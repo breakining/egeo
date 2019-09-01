@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.read.UserCookieReadDAO">
+	<resultMap type="com.egeo.basics.user.po.UserCookiePO" id="userCookieMap">
+		<result property="id" column="id" />
+		<result property="userId" column="user_id" />
+		<result property="userLoginId" column="user_login_id" />
+		<result property="type" column="type" />
+		<result property="cookieName" column="cookie_name" />
+		<result property="cookieValue" column="cookie_value" />
+		<result property="domain" column="domain" />
+		<result property="path" column="path" />
+		<result property="expirationTime" column="expiration_time" />
+		<result property="isAvailable" column="is_available" />
+		<result property="isDeleted" column="is_deleted" />
+		<result property="versionNo" column="version_no" />
+		<result property="createUserid" column="create_userid" />
+		<result property="createUsername" column="create_username" />
+		<result property="createUserip" column="create_userip" />
+		<result property="createUsermac" column="create_usermac" />
+		<result property="createTime" column="create_time" />
+		<result property="createTimeDb" column="create_time_db" />
+		<result property="serverIp" column="server_ip" />
+		<result property="updateUserid" column="update_userid" />
+		<result property="updateUsername" column="update_username" />
+		<result property="updateUserip" column="update_userip" />
+		<result property="updateUsermac" column="update_usermac" />
+		<result property="updateTime" column="update_time" />
+		<result property="updateTimeDb" column="update_time_db" />
+		<result property="clientVersionno" column="client_versionno" />
+		<result property="companyId" column="company_id" />
+		<result property="platformId" column="platform_id" />
+	</resultMap>
+
+	<sql id="userCookieColumns">
+		id,
+		user_id,
+		user_login_id,
+		type,
+		cookie_name,
+		cookie_value,
+		domain,
+		path,
+		expiration_time,
+		is_available,
+		is_deleted,
+		version_no,
+		create_userid,
+		create_username,
+		create_userip,
+		create_usermac,
+		create_time,
+		create_time_db,
+		server_ip,
+		update_userid,
+		update_username,
+		update_userip,
+		update_usermac,
+		update_time,
+		update_time_db,
+		client_versionno,
+		company_id,
+		platform_id
+	</sql>
+
+	<select id="findById" parameterType="com.egeo.basics.user.po.UserCookiePO" resultMap="userCookieMap">
+		SELECT
+		<include refid="userCookieColumns" />
+		FROM u_user_cookie
+		WHERE id = #{po.id}
+	</select>
+
+	<select id="findOfPage" resultMap="userCookieMap">
+		SELECT
+		<include refid="userCookieColumns" />
+		FROM u_user_cookie
+		<where>
+			<if test="po.userId != null">
+				and user_id = #{po.userId}
+			</if>
+			<if test="po.userLoginId != null">
+				and user_login_id = #{po.userLoginId}
+			</if>
+			<if test="po.type != null">
+				and type = #{po.type}
+			</if>
+			<if test="po.cookieName != null">
+				and cookie_name = #{po.cookieName}
+			</if>
+			<if test="po.cookieValue != null">
+				and cookie_value = #{po.cookieValue}
+			</if>
+			<if test="po.domain != null">
+				and domain = #{po.domain}
+			</if>
+			<if test="po.path != null">
+				and path = #{po.path}
+			</if>
+			<if test="po.expirationTime != null">
+				and expiration_time = #{po.expirationTime}
+			</if>
+			<if test="po.isAvailable != null">
+				and is_available = #{po.isAvailable}
+			</if>
+			<if test="po.isDeleted != null">
+				and is_deleted = #{po.isDeleted}
+			</if>
+			<if test="po.versionNo != null">
+				and version_no = #{po.versionNo}
+			</if>
+			<if test="po.createUserid != null">
+				and create_userid = #{po.createUserid}
+			</if>
+			<if test="po.createUsername != null">
+				and create_username = #{po.createUsername}
+			</if>
+			<if test="po.createUserip != null">
+				and create_userip = #{po.createUserip}
+			</if>
+			<if test="po.createUsermac != null">
+				and create_usermac = #{po.createUsermac}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.createTimeDb != null">
+				and create_time_db = #{po.createTimeDb}
+			</if>
+			<if test="po.serverIp != null">
+				and server_ip = #{po.serverIp}
+			</if>
+			<if test="po.updateUserid != null">
+				and update_userid = #{po.updateUserid}
+			</if>
+			<if test="po.updateUsername != null">
+				and update_username = #{po.updateUsername}
+			</if>
+			<if test="po.updateUserip != null">
+				and update_userip = #{po.updateUserip}
+			</if>
+			<if test="po.updateUsermac != null">
+				and update_usermac = #{po.updateUsermac}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+			<if test="po.updateTimeDb != null">
+				and update_time_db = #{po.updateTimeDb}
+			</if>
+			<if test="po.clientVersionno != null">
+				and client_versionno = #{po.clientVersionno}
+			</if>
+			<if test="po.companyId != null">
+				and company_id = #{po.companyId}
+			</if>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY id desc
+			</otherwise>
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+	
+	<select id="countOfPage" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM u_user_cookie
+		<where>
+			<if test="po.userId != null">
+				and user_id = #{po.userId}
+			</if>
+			<if test="po.userLoginId != null">
+				and user_login_id = #{po.userLoginId}
+			</if>
+			<if test="po.type != null">
+				and type = #{po.type}
+			</if>
+			<if test="po.cookieName != null">
+				and cookie_name = #{po.cookieName}
+			</if>
+			<if test="po.cookieValue != null">
+				and cookie_value = #{po.cookieValue}
+			</if>
+			<if test="po.domain != null">
+				and domain = #{po.domain}
+			</if>
+			<if test="po.path != null">
+				and path = #{po.path}
+			</if>
+			<if test="po.expirationTime != null">
+				and expiration_time = #{po.expirationTime}
+			</if>
+			<if test="po.isAvailable != null">
+				and is_available = #{po.isAvailable}
+			</if>
+			<if test="po.isDeleted != null">
+				and is_deleted = #{po.isDeleted}
+			</if>
+			<if test="po.versionNo != null">
+				and version_no = #{po.versionNo}
+			</if>
+			<if test="po.createUserid != null">
+				and create_userid = #{po.createUserid}
+			</if>
+			<if test="po.createUsername != null">
+				and create_username = #{po.createUsername}
+			</if>
+			<if test="po.createUserip != null">
+				and create_userip = #{po.createUserip}
+			</if>
+			<if test="po.createUsermac != null">
+				and create_usermac = #{po.createUsermac}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.createTimeDb != null">
+				and create_time_db = #{po.createTimeDb}
+			</if>
+			<if test="po.serverIp != null">
+				and server_ip = #{po.serverIp}
+			</if>
+			<if test="po.updateUserid != null">
+				and update_userid = #{po.updateUserid}
+			</if>
+			<if test="po.updateUsername != null">
+				and update_username = #{po.updateUsername}
+			</if>
+			<if test="po.updateUserip != null">
+				and update_userip = #{po.updateUserip}
+			</if>
+			<if test="po.updateUsermac != null">
+				and update_usermac = #{po.updateUsermac}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+			<if test="po.updateTimeDb != null">
+				and update_time_db = #{po.updateTimeDb}
+			</if>
+			<if test="po.clientVersionno != null">
+				and client_versionno = #{po.clientVersionno}
+			</if>
+			<if test="po.companyId != null">
+				and company_id = #{po.companyId}
+			</if>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY id desc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAll" resultMap="userCookieMap">
+		SELECT
+		<include refid="userCookieColumns" />
+		FROM u_user_cookie
+		<where>
+			<if test="po.userId != null">
+				and user_id = #{po.userId}
+			</if>
+			<if test="po.userLoginId != null">
+				and user_login_id = #{po.userLoginId}
+			</if>
+			<if test="po.type != null">
+				and type = #{po.type}
+			</if>
+			<if test="po.cookieName != null">
+				and cookie_name = #{po.cookieName}
+			</if>
+			<if test="po.cookieValue != null">
+				and cookie_value = #{po.cookieValue}
+			</if>
+			<if test="po.domain != null">
+				and domain = #{po.domain}
+			</if>
+			<if test="po.path != null">
+				and path = #{po.path}
+			</if>
+			<if test="po.expirationTime != null">
+				and expiration_time = #{po.expirationTime}
+			</if>
+			<if test="po.isAvailable != null">
+				and is_available = #{po.isAvailable}
+			</if>
+			<if test="po.isDeleted != null">
+				and is_deleted = #{po.isDeleted}
+			</if>
+			<if test="po.versionNo != null">
+				and version_no = #{po.versionNo}
+			</if>
+			<if test="po.createUserid != null">
+				and create_userid = #{po.createUserid}
+			</if>
+			<if test="po.createUsername != null">
+				and create_username = #{po.createUsername}
+			</if>
+			<if test="po.createUserip != null">
+				and create_userip = #{po.createUserip}
+			</if>
+			<if test="po.createUsermac != null">
+				and create_usermac = #{po.createUsermac}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.createTimeDb != null">
+				and create_time_db = #{po.createTimeDb}
+			</if>
+			<if test="po.serverIp != null">
+				and server_ip = #{po.serverIp}
+			</if>
+			<if test="po.updateUserid != null">
+				and update_userid = #{po.updateUserid}
+			</if>
+			<if test="po.updateUsername != null">
+				and update_username = #{po.updateUsername}
+			</if>
+			<if test="po.updateUserip != null">
+				and update_userip = #{po.updateUserip}
+			</if>
+			<if test="po.updateUsermac != null">
+				and update_usermac = #{po.updateUsermac}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+			<if test="po.updateTimeDb != null">
+				and update_time_db = #{po.updateTimeDb}
+			</if>
+			<if test="po.clientVersionno != null">
+				and client_versionno = #{po.clientVersionno}
+			</if>
+			<if test="po.companyId != null">
+				and company_id = #{po.companyId}
+			</if>
+			<if test="po.platformId != null">
+				and platform_id = #{po.platformId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY id desc
+			</otherwise>
+		</choose>
+	</select>
+</mapper>
+	

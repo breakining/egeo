@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>manage</name>
+	<filePath>back-${module}-business/src/main/java/${filePath}/${module}/business/</filePath>
+	<fileName>${className}Manage.java</fileName>
+	<content><![CDATA[package ${packageName}.${module}.business;
+
+public interface ${className}Manage {
+	
+
+}]]>
+	</content>
+</template>

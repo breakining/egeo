@@ -1,0 +1,112 @@
+package test;
+
+
+import java.rmi.RemoteException;
+
+import javax.xml.rpc.ServiceException;
+
+import cn.evun.ime.ws.service.impl.AndonServiceImplServiceLocator;
+import cn.evun.ime.ws.service.impl.ProdutionInterfaceServiceImplServiceLocator;
+
+public class ProductionInterface {
+	
+	public static void main(String[] args) throws RemoteException, ServiceException {
+		String content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><TxControl>"
+				+"<docId>2015032615280001</docId>"
+				+"<msgCatg>XML</msgCatg>"
+				+"<charset>UTF-8</charset>"
+				+"<version>1.0</version>"
+				+"<docDT>20150326152813</docDT>"
+				+"<txData><ItemList>"
+				+"<Item>"
+				+"<factory>1088</factory>"				
+				+"<linecode>ZPLINE01</linecode>"					
+				+"<serialno>PT0003</serialno>"					
+				+"<scodno>NO_0000000456</scodno>"					
+				+"<stno>TEST01</stno>"					
+				+"<deviceno>D01</deviceno>"					
+				+"<intime>2018-07-10 10:06:00</intime>"					
+				+"<outtime>2018-07-10 10:07:00</outtime>"					
+				+"<sttype>1</sttype>"
+				+ "</Item>"				
+				+"<Item>"
+				+"<factory>1088</factory>"				
+				+"<linecode>ZPLINE01</linecode>"					
+				+"<serialno>PT0003</serialno>"					
+				+"<scodno>NO_0000000456</scodno>"					
+				+"<stno>TEST02</stno>"					
+				+"<deviceno>D02</deviceno>"					
+				+"<intime>2018-07-10 10:07:00</intime>"					
+				+"<outtime>2018-07-10 10:08:00</outtime>"					
+				+"<sttype>2</sttype>"
+				+ "</Item>"				
+				+"<Item>"
+				+"<factory>1088</factory>"				
+				+"<linecode>ZPLINE01</linecode>"					
+				+"<serialno>PT0001</serialno>"					
+				+"<scodno>NO_0000000456</scodno>"					
+				+"<stno>TEST03</stno>"					
+				+"<deviceno>D03</deviceno>"					
+				+"<intime>2018-07-10 10:07:00</intime>"					
+				+"<outtime>2018-07-10 10:08:00</outtime>"					
+				+"<sttype>3</sttype>"
+				+ "</Item>"	
+				+"<Item>"						
+				+<factory>1088</factory>					
+				+<linecode>ZPLINE01</linecode>					
+				+<serialno>PT0002</serialno>					
+				+<scodno>NO_0000000456</scodno>					
+				+<stno>TEST03</stno>					
+				+<deviceno>D03</deviceno>					
+				+<intime>2018-07-10 10:09:00</intime>					
+				+<outtime>2018-07-10 10:10:00</outtime>					
+				+<sttype>03</sttype> 
+				+<BindList>					
+					+<keyserialno>ITEM001000110012018</keyserialno>				
+					+<serialnotype>1</serialnotype>				
+					+<keyitemno>ITEM001</keyitemno>				
+					+<sn>0001</sn>				
+					+<supno>1001</supno>				
+					+<lotno>2018</lotno>				
+					+<bindtime>2018-07-10 10:10:00</bindtime>				
+				+</BindList> 
+			+</Item>	  	 
+			+<Item>						
+				+<factory>1088</factory>					
+				+<linecode>ZPLINE01</linecode>					
+				+<serialno>PT0003</serialno>					
+				+<scodno>NO_0000000456</scodno>					
+				+<stno>TEST03</stno>					
+				+<deviceno>D03</deviceno>					
+				+<intime>2018-07-10 10:11:00</intime>					
+				+<outtime>2018-07-10 10:12:00</outtime>					
+				+<sttype>03</sttype> 
+				+<BindList>					
+					+<keyserialno>ITEM001000110022018</keyserialno>				
+					+<serialnotype>1</serialnotype>				
+					+<keyitemno>ITEM001</keyitemno>				
+					+<sn>0002</sn>				
+					+<supno>1001</supno>				
+					+<lotno>2018</lotno>				
+					+<bindtime>2018-07-10 10:12:00</bindtime>				
+				+</BindList> 
+				+<BindList>					
+					+<keyserialno>ITEM001000110032018</keyserialno>				
+					+<serialnotype>1</serialnotype>				
+					+<keyitemno>ITEM001</keyitemno>				
+					+"<sn>0003</sn>"				
+					+"<supno>1001</supno>"				
+					+"<lotno>2018</lotno>"				
+					+"<bindtime>2018-07-10 10:12:00</bindtime>"				
+				+"</BindList> "
+			+"</Item>"	
+				+"</ItemList></txData>"
+				+"</TxControl>";
+		ProdutionInterfaceServiceImplServiceLocator service =  new ProdutionInterfaceServiceImplServiceLocator();
+		String result = service.getProdutionInterfaceServiceImplPort().MESZP02(content);
+		System.out.println("========================================================");
+		System.out.println(result);
+		System.out.println("========================================================");
+	}
+
+}

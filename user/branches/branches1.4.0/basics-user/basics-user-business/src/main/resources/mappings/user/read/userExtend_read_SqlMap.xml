@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.read.UserExtendReadDAO">
+	<select id="querySoonEntrydayUsers" resultMap="userExtendMap">
+		select * from u_user_extend
+		where
+		id in (
+		select id from u_user_welfare
+		where user_id in
+		(select id from u_user where company_id=#{companyId})
+		and (cast(concat(year(CURRENT_DATE()),DATE_FORMAT(entry_time,'-%m-%d')) as
+		date)-CURDATE()) BETWEEN 0 and 2
+		)
+	</select>
+
+	<select id="querySoonBirthdayUsers" resultMap="userExtendMap">
+		select * from
+		u_user_extend
+		where 
+		id in (select id from u_user where company_id=#{companyId})
+		birthday is not null
+		and (cast(concat(year(CURRENT_DATE()),DATE_FORMAT(birthday,'-%m-%d')) as
+		date)-CURDATE()) BETWEEN 0 and 2;
+	</select>
+
+	<select id="queryUserExtendsByIds" resultMap="userExtendMap">
+		select * from u_user_extend
+		where id in
+		<foreach collection="ids" item="id" open="(" separator=","
+			close=")">
+			id
+		</foreach>
+	</select>
+
+	<select id="queryUserPageTotalCountByDepartmentId" resultType="java.lang.Integer">
+		select count(0)
+		from u_user_extend
+		where id in (
+		select id from
+		u_user_welfare
+		where
+		department_id=#{departmentId}
+		)
+	</select>
+
+	<select id="queryUserPageByDepartmentId" resultMap="userExtendMap">
+		select * from
+		u_user_extend
+		where id in (
+		select id from u_user_welfare
+		where
+		department_id=#{departmentId}
+		)
+		order by name
+		limit
+		#{page.limitStart},#{page.pageSize}
+	</select>
+
+	<select id="queryUserPageTotalCountByCompanyId" resultType="java.lang.Integer">
+		select count(0)
+		from u_user_extend
+		where id in (
+		select id from
+		u_user_welfare
+		where
+		company_id=#{companyId}
+		)
+	</select>
+
+
+	<select id="queryUserPageByCompanyId" resultMap="userExtendMap">
+		select * from
+		u_user_extend
+		where id in (
+		select id from u_user_welfare
+		where
+		company_id=#{companyId}
+		)
+		order by name
+		limit
+		#{page.limitStart},#{page.pageSize}
+	</select>
+
+	<resultMap type="com.egeo.basics.user.po.UserExtendPO" id="userExtendMap">
+		<result property="id" column="id" />
+		<result property="sex" column="sex" />
+		<result property="nickname" column="nickname" />
+		<result property="headPicUrl" column="head_pic_url" />
+		<result property="name" column="name" />
+		<result property="regtime" column="regtime" />
+		<result property="birthday" column="birthday" />
+		<result property="mobile" column="mobile" />
+		<result property="qq" column="qq" />
+		<result property="memberCode" column="member_code" />
+		<result property="remark" column="remark" />
+		<result property="lastlogin" column="lastlogin" />
+		<result property="activityInfo" column="activity_info" />
+		<result property="isComplete" column="is_complete" />
+		<result property="deviceId" column="device_id" />
+		<result property="deviceType" column="device_type" />
+		<result property="weixin" column="weixin" />
+		<result property="workaddressId" column="workaddress_id" />
+		<result property="status" column="status" />
+		<result property="address" column="address" />
+		<result property="isDeleted" column="is_deleted" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+	
+	<resultMap type="com.egeo.basics.user.condition.UserExtendCondition" id="userExtendCondition" extends="userExtendMap">
+		<result property="companyId" column="company_id" />
+		<result property="companyName" column="company_name" />
+		<result property="departmentId" column="department_id" />
+		<result property="departmentName" column="department_name" />
+		<result property="entryTime" column="entry_time" />
+		<result property="mail" column="mail" />
+	</resultMap>
+
+	<sql id="userExtendColumns">
+		id,
+		sex,
+		nickname,
+		head_pic_url,
+		name,
+		regtime,
+		birthday,
+		mobile,
+		qq,
+		member_code,
+		remark,
+		lastlogin,
+		activity_info,
+		is_complete,
+		device_id,
+		device_type,
+		weixin,
+		workaddress_id,
+		status,
+		address,
+		is_deleted,
+		create_time,
+		update_time
+	</sql>
+
+	<select id="findById" parameterType="com.egeo.basics.user.po.UserExtendPO"
+		resultMap="userExtendMap">
+		SELECT
+		<include refid="userExtendColumns" />
+		FROM u_user_extend
+		WHERE id = #{po.id}
+	</select>
+
+	<select id="findOfPage" resultMap="userExtendMap">
+		SELECT
+		<include refid="userExtendColumns" />
+		FROM u_user_extend
+		<where>
+			<if test="po.sex != null">
+				and sex = #{po.sex}
+			</if>
+			<if test="po.nickname != null">
+				and nickname = #{po.nickname}
+			</if>
+			<if test="po.headPicUrl != null">
+				and head_pic_url = #{po.headPicUrl}
+			</if>
+			<if test="po.name != null">
+				and name = #{po.name}
+			</if>
+			<if test="po.regtime != null">
+				and regtime = #{po.regtime}
+			</if>
+			<if test="po.birthday != null">
+				and birthday = #{po.birthday}
+			</if>
+			<if test="po.mobile != null">
+				and mobile = #{po.mobile}
+			</if>
+			<if test="po.qq != null">
+				and qq = #{po.qq}
+			</if>
+			<if test="po.memberCode != null">
+				and member_code = #{po.memberCode}
+			</if>
+			<if test="po.remark != null">
+				and remark = #{po.remark}
+			</if>
+			<if test="po.lastlogin != null">
+				and lastlogin = #{po.lastlogin}
+			</if>
+			<if test="po.activityInfo != null">
+				and activity_info = #{po.activityInfo}
+			</if>
+			<if test="po.isComplete != null">
+				and is_complete = #{po.isComplete}
+			</if>
+			<if test="po.deviceId != null">
+				and device_id = #{po.deviceId}
+			</if>
+			<if test="po.deviceType != null">
+				and device_type = #{po.deviceType}
+			</if>
+			<if test="po.weixin != null">
+				and weixin = #{po.weixin}
+			</if>
+			<if test="po.workaddressId != null">
+				and workaddress_id = #{po.workaddressId}
+			</if>
+			<if test="po.status != null">
+				and status = #{po.status}
+			</if>
+			<if test="po.address != null">
+				and address = #{po.address}
+			</if>
+			<if test="po.isDeleted != null">
+				and is_deleted = #{po.isDeleted}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY id desc
+			</otherwise>
+		</choose>
+		<if test="page != null">
+			limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+
+	<select id="countOfPage" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM u_user_extend
+		<where>
+			<if test="po.sex != null">
+				and sex = #{po.sex}
+			</if>
+			<if test="po.nickname != null">
+				and nickname = #{po.nickname}
+			</if>
+			<if test="po.headPicUrl != null">
+				and head_pic_url = #{po.headPicUrl}
+			</if>
+			<if test="po.name != null">
+				and name = #{po.name}
+			</if>
+			<if test="po.regtime != null">
+				and regtime = #{po.regtime}
+			</if>
+			<if test="po.birthday != null">
+				and birthday = #{po.birthday}
+			</if>
+			<if test="po.mobile != null">
+				and mobile = #{po.mobile}
+			</if>
+			<if test="po.qq != null">
+				and qq = #{po.qq}
+			</if>
+			<if test="po.memberCode != null">
+				and member_code = #{po.memberCode}
+			</if>
+			<if test="po.remark != null">
+				and remark = #{po.remark}
+			</if>
+			<if test="po.lastlogin != null">
+				and lastlogin = #{po.lastlogin}
+			</if>
+			<if test="po.activityInfo != null">
+				and activity_info = #{po.activityInfo}
+			</if>
+			<if test="po.isComplete != null">
+				and is_complete = #{po.isComplete}
+			</if>
+			<if test="po.deviceId != null">
+				and device_id = #{po.deviceId}
+			</if>
+			<if test="po.deviceType != null">
+				and device_type = #{po.deviceType}
+			</if>
+			<if test="po.weixin != null">
+				and weixin = #{po.weixin}
+			</if>
+			<if test="po.workaddressId != null">
+				and workaddress_id = #{po.workaddressId}
+			</if>
+			<if test="po.status != null">
+				and status = #{po.status}
+			</if>
+			<if test="po.address != null">
+				and address = #{po.address}
+			</if>
+			<if test="po.isDeleted != null">
+				and is_deleted = #{po.isDeleted}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+		</where>
+	</select>
+
+	<select id="findAll" resultMap="userExtendMap">
+		SELECT
+		<include refid="userExtendColumns" />
+		FROM u_user_extend
+		<where>
+			<if test="po.sex != null">
+				and sex = #{po.sex}
+			</if>
+			<if test="po.nickname != null">
+				and nickname = #{po.nickname}
+			</if>
+			<if test="po.headPicUrl != null">
+				and head_pic_url = #{po.headPicUrl}
+			</if>
+			<if test="po.name != null">
+				and name = #{po.name}
+			</if>
+			<if test="po.regtime != null">
+				and regtime = #{po.regtime}
+			</if>
+			<if test="po.birthday != null">
+				and birthday = #{po.birthday}
+			</if>
+			<if test="po.mobile != null">
+				and mobile = #{po.mobile}
+			</if>
+			<if test="po.qq != null">
+				and qq = #{po.qq}
+			</if>
+			<if test="po.memberCode != null">
+				and member_code = #{po.memberCode}
+			</if>
+			<if test="po.remark != null">
+				and remark = #{po.remark}
+			</if>
+			<if test="po.lastlogin != null">
+				and lastlogin = #{po.lastlogin}
+			</if>
+			<if test="po.activityInfo != null">
+				and activity_info = #{po.activityInfo}
+			</if>
+			<if test="po.isComplete != null">
+				and is_complete = #{po.isComplete}
+			</if>
+			<if test="po.deviceId != null">
+				and device_id = #{po.deviceId}
+			</if>
+			<if test="po.deviceType != null">
+				and device_type = #{po.deviceType}
+			</if>
+			<if test="po.weixin != null">
+				and weixin = #{po.weixin}
+			</if>
+			<if test="po.workaddressId != null">
+				and workaddress_id = #{po.workaddressId}
+			</if>
+			<if test="po.status != null">
+				and status = #{po.status}
+			</if>
+			<if test="po.address != null">
+				and address = #{po.address}
+			</if>
+			<if test="po.isDeleted != null">
+				and is_deleted = #{po.isDeleted}
+			</if>
+			<if test="po.createTime != null">
+				and create_time = #{po.createTime}
+			</if>
+			<if test="po.updateTime != null">
+				and update_time = #{po.updateTime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY id desc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="userExtendByUserId" resultMap="userExtendCondition">
+		select 
+		ue.id,
+		ue.sex,
+		ue.nickname,
+		ue.head_pic_url,
+		ue.name,
+		ue.regtime,
+		ue.birthday,
+		ue.mobile,
+		ue.qq,
+		ue.member_code,
+		ue.remark,
+		ue.lastlogin,
+		ue.activity_info,
+		ue.is_complete,
+		ue.device_id,
+		ue.device_type,
+		ue.weixin,
+		ue.workaddress_id,
+		ue.status,
+		ue.address,
+		ue.is_deleted,
+		ue.create_time,
+		ue.update_time,
+		u.company_id,
+		c.company_name
+		from u_user_extend ue
+		LEFT JOIN u_user u on u.id = ue.id
+		LEFT JOIN u_company c on  c.id = u.company_id
+		WHERE ue.id = #{userId}
+	</select>
+	
+	<select id="userByUserId" resultMap="userExtendCondition">
+		select 
+		ue.id,
+		ue.sex,
+		ue.nickname,
+		ue.head_pic_url,
+		ue.name,
+		ue.regtime,
+		ue.birthday,
+		ue.mobile,
+		ue.qq,
+		ue.member_code,
+		ue.remark,
+		ue.lastlogin,
+		ue.activity_info,
+		ue.is_complete,
+		ue.device_id,
+		ue.device_type,
+		ue.weixin,
+		ue.workaddress_id,
+		ue.status,
+		ue.address,
+		ue.is_deleted,
+		ue.create_time,
+		ue.update_time,
+		uw.department_id,
+		d.department_name,
+		uw.entry_time,
+		u.company_id,
+		c.company_name
+		from u_user_extend ue
+		LEFT JOIN u_user_welfare uw on uw.user_id = ue.id
+		LEFT JOIN u_user u on u.id = ue.id
+		LEFT JOIN u_company c on  c.id = u.company_id
+		LEFT JOIN u_department d on d.id = uw.department_id
+		WHERE ue.id = #{userId}
+	</select>
+	
+	<select id="userAllOfPage" resultMap="userExtendCondition">
+		SELECT
+		u.id,
+		ue.`name`,
+		ue.sex,
+		ue.birthday,
+		ue.mobile,
+		uw.entry_time,
+		u.mail,
+		d.department_name
+		FROM u_user u
+		LEFT JOIN u_user_extend ue on ue.id = u.id
+		LEFT JOIN u_user_welfare uw on uw.user_id = u.id
+		LEFT JOIN u_department d on d.id = uw.department_id
+		LEFT JOIN u_user_platform up on up.user_id = u.id
+		<where>
+			<if test="true">
+				and u.is_deleted = 0
+			</if>
+			<if test="po.companyId != null">
+				and u.company_id = #{po.companyId}
+			</if>
+			<if test="po.name != null">
+				and ue.name = #{po.name}
+			</if>
+			<if test="po.sex != null">
+				and ue.sex = #{po.sex}
+			</if>
+			<if test="po.departmentId != null">
+				and uw.department_id = #{po.departmentId}
+			</if>
+			<if test="po.birthdayStartTime != null">
+				and ue.birthday > #{po.birthdayStartTime}
+			</if>
+			<if test="po.birthdayFinishTime != null">
+				and #{po.birthdayFinishTime} > ue.birthday
+			</if>
+			<if test="po.entryStartTime != null">
+				and uw.entry_time > #{po.entryStartTime}
+			</if>
+			<if test="po.entryFinishTime != null">
+				and #{po.entryFinishTime} > uw.entry_time
+			</if>
+			<if test="po.platformId != null">
+				and up.platform_id = #{po.platformId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY uw.entry_time desc
+			</otherwise>
+		</choose>
+		<if test="page != null">
+			limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+	
+	<select id="countuserAllOfPage" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM u_user u
+		LEFT JOIN u_user_extend ue on ue.id = u.id
+		LEFT JOIN u_user_welfare uw on uw.user_id = u.id
+		LEFT JOIN u_department d on d.id = uw.department_id
+		LEFT JOIN u_user_platform up on up.user_id = u.id
+		<where>
+			<if test="true">
+				and u.is_deleted = 0
+			</if>
+			<if test="po.companyId != null">
+				and u.company_id = #{po.companyId}
+			</if>
+			<if test="po.name != null">
+				and ue.name = #{po.name}
+			</if>
+			<if test="po.sex != null">
+				and ue.sex = #{po.sex}
+			</if>
+			<if test="po.departmentId != null">
+				and uw.department_id = #{po.departmentId}
+			</if>
+			<if test="po.birthdayStartTime != null">
+				and ue.birthday > #{po.birthdayStartTime}
+			</if>
+			<if test="po.birthdayFinishTime != null">
+				and #{po.birthdayFinishTime} > ue.birthday
+			</if>
+			<if test="po.entryStartTime != null">
+				and uw.entry_time > #{po.entryStartTime}
+			</if>
+			<if test="po.entryFinishTime != null">
+				and #{po.entryFinishTime} > uw.entry_time
+			</if>
+			<if test="po.platformId != null">
+				and up.platform_id = #{po.platformId}
+			</if>
+		</where>
+	</select>
+	
+	<select id="userAll" resultMap="userExtendCondition">
+		SELECT
+		u.id,
+		ue.`name`,
+		ue.sex,
+		ue.birthday,
+		ue.mobile,
+		uw.entry_time,
+		u.mail,
+		d.department_name
+		FROM u_user u
+		LEFT JOIN u_user_extend ue on ue.id = u.id
+		LEFT JOIN u_user_welfare uw on uw.user_id = u.id
+		LEFT JOIN u_department d on d.id = uw.department_id
+		LEFT JOIN u_user_platform up on up.user_id = u.id
+		<where>
+			<if test="true">
+				and u.is_deleted = 0
+			</if>
+			<if test="po.companyId != null">
+				and u.company_id = #{po.companyId}
+			</if>
+			<if test="po.name != null">
+				and ue.name = #{po.name}
+			</if>
+			<if test="po.sex != null">
+				and ue.sex = #{po.sex}
+			</if>
+			<if test="po.departmentId != null">
+				and uw.department_id = #{po.departmentId}
+			</if>
+			<if test="po.birthdayStartTime != null">
+				and ue.birthday > #{po.birthdayStartTime}
+			</if>
+			<if test="po.birthdayFinishTime != null">
+				and #{po.birthdayFinishTime} > ue.birthday
+			</if>
+			<if test="po.entryStartTime != null">
+				and uw.entry_time > #{po.entryStartTime}
+			</if>
+			<if test="po.entryFinishTime != null">
+				and #{po.entryFinishTime} > uw.entry_time
+			</if>
+			<if test="po.platformId != null">
+				and up.platform_id = #{po.platformId}
+			</if>
+		</where>
+			ORDER BY uw.entry_time desc
+	</select>
+</mapper>
+	

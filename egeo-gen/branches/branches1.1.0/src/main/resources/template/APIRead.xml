@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>ReadService</name>
+	<filePath>basics-${module}-api/src/main/java/${filePath}/${module}/api/read/</filePath>
+	<fileName>${className}ReadService.java</fileName>
+	<content><![CDATA[package ${packageName}.${module}.api.read;
+
+public interface ${className}ReadService {
+}]]>
+	</content>
+</template>

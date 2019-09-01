@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.read.RoleMenuPlatformReadDAO">
+	<resultMap type="com.egeo.basics.user.po.RoleMenuPlatformPO" id="roleMenuPlatformMap">
+		<result property="id" column="id" />
+		<result property="platformId" column="platform_id" />
+		<result property="roleId" column="role_id" />
+		<result property="menuId" column="menu_id" />
+	</resultMap>
+
+	<sql id="roleMenuPlatformColumns">
+		id,
+		role_id,
+		menu_id
+	</sql>
+
+	<select id="findById" parameterType="com.egeo.basics.user.po.RoleMenuPlatformPO" resultMap="roleMenuPlatformMap">
+		SELECT
+		<include refid="roleMenuPlatformColumns" />
+		FROM u_role_menu
+		WHERE id = #{po.id}
+	</select>
+
+	<select id="findOfPage" resultMap="roleMenuPlatformMap">
+		SELECT
+		<include refid="roleMenuPlatformColumns" />
+		FROM u_role_menu
+		<where>
+			<if test="po.roleId != null">
+				and role_id = #{po.roleId}
+			</if>
+			<if test="po.menuId != null">
+				and menu_id = #{po.menuId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY id desc
+			</otherwise>
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+	
+	<select id="countOfPage" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM u_role_menu
+		<where>
+			<if test="po.roleId != null">
+				and role_id = #{po.roleId}
+			</if>
+			<if test="po.menuId != null">
+				and menu_id = #{po.menuId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY id desc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAll" resultMap="roleMenuPlatformMap">
+		SELECT
+		<include refid="roleMenuPlatformColumns" />
+		FROM u_role_menu
+		<where>
+			<if test="po.roleId != null">
+				and role_id = #{po.roleId}
+			</if>
+			<if test="po.menuId != null">
+				and menu_id = #{po.menuId}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY id desc
+			</otherwise>
+		</choose>
+	</select>
+	<select id="getMenuList" parameterType="com.egeo.basics.user.po.RoleMenuPlatformPO" resultType="java.lang.String">
+		SELECT DISTINCT rmp.menu_id FROM u_role_menu rmp
+		LEFT JOIN u_user_role ur ON ur.role_id = rmp.role_id
+		LEFT JOIN u_user_platform pr ON pr.user_id = ur.user_id
+		where ur.user_id= #{po.userId} and pr.platform_id  = #{po.platformId}
+	</select>
+</mapper>
+	

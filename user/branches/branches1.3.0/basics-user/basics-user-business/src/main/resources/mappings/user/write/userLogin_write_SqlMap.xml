@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.write.UserLoginWriteDAO">
+	<insert id="insert" parameterType="com.egeo.basics.user.po.UserLoginPO">
+		INSERT INTO u_user_login(
+        <trim suffixOverrides=",">
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="username != null">
+				username,
+			</if>
+			<if test="loginResult != null">
+				login_result,
+			</if>
+			<if test="loginTime != null">
+				login_time,
+			</if>
+			<if test="ip != null">
+				ip,
+			</if>
+			<if test="browser != null">
+				browser,
+			</if>
+			<if test="companyId != null">
+				company_id,
+			</if>
+			<if test="platformId != null">
+				platform_id,
+			</if>
+        </trim>		
+		) VALUES (
+        <trim suffixOverrides=",">
+			<if test="userId != null">
+				#{userId},
+			</if>
+			<if test="username != null">
+				#{username},
+			</if>
+			<if test="loginResult != null">
+				#{loginResult},
+			</if>
+			<if test="loginTime != null">
+				#{loginTime},
+			</if>
+			<if test="ip != null">
+				#{ip},
+			</if>
+			<if test="browser != null">
+				#{browser},
+			</if>
+			<if test="companyId != null">
+				#{companyId},
+			</if>
+			<if test="platformId != null">
+				#{platformId},
+			</if>
+        </trim>		
+		)
+		<selectKey keyProperty="id" resultType="java.lang.Long">
+			select LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+
+	
+	
+	<update id="update">
+	UPDATE u_user_login 
+		<set>
+			<if test="userId != null">
+				user_id = #{userId},
+			</if>			
+			<if test="username != null">
+				username = #{username},
+			</if>			
+			<if test="loginResult != null">
+				login_result = #{loginResult},
+			</if>			
+			<if test="loginTime != null">
+				login_time = #{loginTime},
+			</if>			
+			<if test="ip != null">
+				ip = #{ip},
+			</if>			
+			<if test="browser != null">
+				browser = #{browser},
+			</if>			
+			<if test="companyId != null">
+				company_id = #{companyId},
+			</if>			
+			<if test="platformId != null">
+				platform_id = #{platformId},
+			</if>			
+		</set>
+			WHERE id = #{id}
+	</update>	
+	
+
+	<delete id="delete">
+		delete from u_user_login where id = #{id}
+	</delete>
+
+	<delete id="deleteByPara">
+		delete from u_user_login 
+		<where>
+			<if test="userId != null">
+				and user_id = #{userId}
+			</if>
+			<if test="username != null">
+				and username = #{username}
+			</if>
+			<if test="loginResult != null">
+				and login_result = #{loginResult}
+			</if>
+			<if test="loginTime != null">
+				and login_time = #{loginTime}
+			</if>
+			<if test="ip != null">
+				and ip = #{ip}
+			</if>
+			<if test="browser != null">
+				and browser = #{browser}
+			</if>
+			<if test="companyId != null">
+				and company_id = #{companyId}
+			</if>
+			<if test="platformId != null">
+				and platform_id = #{platformId}
+			</if>
+		</where>
+	</delete>
+
+
+</mapper>
+	

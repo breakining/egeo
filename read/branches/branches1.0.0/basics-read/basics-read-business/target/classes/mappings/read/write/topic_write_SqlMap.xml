@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.read.dao.write.TopicWriteDAO">
+	<insert id="insert" parameterType="com.egeo.basics.read.po.TopicPO">
+		INSERT INTO topic(
+        <trim suffixOverrides=",">
+        	<if test="companyId != null">
+				company_id,
+			</if>
+			<if test="booksName != null">
+				books_name,
+			</if>
+			<if test="author != null">
+				author,
+			</if>
+			<if test="publishingHouse != null">
+				publishing_house,
+			</if>
+			<if test="topicHeadline != null">
+				topic_headline,
+			</if>
+			<if test="topicContent != null">
+				topic_content,
+			</if>
+			<if test="topicType != null">
+				topic_type,
+			</if>
+			<if test="topicCover != null">
+				topic_cover,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="userName != null">
+				user_name,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="platformId != null">
+				platform_id,
+			</if>
+        </trim>		
+		) VALUES (
+        <trim suffixOverrides=",">
+        	<if test="companyId != null">
+				#{companyId},
+			</if>
+			<if test="booksName != null">
+				#{booksName},
+			</if>
+			<if test="author != null">
+				#{author},
+			</if>
+			<if test="publishingHouse != null">
+				#{publishingHouse},
+			</if>
+			<if test="topicHeadline != null">
+				#{topicHeadline},
+			</if>
+			<if test="topicContent != null">
+				#{topicContent},
+			</if>
+			<if test="topicType != null">
+				#{topicType},
+			</if>
+			<if test="topicCover != null">
+				#{topicCover},
+			</if>
+			<if test="userId != null">
+				#{userId},
+			</if>
+			<if test="userName != null">
+				#{userName},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime},
+			</if>
+			<if test="platformId != null">
+				#{platformId},
+			</if>
+        </trim>		
+		)
+		<selectKey keyProperty="id" resultType="java.lang.Long">
+			select LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+
+	
+	
+	<update id="update">
+	UPDATE topic 
+		<set>
+			<if test="companyId != null">
+				company_Id = #{companyId},
+			</if>
+			<if test="booksName != null">
+				books_name = #{booksName},
+			</if>	
+			<if test="author != null">
+				author = #{author},
+			</if>	
+			<if test="publishingHouse != null">
+				publishing_house = #{publishingHouse},
+			</if>			
+			<if test="topicHeadline != null">
+				topic_headline = #{topicHeadline},
+			</if>			
+			<if test="topicContent != null">
+				topic_content = #{topicContent},
+			</if>			
+			<if test="topicType != null">
+				topic_type = #{topicType},
+			</if>			
+			<if test="topicCover != null">
+				topic_cover = #{topicCover},
+			</if>			
+			<if test="userId != null">
+				user_id = #{userId},
+			</if>
+			<if test="userName != null">
+				user_name = #{userName},
+			</if>			
+			<if test="createTime != null">
+				create_time = #{createTime},
+			</if>			
+			<if test="updateTime != null">
+				update_time = #{updateTime},
+			</if>			
+			<if test="platformId != null">
+				platform_id = #{platformId},
+			</if>			
+		</set>
+			WHERE id = #{id}
+	</update>	
+	
+
+	<delete id="delete">
+		delete from topic where id = #{id}
+	</delete>
+
+	<delete id="deleteByPara">
+		delete from topic 
+		<where>
+			<if test="booksName != null">
+				and books_name = #{booksName}
+			</if>
+			<if test="topicHeadline != null">
+				and topic_headline = #{topicHeadline}
+			</if>
+			<if test="topicContent != null">
+				and topic_content = #{topicContent}
+			</if>
+			<if test="topicType != null">
+				and topic_type = #{topicType}
+			</if>
+			<if test="topicCover != null">
+				and topic_cover = #{topicCover}
+			</if>
+			<if test="userId != null">
+				and user_id = #{userId}
+			</if>
+			<if test="createTime != null">
+				and create_time = #{createTime}
+			</if>
+			<if test="updateTime != null">
+				and update_time = #{updateTime}
+			</if>
+			<if test="platformId != null">
+				and platform_id = #{platformId}
+			</if>
+		</where>
+	</delete>
+
+
+</mapper>
+	

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<name>backBusinessPom</name>
+	<filePath>back-${projectName}/back-${projectName}-business/</filePath>
+	<fileName>pom.xml</fileName>
+	<content><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.egeo.back.${projectName}</groupId>
+		<artifactId>back-${projectName}</artifactId>
+		<version>${version}</version>
+	</parent>
+	<artifactId>back-${projectName}-business</artifactId>
+	<name>back-${projectName}-business</name>
+	<url>http://maven.apache.org</url>
+	<dependencies>
+		<!-- 本项目模块包 -->
+		<dependency>
+			<groupId>com.egeo.back.${projectName}</groupId>
+			<artifactId>back-${projectName}-model</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.egeo.back.${projectName}</groupId>
+			<artifactId>back-${projectName}-facade</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- basics服务api包 -->
+		<dependency>
+			<groupId>com.egeo.basics.${projectName}</groupId>
+			<artifactId>basics-${projectName}-model</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- 本公司工具包 -->
+		<dependency>
+			<groupId>com.egeo.utils</groupId>
+			<artifactId>egeo-utils</artifactId>
+			<scope>provided</scope>
+		</dependency>
+        <dependency>
+            <groupId>com.egeo</groupId>
+            <artifactId>egeo-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+		<!-- 开源框架包 -->
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- Spring End -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+</project>
+]]>
+	</content>
+</template>

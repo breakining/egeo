@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.egeo.basics.user.dao.read.UserWelfareReadDAO">
+	<select id="queryUserWelfaresByUserIds" resultMap="userWelfareMap">
+		select * from u_user_welfare
+		where user_id in
+		<foreach collection="ids" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</select>
+
+	<resultMap type="com.egeo.basics.user.po.UserWelfarePO" id="userWelfareMap">
+		<result property="id" column="id" />
+		<result property="userId" column="user_id" />
+		<result property="departmentId" column="department_id" />
+		<result property="entryTime" column="entry_time" />
+	</resultMap>
+
+	<sql id="userWelfareColumns">
+		id,
+		user_id,
+		department_id,
+		entry_time
+	</sql>
+
+	<select id="findById" parameterType="com.egeo.basics.user.po.UserWelfarePO" resultMap="userWelfareMap">
+		SELECT
+		<include refid="userWelfareColumns" />
+		FROM u_user_welfare
+		WHERE id = #{po.id}
+	</select>
+
+	<select id="findOfPage" resultMap="userWelfareMap">
+		SELECT
+		<include refid="userWelfareColumns" />
+		FROM u_user_welfare
+		<where>
+			<if test="po.userId != null">
+				and user_id = #{po.userId}
+			</if>
+			<if test="po.departmentId != null">
+				and department_id = #{po.departmentId}
+			</if>
+			<if test="po.entryTime != null">
+				and entry_time = #{po.entryTime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>		
+			<otherwise>
+				ORDER BY id desc		
+			</otherwise>
+		</choose>
+		<if test="page != null">
+		limit #{page.limitStart},#{page.pageSize}
+		</if>
+	</select>
+	
+	<select id="countOfPage" resultType="java.lang.Integer">
+		SELECT
+		count(1) cnt
+		FROM u_user_welfare
+		<where>
+			<if test="po.userId != null">
+				and user_id = #{po.userId}
+			</if>
+			<if test="po.departmentId != null">
+				and department_id = #{po.departmentId}
+			</if>
+			<if test="po.entryTime != null">
+				and entry_time = #{po.entryTime}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findAll" resultMap="userWelfareMap">
+		SELECT
+		<include refid="userWelfareColumns" />
+		FROM u_user_welfare
+		<where>
+			<if test="po.userId != null">
+				and user_id = #{po.userId}
+			</if>
+			<if test="po.departmentId != null">
+				and department_id = #{po.departmentId}
+			</if>
+			<if test="po.entryTime != null">
+				and entry_time = #{po.entryTime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>			
+			<otherwise>
+				ORDER BY id desc		
+			</otherwise>
+		</choose>
+	</select>
+</mapper>
+	
